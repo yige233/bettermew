@@ -8,6 +8,8 @@ const sth = {
         imgwidth: 50,
     },
     datas: {
+        ver: 0.43,
+        whatsnew: "当前脚本版本0.43，主要",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>'
     },
@@ -17,6 +19,15 @@ const sth = {
     },
     savesettings: function () {
         localStorage.setItem('settings', JSON.stringify(sth.settings));
+    },
+    vsrsioncheck: function () {
+        if (!sth.settings.ver || sth.settings.ver != sth.datas.ver) {
+            alert("感谢下载并使用mew增强脚本" + sth.settings.ver + "版！按下f12键打开控制台，以查看详细更新信息。")
+            console.clear();
+            console.log("%c" + sth.datas.whatsnew, "color: rgb(18 71 158);font-size:24px");
+            sth.settings.ver = sth.datas.whatsnew;
+            sth.savesettings();
+        }
     },
     urlclickable: function () {
         if (document.querySelector(".MuiPaper-elevation16")) {
