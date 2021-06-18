@@ -11,8 +11,9 @@ const sth = {
         ver: 0.43,
         whatsnew: [
             "当前脚本版本:0.43",
-            "更新内容：1、图片大小现在可通过左下方的滑动条调节，范围为0%-100%。",
-            "2、脚本现在可以自动更新。脚本目前已上传至github，当github有更新时，脚本就会同步更新。更新后可能要刷新浏览器缓存才能看到效果。"
+            "更新内容：",
+            "1、图片大小现在可通过左下方的滑动条调节，范围为0%-100%。",
+            "2、脚本现在可以自动更新。脚本目前已上传至Github，当Github有更新时，脚本就会同步更新。更新后可能要刷新浏览器缓存才能看到效果。"
         ],
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>'
@@ -262,7 +263,7 @@ const sth = {
                         el.addEventListener('wheel', (e) => {
                             e.target.title = "图片大小:" + e.target.value + "%";
                             e.preventDefault();
-                            subf1(e, "imgwidth", 0, 10);
+                            subf1(e, "imgwidth", 0, 100);
                         });
                     }
                 ],
