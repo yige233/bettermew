@@ -187,7 +187,7 @@ body {
 }
 
 .desktop_left-container__iDp7e {
-    flex-basis: var(--lsidewidth) !important
+    flex-basis: var(--leftsidewidth) !important
 }
 
 .url-turned a {
@@ -196,7 +196,7 @@ body {
 }
 
 .desktop_right-container__KZ6_1 {
-    flex-basis: var(--rsidewidth) !important
+    flex-basis: var(--rightsidewidth) !important
 }
 
 .MuiModal-root {
