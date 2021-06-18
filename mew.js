@@ -26,9 +26,9 @@ const sth = {
     },
     vsrsioncheck: function () {
         if (!sth.settings.ver || sth.settings.ver != sth.datas.ver) {
-            alert("感谢下载并使用mew增强脚本" + sth.settings.ver + "版！按下f12键打开控制台，以查看详细更新信息。");
+            alert("感谢下载并使用mew增强脚本" + sth.datas.ver + "版！按下f12键打开控制台，以查看详细更新信息。");
             console.clear();
-            for (leti = 0; i < sth.datas.whatsnew.length; i++) {
+            for (let i = 0; i < sth.datas.whatsnew.length; i++) {
                 console.log("%c" + sth.datas.whatsnew[i], "color: rgb(18 71 158);font-size:16px");
             }
             sth.settings.ver = sth.datas.ver;
