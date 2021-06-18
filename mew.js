@@ -1,7 +1,7 @@
 const sth = {
     settings: {
-        lsidewidth: 20,
-        rsidewidth: 20,
+        leftsidewidth: 20,
+        rightsidewidth: 20,
         totalreverse: false,
         last50atmsg: [],
         autorefresh: true,
@@ -9,7 +9,11 @@ const sth = {
     },
     datas: {
         ver: 0.43,
-        whatsnew: "当前脚本版本0.43，主要",
+        whatsnew: [
+            "当前脚本版本:" + sth.datas.ver,
+            "更新内容：1、图片大小现在可通过左下方的滑动条调节，范围为0%-100%。",
+            "2、脚本现在可以自动更新。脚本目前已上传至github，当github有更新时，脚本就会同步更新。更新后可能要刷新浏览器缓存才能看到效果。"
+        ],
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>'
     },
@@ -22,24 +26,46 @@ const sth = {
     },
     vsrsioncheck: function () {
         if (!sth.settings.ver || sth.settings.ver != sth.datas.ver) {
-            alert("感谢下载并使用mew增强脚本" + sth.settings.ver + "版！按下f12键打开控制台，以查看详细更新信息。")
+            alert("感谢下载并使用mew增强脚本" + sth.settings.ver + "版！按下f12键打开控制台，以查看详细更新信息。");
             console.clear();
-            console.log("%c" + sth.datas.whatsnew, "color: rgb(18 71 158);font-size:24px");
-            sth.settings.ver = sth.datas.whatsnew;
+            for (leti = 0; i < sth.datas.whatsnew.length; i++) {
+                console.log("%c" + sth.datas.whatsnew[i], "color: rgb(18 71 158);font-size:16px");
+            }
+            sth.settings.ver = sth.datas.ver;
             sth.savesettings();
+            return true;
         }
+        return false;
     },
     urlclickable: function () {
+        const subf = function (el) {
+            var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+            for (let i = 0; i < el.length; i++) {
+                if (el[i].className.indexOf("url-turned") == -1) {
+                    var txt = el[i].innerText;
+                    var s = txt.match(reg);
+                    if (s) {
+                        for (let x = 0; x < s.length; x++) {
+                            var url = "<a href=" + s[x] + " target=\"_blank\">" + s[x] + "</a>";
+                            txt = txt.replace(s[x], url);
+                        }
+                        el[i].classList.add("url-turned");
+                        el[i].innerHTML = txt;
+                    };
+                };
+            };
+            reg = null
+        };
         if (document.querySelector(".MuiPaper-elevation16")) {
             for (let i = 0; i < document.querySelectorAll(".MuiPaper-elevation16").length; i++) {
                 var root = document.querySelectorAll(".MuiPaper-root")[i];
-                sth.httpString(root.querySelectorAll("p"));
-                sth.httpString(root.querySelectorAll("h3"));
-                sth.httpString(root.querySelectorAll("h2"));
+                subf(root.querySelectorAll("p"));
+                subf(root.querySelectorAll("h3"));
+                subf(root.querySelectorAll("h2"));
                 root = null;
             };
         };
-        sth.httpString(document.querySelectorAll(".message-text_content-wrap__hZPyw"));
+        subf(document.querySelectorAll(".message-text_content-wrap__hZPyw"));
     },
     autorefresh: function () {
         sth.marks.intv1 = setInterval(() => {
@@ -173,12 +199,12 @@ const sth = {
                 type: "range",
                 id: "adjust-bar-l",
                 title: "调整想法栏宽度",
-                setting: "lsidewidth",
+                setting: "leftsidewidth",
                 events: [
                     (el) => {
                         el.addEventListener("change", (e) => {
                             e.target.title = "想法栏宽度:" + e.target.value + "%";
-                            sth.settings.lsidewidth = e.target.value;
+                            sth.settings.leftsidewidth = e.target.value;
                             sth.savesettings();
                         });
                     },
@@ -186,7 +212,7 @@ const sth = {
                         el.addEventListener('wheel', (e) => {
                             e.target.title = "想法栏宽度:" + e.target.value + "%";
                             e.preventDefault();
-                            subf1(e, "lsidewidth", 0, 50);
+                            subf1(e, "leftsidewidth", 0, 50);
                         });
                     }
                 ],
@@ -198,12 +224,12 @@ const sth = {
                 type: "range",
                 id: "adjust-bar-r",
                 title: "调整右侧信息栏宽度",
-                setting: "rsidewidth",
+                setting: "rightsidewidth",
                 events: [
                     (el) => {
                         el.addEventListener("change", (e) => {
                             e.target.title = "信息栏宽度:" + e.target.value + "%";
-                            sth.settings.rsidewidth = e.target.value;
+                            sth.settings.rightsidewidth = e.target.value;
                             sth.savesettings();
                         });
                     },
@@ -211,7 +237,7 @@ const sth = {
                         el.addEventListener('wheel', (e) => {
                             e.target.title = "信息栏宽度:" + e.target.value + "%";
                             e.preventDefault();
-                            subf1(e, "rsidewidth", 0, 50);
+                            subf1(e, "rightsidewidth", 0, 50);
                         });
                     }
                 ],
@@ -270,8 +296,8 @@ const sth = {
                 }
             });
         };
-        document.body.style.setProperty("--lsidewidth", sth.settings.lsidewidth + "%");
-        document.body.style.setProperty("--rsidewidth", sth.settings.rsidewidth + "%");
+        document.body.style.setProperty("--leftsidewidth", sth.settings.leftsidewidth + "%");
+        document.body.style.setProperty("--rightsidewidth", sth.settings.rightsidewidth + "%");
         document.body.style.setProperty("--imgwidth", sth.settings.imgwidth + "%");
         document.body.style.setProperty("--imgleft", ((100 - sth.settings.imgwidth) / 2) + "%");
     },
@@ -290,24 +316,6 @@ const sth = {
             });
         };
         dlicon = null;
-    },
-    httpString: function (el) {
-        var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
-        for (let i = 0; i < el.length; i++) {
-            if (el[i].className.indexOf("url-turned") == -1) {
-                var txt = el[i].innerText;
-                var s = txt.match(reg);
-                if (s) {
-                    for (let x = 0; x < s.length; x++) {
-                        var url = "<a href=" + s[x] + " target=\"_blank\">" + s[x] + "</a>";
-                        txt = txt.replace(s[x], url);
-                    }
-                    el[i].classList.add("url-turned");
-                    el[i].innerHTML = txt;
-                };
-            };
-        };
-        reg = null
     },
     search: function () {
         const subf1 = function (_avatar, _nickname, _content, _date, data_id) {
@@ -431,6 +439,7 @@ const sth = {
             };
         });
         observer.observe(document, options);
+        sth.vsrsioncheck();
         options = e = null;
     }
 };
