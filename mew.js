@@ -15,7 +15,7 @@ const sth = {
             "1、适配了深色模式。多数根据系统偏好自动使用深色模式或浅色模式。如果有个别页面还是浅色的，可以向我反馈。",
             "如果发现无法进入深色模式，请刷新浏览器缓存；若仍然出现问题，可以向我反馈。"
         ],
-        cssmd5:"44313702622025cd8c7ba59abc97b7f7",
+        cssmd5:"64cb9d5fbb1a81a7a6dfcb150b624a9e",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>'
     },
