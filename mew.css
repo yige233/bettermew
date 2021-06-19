@@ -199,6 +199,82 @@ body {
     flex-basis: var(--rightsidewidth) !important
 }
 
-.MuiModal-root {
-    z-index: 15 !important
+.base_root__2YsYm {
+    z-index: 9 !important
+}
+
+@media (prefers-color-scheme: dark) {
+    body#app {
+        --colors-background-regular: 33 33 33;
+        --colors-background-lighter: 43 43 43;
+        --colors-background-morelighter: 55 55 55;
+        --colors-background-gray: 60 60 60;
+        --colors-emphasis: 230 230 230;
+        --colors-background-receive-msg: 80 80 80;
+        --colors-msg: 235 235 235;
+        --colors-receive-msg: 255 255 255;
+        --colors-background-sent-msg: 120 120 120;
+        --colors-background-darker: 25 25 25;
+        --colors-primary: 114 148 218;
+        --colors-primary-darker: 154 178 228;
+        --colors-gray-200: 140 140 140;
+        --colors-gray-100: 110 110 110;
+        --colors-background-msg: 100 100 100;
+        --colors-caption: 235 235 235;
+        --colors-background-comment: 60 60 60;
+        --colors-background-reply: 80 80 80;
+        --colors-body: 255 255 255;
+        --colors-gray-50: 60 60 60;
+        --colors-background-light: 45 45 45;
+        --colors-background-selected-comment: 100 100 100;
+        --colors-gray-500: 250 250 250;
+        --colors-gray-400: 240 240 240;
+    }
+    .thought-view_post-content__3nf-X>div p, h1, h2, h3 {
+        color: rgb(var(--colors-emphasis)) !important;
+    }
+    div.message-container_list__3Fisu>div, div.message-container_list__3Fisu, .message-stamp_bubble__3rEa-, .containers_middle-root__WMWjt {
+        background-color: rgb(var(--colors-background-lighter));
+    }
+    .containers_chat-header__1U1gU, .message-container_reply-bar__3Gbmt {
+        background-color: rgb(var(--colors-background-darker)) !important;
+    }
+    .thought_info-wrapper__2IoVP {
+        color: white;
+    }
+    .thought_info-wrapper__2IoVP:hover {
+        background-color: rgb(var(--colors-gray-200));
+    }
+    textarea {
+        background: rgb(var(--colors-background-lighter)) !important;
+    }
+    div.w-full.flex.justify-center.absolute.top-0.z-10.bg-background-regular.h-14.items-center {
+        background-color: rgb(var(--colors-background-regular)) !important;
+    }
+    .comment-item_name__3XDYe, .comment-item_action-btn___t_Lq, .text-sm.truncate, .card_name__sI-us, .text-black {
+        color: rgb(var(--colors-msg));
+    }
+    .containers_selector__tMuOU {
+        background-color: rgb(var(--colors-background-regular));
+    }
+    .card_root__185Tc, .button_reaction-btn__1pz7w, .search-bar_input__3bvsA {
+        background-color: rgb(var(--colors-background-receive-msg));
+    }
+    .card_content__2Ll2o, .font-medium, .text-md.truncate, .text-3xl, .text-xl, .my-4, .wiki-item_header__2XrPK, .text-2xl, div.MuiDialogContent-root>p, .user-setting-dialog_header__8oNfm, .right_white-btn__2jyHw, .ProseMirror, .searchdisplay div.form div {
+        color: rgb(var(--colors-receive-msg));
+    }
+    .MuiPaper-elevation16, .MuiPaper-elevation {
+        background-color: rgb(var(--colors-background-regular));
+    }
+    .base_root__1cPwo.base_card__2LZP5.base_no-outline__2oRvM, .base_root__1cPwo.base_card__2LZP5.base_no-outline__2oRvM:active, .card_action-btn__1mWBv {
+        background-color: rgb(var(--colors-background-receive-msg));
+        color: rgb(var(--colors-receive-msg));
+    }
+    .card_identity-card-root-desktop__2MtG1 .card_action-btn__1mWBv, input.text-field_input__3AyuA, .text-field_root__2eE2I, .searchitem, .searchdisplay input {
+        background-color: rgb(var(--colors-background-receive-msg));
+        color: rgb(var(--colors-receive-msg));
+    }
+    .message-container_reaction-panel__1God9, .drawer_root__1WN7c.drawer_is-menu__4jjkJ.drawer_dialog__1N_bY, .plain-input_compose-textarea-wrapper__3oJPr {
+        background-color: rgb(var(--colors-background-morelighter));
+    }
 }
