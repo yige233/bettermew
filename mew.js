@@ -1,5 +1,6 @@
 const sth = {
     settings: {
+        reverseorder: false,
         leftsidewidth: 20,
         rightsidewidth: 20,
         totalreverse: false,
@@ -8,20 +9,27 @@ const sth = {
         imgwidth: 50,
     },
     datas: {
-        ver: 0.44,
+        ver: 0.45,
         whatsnew: [
-            "当前脚本版本:0.44",
+            "当前脚本版本:0.45",
             "更新内容：",
-            "1、适配了深色模式。多数根据系统偏好自动使用深色模式或浅色模式。如果有个别页面还是浅色的，可以向我反馈。",
-            "如果发现无法进入深色模式，请刷新浏览器缓存；若仍然出现问题，可以向我反馈。"
+            "1、增加了想法（帖子）评论正序排列功能。左下角的开关打开之后，新打开的帖子评论将会以正序排列。默认关闭。",
+            "由于浏览器缓存的原因，开关切换之前打开过的帖子不会发生变化。若之前打开了帖子但没有完全加载完评论，会产生一半正序一半倒序的bug。",
+            "该功能的实现原理是拦截并修改服务器发送的评论信息，强行一次性获取全部的评论，并全部渲染，这会带来不小的性能问题，特别是评论数量巨大、图片多的情形。",
+            "Chrome、Edge版本85及之后的浏览器会进行一定的优化，若是较差的设备或是不支持content-visibility的浏览器，建议浏览长贴时关闭该功能。",
+            "2、为帖子增加了“回到顶部”按钮。",
+            "3、左下角开关样式优化。"
         ],
-        cssmd5:"64cb9d5fbb1a81a7a6dfcb150b624a9e",
+        cssmd5: "08919a1f873b72664119301850d3b825",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
-        searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>'
+        searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>',
+        totopicon: '<svg t="1624339130920" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1179" width="40" height="40"><path d="M708.85376 416.19456c0 2.0992-0.65536 4.1984-1.9968 5.96992-2.68288 3.56352-7.424 4.89472-11.5712 3.24608L571.52512 376.5248l0 286.52544c0 5.4784-4.44416 9.92256-9.9328 9.92256l-99.18464 0c-5.46816 0-9.91232-4.44416-9.91232-9.92256L452.49536 376.5248l-123.78112 48.88576c-4.13696 1.6384-8.87808 0.3072-11.56096-3.24608-2.69312-3.56352-2.68288-8.47872 0.06144-12.01152L504.13568 167.0144c1.88416-2.44736 4.78208-3.87072 7.86432-3.87072s5.9904 1.4336 7.86432 3.87072l186.9312 243.13856C708.15744 411.92448 708.85376 414.0544 708.85376 416.19456zM512 726.51776c-46.32576 0-83.88608 37.55008-83.88608 83.88608 0 46.336 37.56032 83.88608 83.88608 83.88608s83.89632-37.55008 83.89632-83.88608C595.89632 764.07808 558.32576 726.51776 512 726.51776z" p-id="1180" fill="#bfbfbf"></path></svg>', replys: []
     },
     marks: {
+        scriptloaded: false,
         autorefresh_state: false,
-        intv1: null
+        intv1: null,
+        timeout1: null
     },
     savesettings: function () {
         localStorage.setItem('settings', JSON.stringify(sth.settings));
@@ -178,19 +186,33 @@ const sth = {
         const subf2 = function (opt) {
             var sidebar = document.querySelector(".sidebar_root__6Jp7C");
             if (!document.querySelector("#" + opt.id)) {
+                var outerdiv = document.createElement("div");
                 var el = document.createElement("input");
-                el.style = "width: 100%;";
                 el.type = opt.type;
-                el.max = opt.max;
-                el.min = opt.min;
-                el.step = 1;
                 el.id = opt.id;
                 el.title = opt.title;
-                el.value = sth.settings[opt.setting];
+                if (opt.type == "range") {
+                    el.style = "width: 100%;";
+                    el.max = opt.max;
+                    el.min = opt.min;
+                    el.step = 1;
+                    el.value = sth.settings[opt.setting];
+                }
+                if (opt.type == "checkbox") {
+                    el.style = "display:none";
+                    el.className = "switcher";
+                    var label = document.createElement("label");
+                    label.setAttribute("for", opt.id);
+                    label.title = opt.title;
+                    label.className = "switcher-label";
+                    outerdiv.append(label);
+                    label = null;
+                }
                 for (let i = 0; i < opt.events.length; i++) {
                     opt.events[i](el);
                 };
-                sidebar.append(el);
+                outerdiv.prepend(el);
+                sidebar.append(outerdiv);
                 opt.extra(el);
             };
         };
@@ -297,6 +319,57 @@ const sth = {
                     };
                 }
             });
+            subf2({
+                max: null,
+                min: null,
+                type: "checkbox",
+                id: "reverse-order",
+                title: "想法评论正序排列",
+                setting: null,
+                events: [
+                    (el) => {
+                        el.addEventListener("change", (e) => {
+                            if (e.target.checked) {
+                                sth.settings.reverseorder = true;
+                                sth.positiveorder.setajaxhook(true);
+                            } else {
+                                sth.settings.reverseorder = false;
+                                sth.positiveorder.setajaxhook(false);
+                            };
+                            sth.savesettings();
+                        });
+                    },
+                ],
+                extra: (el) => {
+                    var script = document.createElement("script");
+                    script.onload = function () {
+                        sth.marks.scriptloaded = true;
+                        if (sth.settings.reverseorder) {
+                            el.click();
+                        };
+                    };
+                    script.src = "https://unpkg.com/ajax-hook@2.0.3/dist/ajaxhook.min.js";//https://github.com/wendux/Ajax-hook
+                    document.head.appendChild(script);
+                }
+            });
+        };
+        if (document.querySelector("#comments")) {
+            for (let i = 0; i < document.querySelectorAll("#comments").length; i++) {
+                if (!document.querySelectorAll("#comments")[i].querySelector(".to-top")) {
+                    var div = document.createElement("div");
+                    div.innerHTML = sth.datas.totopicon;
+                    div.title = "回到顶部";
+                    div.className = "to-top";
+                    div.addEventListener("click", (e) => {
+                        var target = e.target;
+                        if (e.target.tagName == "path") { target = e.target.parentNode.parentNode };
+                        if (e.target.tagName == "svg") { target = e.target.parentNode };
+                        target.parentNode.scrollTo({ top: 0, behavior: "smooth" });
+                        target = null;
+                    });
+                    document.querySelectorAll("#comments")[i].appendChild(div);
+                };
+            };
         };
         document.body.style.setProperty("--leftsidewidth", sth.settings.leftsidewidth + "%");
         document.body.style.setProperty("--rightsidewidth", sth.settings.rightsidewidth + "%");
@@ -410,22 +483,83 @@ const sth = {
             searchicon = null;
         };
     },
+    positiveorder: {
+        getcomment: function (url, before) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("get", url + "?limit=100&before=" + before, false);
+            xhr.setRequestHeader("mark", true)
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.entries.length > 0) {
+                        sth.datas.replys.push(res);
+                    }
+                };
+            };
+            return xhr.send();
+        },
+        buildjson: function () {
+            const res = { entries: [], objects: { comments: {}, media: {}, users: {} } };
+            for (let i = 0; i < sth.datas.replys.length; i++) {
+                sth.datas.replys[i].entries.reverse();
+                for (let x = 0; x < sth.datas.replys[i].entries.length; x++) {
+                    res.entries.push(sth.datas.replys[i].entries[x]);
+                };
+                Object.assign(res.objects.comments, sth.datas.replys[i].objects.comments);
+                Object.assign(res.objects.users, sth.datas.replys[i].objects.users);
+                Object.assign(res.objects.media, sth.datas.replys[i].objects.media);
+            };
+            return JSON.stringify(res);
+        },
+        setajaxhook: function (switcher) {
+            if (ah) {
+                if (switcher) {
+                    ah.proxy({
+                        onRequest: (config, handler) => {
+                            handler.next(config);
+                        },
+                        onError: (err, handler) => {
+                            handler.next(err);
+                        },
+                        onResponse: (response, handler) => {
+                            if (response.config.url.match(/(comments)/i) && response.config.url.match(/(limit)/i)) {
+                                var t = JSON.parse(response.response);
+                                if (!response.config.headers.mark && t.entries.length >= 20) {
+                                    sth.positiveorder.getcomment(response.config.url.split("?")[0], "9999999999999999999999");
+                                    response.response = sth.positiveorder.buildjson();
+                                    sth.datas.replys.length = 0;
+                                };
+                                if (!response.config.headers.mark && t.entries.length < 20) {
+                                    t.entries.reverse();
+                                    response.response = JSON.stringify(t);
+                                };
+                                if (response.config.headers.mark && t.entries.length == 100) {
+                                    sth.positiveorder.getcomment(response.config.url.split("?")[0], t.entries[t.entries.length - 1].id);
+                                };
+                            };
+                            handler.next(response);
+                        }
+                    });
+                } else {
+                    ah.unProxy();
+                };
+            };
+        }
+    },
     act: function () {
         if (localStorage.settings) {
             sth.settings = JSON.parse(localStorage.settings);
         } else {
             sth.savesettings();
         };
-        var e = document.createElement("link");
-        e.rel = "stylesheet";
-        e.type = "text/css";
-        e.href = "https://cdn.jsdelivr.net/gh/yige233/bettermew/mew.css?md5="+sth.datas.cssmd5;
-        document.head.appendChild(e);
-        var options = {
-            'childList': true,
-            'arrtibutes': true,
-            'subtree': true
-        };
+        (() => {
+            var e = document.createElement("link");
+            e.rel = "stylesheet";
+            e.type = "text/css";
+            e.href = "https://cdn.jsdelivr.net/gh/yige233/bettermew/mew.css?md5="+sth.datas.cssmd5;
+            document.head.appendChild(e);
+            e = null;
+        })();
         var observer = new MutationObserver(function () {
             try {
                 sth.urlclickable();
@@ -440,9 +574,12 @@ const sth = {
                 return false;
             };
         });
-        observer.observe(document, options);
+        observer.observe(document, {
+            'childList': true,
+            'arrtibutes': true,
+            'subtree': true
+        });
         sth.vsrsioncheck();
-        options = e = null;
     }
 };
 sth.act();
