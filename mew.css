@@ -262,7 +262,7 @@ body {
     .card_root__185Tc, .button_reaction-btn__1pz7w, .search-bar_input__3bvsA {
         background-color: rgb(var(--colors-background-receive-msg));
     }
-    .card_content__2Ll2o, .font-medium, .text-md.truncate, .text-3xl, .text-xl, .my-4, .wiki-item_header__2XrPK, .text-2xl, div.MuiDialogContent-root>p, .user-setting-dialog_header__8oNfm, .right_white-btn__2jyHw, .ProseMirror, .searchdisplay div.form div {
+    .card_content__2Ll2o, .thought_quote-bar__1sliX, .font-medium, .text-md.truncate, .text-3xl, .text-xl, .my-4, .wiki-item_header__2XrPK, .text-2xl, div.MuiDialogContent-root>p, .user-setting-dialog_header__8oNfm, .right_white-btn__2jyHw, .ProseMirror, .searchdisplay div.form div {
         color: rgb(var(--colors-receive-msg));
     }
     .MuiPaper-elevation16, .MuiPaper-elevation {
@@ -283,13 +283,24 @@ body {
 
 .comment-item_root__1jR_s {
     content-visibility: auto;
+    min-width: 500px;
 }
 
-.to-top {
+.thought-widget {
     position: absolute;
+    width: 40px;
     bottom: 20%;
     right: 5%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(70 70 70 / 80%);
     cursor: pointer;
+    border-radius: 20px;
+}
+
+.reversed {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 input.switcher+label {
