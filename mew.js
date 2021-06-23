@@ -10,13 +10,14 @@ const sth = {
         imgwidth: 50,
     },
     datas: {
-        ver: 0.5,
+        ver: 0.51,
         whatsnew: [
-            "当前脚本版本:0.5",
+            "当前脚本版本:0.51",
             "更新内容：",
             "1、评论按喜欢数量排序功能。启用后帖子的评论将在正序排列的基础上按喜欢数量排列。需要先启用正序排列功能。",
             "2、贴内临时反转评论顺序按钮。点击可临时将正序排列的评论反转。需要先启用正序排列功能，不与热评排序功能兼容。",
-            "3、只看Ta功能。贴内点击后输入Ta的昵称，即可只看Ta的评论。默认为楼主。需要先启用正序排列功能。"
+            "3、只看Ta功能。贴内点击后输入Ta的昵称，即可只看Ta的评论。默认为楼主。需要先启用正序排列功能。",
+            "4、0.51紧急修复了想法自动刷新按钮出现的bug。"
         ],
         replys: [],
         cssmd5: "0595fc08ad6b1b5e4cc4f1a4177e5f44",
@@ -28,7 +29,7 @@ const sth = {
     },
     marks: {
         scriptloaded: false,
-        autorefresh_state: false,
+        autorefresh_checked:false,
         intv1: null
     },
     savesettings: function () {
@@ -64,7 +65,7 @@ const sth = {
                     };
                 };
             };
-            reg = null
+            reg = null;
         };
         if (document.querySelector(".MuiPaper-elevation16")) {
             for (let i = 0; i < document.querySelectorAll(".MuiPaper-elevation16").length; i++) {
@@ -78,18 +79,21 @@ const sth = {
         subf(document.querySelectorAll(".message-text_content-wrap__hZPyw"));
     },
     autorefresh: function () {
-        sth.marks.intv1 = setInterval(() => {
-            if (document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx")) {
-                var switcher = document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx");
-                if (sth.settings.autorefresh != switcher.checked) {
-                    sth.settings.autorefresh = switcher.checked;
-                    sth.savesettings();
-                };
-                switcher = null;
+        if (!sth.marks.autorefresh_checked) {
+            if (!sth.settings.autorefresh) {
+                document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx").click();
             };
-        }, 1000);
-        if (!sth.settings.autorefresh && !sth.marks.autorefresh_state) {
-            document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx").click();
+            sth.marks.intv1 = setInterval(() => {
+                if (document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx")) {
+                    var switcher = document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx");
+                    if (sth.settings.autorefresh != switcher.checked) {
+                        sth.settings.autorefresh = switcher.checked;
+                        sth.savesettings();
+                    };
+                    switcher = null;
+                };
+                console.log(1)
+            }, 1000);
         };
         sth.marks.autorefresh_checked = true;
     },
