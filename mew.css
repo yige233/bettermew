@@ -43,7 +43,7 @@ body {
     margin-left: -14%;
 }
 
-.post-preview_cover__DkpA8, .thought_img-wrapper__1uyhs, .card_frame-wrapper__RmrBC, .thought_player-wrapper__jVn4a, .typing-bar_typing-wrap__VbL8K, .card_third-thumb-wrapper__Av98_ {
+.post-preview_cover__DkpA8, .thought_img-wrapper__1uyhs, .card_frame-wrapper__RmrBC, .thought_player-wrapper__jVn4a, .typing-bar_typing-wrap__VbL8K, .card_third-thumb-wrapper__Av98_, .comment-item_deleted__2jlzI {
     display: none;
 }
 
@@ -203,6 +203,14 @@ body {
     z-index: 9 !important
 }
 
+.message-text_content-wrap__hZPyw {
+    display: block;
+}
+
+.comments_modal__2b0m5 {
+    z-index: 10 !important;
+}
+
 @media (prefers-color-scheme: dark) {
     body#app {
         --colors-background-regular: 33 33 33;
@@ -247,7 +255,7 @@ body {
     .thought_info-wrapper__2IoVP:hover {
         background-color: rgb(var(--colors-gray-200));
     }
-    textarea {
+    textarea, .pin-list_root__1kBek, .comments_title-bar__361Cc {
         background: rgb(var(--colors-background-lighter)) !important;
     }
     div.w-full.flex.justify-center.absolute.top-0.z-10.bg-background-regular.h-14.items-center {
@@ -262,7 +270,7 @@ body {
     .card_root__185Tc, .button_reaction-btn__1pz7w, .search-bar_input__3bvsA {
         background-color: rgb(var(--colors-background-receive-msg));
     }
-    .card_content__2Ll2o, .thought_quote-bar__1sliX, .font-medium, .text-md.truncate, .text-3xl, .text-xl, .my-4, .wiki-item_header__2XrPK, .text-2xl, div.MuiDialogContent-root>p, .user-setting-dialog_header__8oNfm, .right_white-btn__2jyHw, .ProseMirror, .searchdisplay div.form div {
+    .card_content__2Ll2o, .item-in-list_header__31CU8, .thought_quote-bar__1sliX, .font-medium, .text-md.truncate, .text-3xl, .text-xl, .my-4, .wiki-item_header__2XrPK, .text-2xl, div.MuiDialogContent-root>p, .user-setting-dialog_header__8oNfm, .right_white-btn__2jyHw, .ProseMirror, .searchdisplay div.form div {
         color: rgb(var(--colors-receive-msg));
     }
     .MuiPaper-elevation16, .MuiPaper-elevation {
@@ -287,6 +295,7 @@ body {
 }
 
 .thought-widget {
+    z-index: 10;
     position: absolute;
     width: 40px;
     bottom: 20%;

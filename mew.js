@@ -1,7 +1,5 @@
 const sth = {
     settings: {
-        likecountorder: false,
-        reverseorder: false,
         leftsidewidth: 20,
         rightsidewidth: 20,
         totalreverse: false,
@@ -10,26 +8,24 @@ const sth = {
         imgwidth: 50,
     },
     datas: {
-        ver: 0.51,
+        ver: 0.52,
         whatsnew: [
-            "当前脚本版本:0.51",
+            "当前脚本版本:0.52",
             "更新内容：",
-            "1、评论按喜欢数量排序功能。启用后帖子的评论将在正序排列的基础上按喜欢数量排列。需要先启用正序排列功能。",
-            "2、贴内临时反转评论顺序按钮。点击可临时将正序排列的评论反转。需要先启用正序排列功能，不与热评排序功能兼容。",
-            "3、只看Ta功能。贴内点击后输入Ta的昵称，即可只看Ta的评论。默认为楼主。需要先启用正序排列功能。",
-            "4、0.51紧急修复了想法自动刷新按钮出现的bug。"
+            "1、删除与原Mew重复的功能。之外删除的还有：按评论喜欢数排列。",
+            "2、原“只看作者”功能强化，可以仅查看任意一人在本帖的发言。需要先打开左下角的拓展功能开关。",
+            "3、隐藏贴内的“已删除评论”。（不然增强后的“只看”功能会惨不忍睹）",
+            "4、暗黑模式完善。",
+            "5、修复聊天室内被转为可点击url的发言的样式。"
         ],
-        replys: [],
-        cssmd5: "0595fc08ad6b1b5e4cc4f1a4177e5f44",
+        activefunc: { request: {}, response: {} },
+        cssmd5: "9b2d25179984a8a9be3255f26ccd60d6",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>',
-        tempreverseicon: '<svg t="1624433224331" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2193" width="40" height="40"><path d="M543 389.9H312.3c-13.8 0-25-11.2-25-25s11.2-25 25-25H543c13.8 0 25 11.2 25 25s-11.2 25-25 25zM543 539.8H312.3c-13.8 0-25-11.2-25-25s11.2-25 25-25H543c13.8 0 25 11.2 25 25-0.1 13.8-11.2 25-25 25zM543 689.6H312.3c-13.8 0-25-11.2-25-25s11.2-25 25-25H543c13.8 0 25 11.2 25 25s-11.2 25-25 25zM645.3 712c-4.1 0-8.3-1-12-3.1-8-4.4-12.9-12.8-12.9-21.9V342.1c0-13.8 11.2-25 25-25s25 11.2 25 25v299.6l30.9-19.5c11.6-7.3 27.1-3.9 34.5 7.8 7.4 11.7 3.9 27.1-7.8 34.5l-69.2 43.7c-4.2 2.5-8.9 3.8-13.5 3.8z" fill="#bfbfbf" p-id="2194"></path></svg>',
         totopicon: '<svg t="1624339130920" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1179" width="40" height="40"><path d="M708.85376 416.19456c0 2.0992-0.65536 4.1984-1.9968 5.96992-2.68288 3.56352-7.424 4.89472-11.5712 3.24608L571.52512 376.5248l0 286.52544c0 5.4784-4.44416 9.92256-9.9328 9.92256l-99.18464 0c-5.46816 0-9.91232-4.44416-9.91232-9.92256L452.49536 376.5248l-123.78112 48.88576c-4.13696 1.6384-8.87808 0.3072-11.56096-3.24608-2.69312-3.56352-2.68288-8.47872 0.06144-12.01152L504.13568 167.0144c1.88416-2.44736 4.78208-3.87072 7.86432-3.87072s5.9904 1.4336 7.86432 3.87072l186.9312 243.13856C708.15744 411.92448 708.85376 414.0544 708.85376 416.19456zM512 726.51776c-46.32576 0-83.88608 37.55008-83.88608 83.88608 0 46.336 37.56032 83.88608 83.88608 83.88608s83.89632-37.55008 83.89632-83.88608C595.89632 764.07808 558.32576 726.51776 512 726.51776z" p-id="1180" fill="#bfbfbf"></path></svg>',
-        onlyauthoricon: '<svg t="1624444386877" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2588" width="40" height="40"><path d="M1024.039909 845.534376c-55.238069 105.918331-167.732166 178.465624-297.440319 178.465624-129.71634 0-242.209414-72.548316-297.446459-178.465624 39.740096-76.241428 109.401666-134.661979 193.549158-161.710009-39.850613-20.031219-83.607186-33.416064-130.040728-38.236859-8.760524 0.698918-17.516956 1.323135-26.462698 1.323135-12.550851 0-24.913413-0.859577-37.134759-2.218528C248.203942 655.891178 101.8292 793.08584 76.455299 969.623555l-3.837398 20.231787c-2.958378 18.650779-15.306614 34.143635-35.9467 33.933857-19.519566-0.198521-35.322483-15.245216-35.322483-34.043351l-0.325411-3.160993c0-6.29538 2.789533-16.962324 2.789533-16.962324C29.467125 800.966321 147.699923 662.434198 305.858036 605.360318 206.120474 549.951357 138.66106 444.673615 138.66106 323.710636c0-178.490184 146.654105-323.189773 327.537801-323.189773 180.90314 0 327.558267 144.69959 327.558267 323.189773 0 120.927163-67.435878 226.173183-167.102832 281.5934 42.615587 15.360849 82.141812 36.833907 117.9299 63.010079C866.561271 674.737408 971.383642 744.591359 1024.039909 845.534376zM714.977901 321.94441c0-137.972375-111.909789-249.815649-249.945609-249.815649-138.052193 0-249.963005 111.844298-249.963005 249.815649 0 137.962142 111.910812 249.804393 249.963005 249.804393C603.068112 571.748802 714.977901 459.905528 714.977901 321.94441zM715.045439 738.454592c-68.339458 0-130.406049 39.398312-130.406049 39.398312s-62.559824 41.913599-84.049255 70.167083c21.48943 28.256554 50.169633 52.261271 84.001159 70.15378 42.527582 22.540366 91.651396 34.440393 142.007271 34.440393 0.044002 0 0.090051-0.023536 0.140193-0.023536-59.074444-0.070608-106.915032-47.960315-106.915032-107.056248 0-57.848523 45.939285-104.675014 103.288434-106.692974C720.348212 738.770793 717.930139 738.454592 715.045439 738.454592zM690.995697 845.534376c0 19.707854 15.965623 35.693944 35.669384 35.693944 19.730367 0 35.691897-15.986089 35.691897-35.693944 0-19.705807-15.96153-35.69292-35.691897-35.69292C706.96132 809.841455 690.995697 825.828568 690.995697 845.534376zM833.981249 845.534376c0 58.932204-47.637973 106.71037-106.499569 107.009176 50.028417-0.115634 98.828866-11.965519 141.098575-34.369785 33.834596-17.891486 62.531172-41.896202 84.051301-70.15378-21.519106-28.234041-84.051301-70.167083-84.051301-70.167083s-44.287669-33.157167-131.291209-38.352493C791.478226 744.800114 833.981249 789.948383 833.981249 845.534376z" p-id="2589" fill="#bfbfbf"></path></svg>'
     },
     marks: {
-        scriptloaded: false,
-        autorefresh_checked:false,
+        autorefresh_checked: false,
         intv1: null
     },
     savesettings: function () {
@@ -92,7 +88,6 @@ const sth = {
                     };
                     switcher = null;
                 };
-                console.log(1)
             }, 1000);
         };
         sth.marks.autorefresh_checked = true;
@@ -343,16 +338,16 @@ const sth = {
                 sth.GUIadjust.subf2({
                     type: "checkbox",
                     id: "reverse-order",
-                    title: "想法评论正序排列",
+                    title: "帖子评论拓展功能支持",
                     events: [
                         (el) => {
                             el.addEventListener("change", (e) => {
                                 if (e.target.checked) {
                                     sth.settings.reverseorder = true;
-                                    sth.threadorder.setajaxhook(true);
+                                    sth.commentEnchant.setajaxhook();
                                 } else {
                                     sth.settings.reverseorder = false;
-                                    sth.threadorder.setajaxhook(false);
+                                    ah.unProxy();
                                 };
                                 sth.savesettings();
                             });
@@ -361,7 +356,6 @@ const sth = {
                     extra: (el) => {
                         var script = document.createElement("script");
                         script.onload = function () {
-                            sth.marks.scriptloaded = true;
                             if (sth.settings.reverseorder) {
                                 el.click();
                             };
@@ -370,80 +364,35 @@ const sth = {
                         document.head.appendChild(script);
                     }
                 });
-                if (sth.settings.reverseorder) {
-                    sth.GUIadjust.subf2({
-                        type: "checkbox",
-                        id: "likecount-order",
-                        title: "想法评论按喜欢数量排列",
-                        events: [
-                            (el) => {
-                                el.addEventListener("change", (e) => {
-                                    if (e.target.checked) {
-                                        sth.settings.likecountorder = true;
-                                    } else {
-                                        sth.settings.likecountorder = false;
-                                    };
-                                    sth.savesettings();
-                                });
-                            },
-                        ],
-                        extra: (el) => {
-                            if (sth.settings.likecountorder) {
-                                el.click();
-                            };
-                        }
-                    });
-                } else if (document.querySelector("#likecount-order-outerdiv")) {
-                    document.querySelector("#likecount-order-outerdiv").remove();
-                }
             };
             if (document.querySelector("#comments")) {
                 var root = document.querySelectorAll("#comments");
+                if (!root[root.length - 1].querySelector(".onlyauthor-hook")) {
+                    var btn = root[root.length - 1].querySelectorAll(".comments_right-btn__3bCoO")[0];
+                    btn.addEventListener("click", (e) => {
+                        sth.commentEnchant.justlookAt(e)
+                    });
+                    btn.classList.add("onlyauthor-hook");
+                    btn.setAttribute("data-author", root[root.length - 1].querySelector(".thought_name__1SmAb").innerText);
+                };
                 if (!root[root.length - 1].querySelector(".thought-widget")) {
-                    for (let i = 0; i < root.length; i++) {
-                        var outerdiv = document.createElement("div");
-                        outerdiv.className = "thought-widget";
-                        root[i].appendChild(outerdiv);
-                        outerdiv.appendChild(sth.GUIadjust.subf3(outerdiv, {
-                            id: "to-top",
-                            icon: sth.datas.totopicon,
-                            title: "回到顶部",
-                            events: [(el) => {
-                                el.addEventListener("click", (e) => {
-                                    var target = e.target;
-                                    if (e.target.tagName == "path") { target = e.target.parentNode.parentNode };
-                                    if (e.target.tagName == "svg") { target = e.target.parentNode };
-                                    target.parentNode.parentNode.scrollTo({ top: 0, behavior: "smooth" });
-                                    target = null;
-                                });
-                            }]
-                        }));
-                        if (sth.settings.reverseorder && !sth.settings.likecountorder) {
-                            outerdiv.appendChild(sth.GUIadjust.subf3(outerdiv, {
-                                id: "reverse-temp",
-                                title: "临时反转评论顺序",
-                                icon: sth.datas.tempreverseicon,
-                                events: [(el) => {
-                                    el.addEventListener("click", (e) => {
-                                        var target = e.target;
-                                        if (e.target.tagName == "path") { target = e.target.parentNode.parentNode };
-                                        if (e.target.tagName == "svg") { target = e.target.parentNode };
-                                        var svg = target.querySelector("svg");
-                                        target = target.parentNode.parentNode.querySelector(".infinite-scroll-component");
-                                        if (target.className.indexOf("reversed") == -1) {
-                                            target.classList.add("reversed");
-                                            svg.style = "transform:rotateX(180deg)";
-                                        } else {
-                                            target.classList.remove("reversed");
-                                            svg.style = "transform:rotateX(0deg)";
-                                        };
-                                        target = null;
-                                    });
-                                }],
-                                extra: () => { return false }
-                            }));
-                        };
-                    };
+                    var outerdiv = document.createElement("div");
+                    outerdiv.className = "thought-widget";
+                    root[root.length - 1].appendChild(outerdiv);
+                    outerdiv.appendChild(sth.GUIadjust.subf3(outerdiv, {
+                        id: "to-top",
+                        icon: sth.datas.totopicon,
+                        title: "回到顶部",
+                        events: [(el) => {
+                            el.addEventListener("click", (e) => {
+                                var target = e.target;
+                                if (e.target.tagName == "path") { target = e.target.parentNode.parentNode };
+                                if (e.target.tagName == "svg") { target = e.target.parentNode };
+                                target.parentNode.parentNode.scrollTo({ top: 0, behavior: "smooth" });
+                                target = null;
+                            });
+                        }]
+                    }));
                 };
                 root = null;
             };
@@ -560,138 +509,91 @@ const sth = {
             searchicon = null;
         };
     },
-    threadorder: {
-        getcomment: function (url, before) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("get", url + "?limit=100&before=" + before, false);
-            xhr.setRequestHeader("mark", true)
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var res = JSON.parse(xhr.responseText);
-                    if (res.entries.length > 0) {
-                        sth.datas.replys.push(res);
-                    }
-                };
-            };
-            return xhr.send();
+    commentEnchant: {
+        addfunc: function (funcname, on, func) {
+            sth.datas.activefunc[on][funcname] = func;
         },
-        sortbylike: function (arr) {
-            function compare(property) {
-                return function (a, b) {
-                    var value1 = a[property];
-                    var value2 = b[property];
-                    return value2 - value1;
-                };
-            };
-            if (sth.settings.likecountorder) {
-                return arr.sort(compare('like_count'));
-            }
-            return arr;
+        removefunc: function (funcname) {
+            delete sth.datas.activefunc.request[funcname];
+            delete sth.datas.activefunc.response[funcname];
         },
-        onlyauthor: function (arr) {
-            const replyname = [];
-            for (let x = 0; x < arr.entries.length; x++) {
-                if (arr.entries[x].author_id) {
-                    replyname.push(arr.objects.users[[arr.entries[x].author_id]].name);
+        justlookAt: function (e) {
+            sth.commentEnchant.removefunc("onlysb");
+            if (e.target.innerText == "只看作者") {
+                var onlysb = prompt("打算只看谁的评论呢？填入Ta的昵称：", e.target.getAttribute("data-author"));
+                if (onlysb == null) {
+                    e.stopPropagation();
+                    return false;
                 };
-            };
-            var outerdiv = document.querySelectorAll(".thought-widget");
-            var root = document.querySelectorAll("#comments");
-            outerdiv[outerdiv.length - 1].appendChild(sth.GUIadjust.subf3(outerdiv[outerdiv.length - 1], {
-                title: "只看Ta",
-                id: "only-author",
-                icon: sth.datas.onlyauthoricon,
-                style: "transform: scale(0.7);",
-                events: [(el) => {
-                    el.addEventListener("click", (e) => {
-                        var target = e.target;
-                        if (e.target.tagName == "path") { target = e.target.parentNode.parentNode };
-                        if (e.target.tagName == "svg") { target = e.target.parentNode };
-                        var svg = target.querySelector("svg");
-                        var comments = root[root.length - 1].querySelectorAll(".comment-item_name__3XDYe");
-                        var names = JSON.parse(target.querySelector("textarea").value);
-                        if (target.getAttribute("data-onlysb") == "true") {
-                            var onlysb = prompt("打算只看谁的评论呢？填入Ta的昵称：", target.getAttribute("data-author"));
-                            if (onlysb == null) {
-                                return false;
+                sth.commentEnchant.addfunc("onlysb", "response", (response) => {
+                    function filter(obj, name) {
+                        const res = { entries: [], objects: {} };
+                        if (obj.entries.length == 0) {
+                            for (let x = 0; x < 1; x++) {
+                                res.entries.push({ id: 0 });
                             };
-                            for (let i = 0; i < comments.length; i++) {
-                                if (names[i] != onlysb) {
-                                    comments[i].parentNode.parentNode.parentNode.style = "display:none";
-                                };
-                            };
-                            svg.children[0].setAttribute("fill", "#7294da");
-                            target.setAttribute("data-onlysb", false);
                         } else {
-                            for (let i = 0; i < comments.length; i++) {
-                                comments[i].parentNode.parentNode.parentNode.style = "display:block";
+                            for (let x = 0; x < 20; x++) {
+                                res.entries.push({ id: obj.entries[obj.entries.length - 1].id });
                             };
-                            target.setAttribute("data-onlysb", true);
-                            svg.children[0].setAttribute("fill", "#bfbfbf");
-                        };
-                    });
-                }],
-                extra: (el) => {
-                    el.setAttribute("data-author", root[root.length - 1].querySelector(".thought_name__1SmAb").innerText)
-                    el.setAttribute("data-onlysb", true);
-                    var data = document.createElement("textarea");
-                    data.style = "display:none";
-                    data.value = JSON.stringify(replyname);
-                    data.innerText = JSON.stringify(replyname);
-                    el.appendChild(data);
-                }
-            }));;
-            outerdiv = null;
-        },
-        buildjson: function () {
-            const res = { entries: [], objects: { comments: {}, media: {}, users: {} } };
-            for (let i = 0; i < sth.datas.replys.length; i++) {
-                sth.datas.replys[i].entries.reverse();
-                for (let x = 0; x < sth.datas.replys[i].entries.length; x++) {
-                    res.entries.push(sth.datas.replys[i].entries[x]);
-                };
-                res.entries = sth.threadorder.sortbylike(res.entries);
-                Object.assign(res.objects.comments, sth.datas.replys[i].objects.comments);
-                Object.assign(res.objects.users, sth.datas.replys[i].objects.users);
-                Object.assign(res.objects.media, sth.datas.replys[i].objects.media);
-            };
-            sth.threadorder.onlyauthor(res);
-            return JSON.stringify(res);
-        },
-        setajaxhook: function (switcher) {
-            if (ah) {
-                if (switcher) {
-                    ah.proxy({
-                        onRequest: (config, handler) => {
-                            handler.next(config);
-                        },
-                        onError: (err, handler) => {
-                            handler.next(err);
-                        },
-                        onResponse: (response, handler) => {
-                            if (response.config.url.match(/(comments)/i) && response.config.url.match(/(limit)/i)) {
-                                var t = JSON.parse(response.response);
-                                if (!response.config.headers.mark && t.entries.length >= 20) {
-                                    sth.threadorder.getcomment(response.config.url.split("?")[0], "9999999999999999999999");
-                                    response.response = sth.threadorder.buildjson();
-                                    sth.datas.replys.length = 0;
-                                };
-                                if (!response.config.headers.mark && t.entries.length < 20) {
-                                    t.entries.reverse();
-                                    t.entries = sth.threadorder.sortbylike(t.entries);
-                                    sth.threadorder.onlyauthor(t);
-                                    response.response = JSON.stringify(t);
-                                };
-                                if (response.config.headers.mark && t.entries.length == 100) {
-                                    sth.threadorder.getcomment(response.config.url.split("?")[0], t.entries[t.entries.length - 1].id);
-                                };
-                            };
-                            handler.next(response);
                         }
-                    });
-                } else {
-                    ah.unProxy();
-                };
+                        Object.assign(res.objects, obj.objects);
+                        var s = new Set(obj.entries);
+                        s.forEach((i) => {
+                            if (i.author_id && obj.objects.users[i.author_id].name == name) {
+                                res.entries.push(i);
+                                res.entries.shift();
+                            };
+                        });
+                        return res;
+                    };
+                    function getreplies(url) {
+                        var res;
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("get", url, false);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                res = JSON.parse(xhr.responseText);
+                            };
+                        };
+                        xhr.send();
+                        return res;
+                    };
+                    var root = document.querySelectorAll(".onlyauthor-hook");
+                    if (response.config.url.indexOf("authorOnly=1") != -1 && root[root.length - 1].getAttribute("data-filter") == "true") {
+                        var res = getreplies(response.config.url.replace("&authorOnly=1", ""));
+                        var res_filted = filter(res, onlysb);
+                        response.response = JSON.stringify(res_filted);
+                        return response;
+                    };
+                });
+                e.target.setAttribute("data-filter", true)
+            } else {
+                sth.commentEnchant.removefunc("onlysb");
+            };
+        },
+        setajaxhook: function () {
+            if (ah) {
+                ah.proxy({
+                    onRequest: (config, handler) => {
+                        for (i in sth.datas.activefunc.request) {
+                            config = sth.datas.activefunc.request[i](config);
+                        };
+                        handler.next(config);
+                    },
+                    onError: (err, handler) => {
+                        handler.next(err);
+                    },
+                    onResponse: (response, handler) => {
+                        for (i in sth.datas.activefunc.response) {
+                            res = sth.datas.activefunc.response[i](response);
+                            if (res) {
+                                response = res;
+                            }
+                        };
+                        handler.next(response);
+                    }
+                });
             };
         }
     },
