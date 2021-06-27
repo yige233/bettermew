@@ -6,6 +6,7 @@ const sth = {
         last50atmsg: [],
         autorefresh: true,
         imgwidth: 50,
+        enableBetterComment:false
     },
     datas: {
         ver: 0.52,
@@ -343,10 +344,10 @@ const sth = {
                         (el) => {
                             el.addEventListener("change", (e) => {
                                 if (e.target.checked) {
-                                    sth.settings.reverseorder = true;
+                                    sth.settings.enableBetterComment = true;
                                     sth.commentEnchant.setajaxhook();
                                 } else {
-                                    sth.settings.reverseorder = false;
+                                    sth.settings.enableBetterComment = false;
                                     ah.unProxy();
                                 };
                                 sth.savesettings();
@@ -356,7 +357,7 @@ const sth = {
                     extra: (el) => {
                         var script = document.createElement("script");
                         script.onload = function () {
-                            if (sth.settings.reverseorder) {
+                            if (sth.settings.enableBetterComment) {
                                 el.click();
                             };
                         };
@@ -370,59 +371,8 @@ const sth = {
                 if (!root[root.length - 1].querySelector(".onlyauthor-hook")) {
                     var btn = root[root.length - 1].querySelectorAll(".comments_right-btn__3bCoO")[0];
                     btn.addEventListener("click", (e) => {
-
-                        sth.commentEnchant.removefunc("onlysb");
-                        if (e.target.innerText == "只看作者") {
-                            var onlysb = prompt("打算只看谁的评论呢？填入Ta的昵称：", e.target.getAttribute("data-author"));
-                            if (onlysb == null) {
-                                e.stopPropagation();
-                                return false;
-                            };
-                            sth.commentEnchant.addfunc("onlysb", "response", (response) => {
-                                function filter(obj, name) {
-                                    const res = { entries: [], objects: {} };
-                                    if (obj.entries.length == 0) {
-                                        for (let x = 0; x < 1; x++) {
-                                            res.entries.push({ id: 0 });
-                                        };
-                                    } else {
-                                        for (let x = 0; x < 20; x++) {
-                                            res.entries.push({ id: obj.entries[obj.entries.length - 1].id });
-                                        };
-                                    }
-                                    Object.assign(res.objects, obj.objects);
-                                    var s = new Set(obj.entries);
-                                    s.forEach((i) => {
-                                        if (i.author_id && obj.objects.users[i.author_id].name == name) {
-                                            res.entries.push(i);
-                                            res.entries.shift();
-                                        };
-                                    });
-                                    return res;
-                                };
-                                function getreplies(url) {
-                                    var res;
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open("get", url, false);
-                                    xhr.onreadystatechange = function () {
-                                        if (xhr.readyState == 4 && xhr.status == 200) {
-                                            res = JSON.parse(xhr.responseText);
-                                        };
-                                    };
-                                    xhr.send();
-                                    return res;
-                                };
-                                var root = document.querySelectorAll(".onlyauthor-hook");
-                                if (response.config.url.indexOf("authorOnly=1") != -1 && root[root.length - 1].getAttribute("data-filter") == "true") {
-                                    var res = getreplies(response.config.url.replace("&authorOnly=1", ""));
-                                    var res_filted = filter(res, onlysb);
-                                    response.response = JSON.stringify(res_filted);
-                                    return response;
-                                };
-                            });
-                            e.target.setAttribute("data-filter", true)
-                        } else {
-                            sth.commentEnchant.removefunc("onlysb");
+                        if (sth.settings.enableBetterComment) {
+                            sth.commentEnchant.justlookAt(e);
                         };
                     });
                     btn.classList.add("onlyauthor-hook");
@@ -569,6 +519,61 @@ const sth = {
         removefunc: function (funcname) {
             delete sth.datas.activefunc.request[funcname];
             delete sth.datas.activefunc.response[funcname];
+        },
+        justlookAt: function (e) {
+            sth.commentEnchant.removefunc("onlysb");
+            if (e.target.innerText == "只看作者") {
+                var onlysb = prompt("打算只看谁的评论呢？填入Ta的昵称：", e.target.getAttribute("data-author"));
+                if (onlysb == null) {
+                    e.stopPropagation();
+                    return false;
+                };
+                sth.commentEnchant.addfunc("onlysb", "response", (response) => {
+                    function filter(obj, name) {
+                        const res = { entries: [], objects: {} };
+                        if (obj.entries.length == 0) {
+                            for (let x = 0; x < 1; x++) {
+                                res.entries.push({ id: 0 });
+                            };
+                        } else {
+                            for (let x = 0; x < 20; x++) {
+                                res.entries.push({ id: obj.entries[obj.entries.length - 1].id });
+                            };
+                        }
+                        Object.assign(res.objects, obj.objects);
+                        var s = new Set(obj.entries);
+                        s.forEach((i) => {
+                            if (i.author_id && obj.objects.users[i.author_id].name == name) {
+                                res.entries.push(i);
+                                res.entries.shift();
+                            };
+                        });
+                        return res;
+                    };
+                    function getreplies(url) {
+                        var res;
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("get", url, false);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                res = JSON.parse(xhr.responseText);
+                            };
+                        };
+                        xhr.send();
+                        return res;
+                    };
+                    var root = document.querySelectorAll(".onlyauthor-hook");
+                    if (response.config.url.indexOf("authorOnly=1") != -1 && root[root.length - 1].getAttribute("data-filter") == "true") {
+                        var res = getreplies(response.config.url.replace("&authorOnly=1", ""));
+                        var res_filted = filter(res, onlysb);
+                        response.response = JSON.stringify(res_filted);
+                        return response;
+                    };
+                });
+                e.target.setAttribute("data-filter", true)
+            } else {
+                sth.commentEnchant.removefunc("onlysb");
+            };
         },
         setajaxhook: function () {
             if (ah) {
