@@ -6,18 +6,14 @@ const sth = {
         last50atmsg: [],
         autorefresh: true,
         imgwidth: 50,
-        enableBetterComment:false
+        enableBetterComment: false
     },
     datas: {
-        ver: 0.52,
+        ver: 0.53,
         whatsnew: [
-            "当前脚本版本:0.52",
+            "当前脚本版本:0.53",
             "更新内容：",
-            "1、删除与原Mew重复的功能。之外删除的还有：按评论喜欢数排列。",
-            "2、原“只看作者”功能强化，可以仅查看任意一人在本帖的发言。需要先打开左下角的拓展功能开关。",
-            "3、隐藏贴内的“已删除评论”。（不然增强后的“只看”功能会惨不忍睹）",
-            "4、暗黑模式完善。",
-            "5、修复聊天室内被转为可点击url的发言的样式。"
+            "1、修复7月19日由于mew网页更新导致的脚本失效问题",
         ],
         activefunc: { request: {}, response: {} },
         cssmd5: "9b2d25179984a8a9be3255f26ccd60d6",
@@ -29,10 +25,10 @@ const sth = {
         autorefresh_checked: false,
         intv1: null
     },
-    savesettings: function () {
+    savesettings: function() {
         localStorage.setItem('settings', JSON.stringify(sth.settings));
     },
-    vsrsioncheck: function () {
+    vsrsioncheck: function() {
         if (!sth.settings.ver || sth.settings.ver != sth.datas.ver) {
             alert("感谢下载并使用mew增强脚本" + sth.datas.ver + "版！按下f12键打开控制台，以查看详细更新信息。");
             console.clear();
@@ -45,8 +41,8 @@ const sth = {
         }
         return false;
     },
-    urlclickable: function () {
-        const subf = function (el) {
+    urlclickable: function() {
+        const subf = function(el) {
             var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
             for (let i = 0; i < el.length; i++) {
                 if (el[i].className.indexOf("url-turned") == -1) {
@@ -73,9 +69,9 @@ const sth = {
                 root = null;
             };
         };
-        subf(document.querySelectorAll(".message-text_content-wrap__hZPyw"));
+        subf(document.querySelectorAll("[class^='message-text_content-wrap__']"));
     },
-    autorefresh: function () {
+    autorefresh: function() {
         if (!sth.marks.autorefresh_checked) {
             if (!sth.settings.autorefresh) {
                 document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx").click();
@@ -93,9 +89,9 @@ const sth = {
         };
         sth.marks.autorefresh_checked = true;
     },
-    calluser: function () {
-        if (document.querySelector(".card_name__3yGhB")) {
-            const toat = function (el) {
+    calluser: function() {
+        if (document.querySelector("[class^='card_name__']")) {
+            const toat = function(el) {
                 el.setAttribute("id", "called");
                 var a = document.createElement("a");
                 a.href = "#called";
@@ -103,7 +99,7 @@ const sth = {
                 el.removeAttribute("id");
                 a = null;
             };
-            const writeatmsg = function (user, msg) {
+            const writeatmsg = function(user, msg) {
                 if (sth.settings.last50atmsg.length >= 50) {
                     sth.settings.last50atmsg.shift();
                 };
@@ -113,14 +109,14 @@ const sth = {
                 });
                 sth.savesettings();
             };
-            const atexist = function (user, msg) {
+            const atexist = function(user, msg) {
                 return sth.settings.last50atmsg.some(i => {
                     if (i.user == user && i.msg == msg) { return true };
                 });
             };
-            var usernames = Array.from(document.querySelectorAll(".truncate.message-text_name__ygn9j")).concat(Array.from(document.querySelectorAll(".truncate.message-image_name__PClbf")));
-            var msgs = document.querySelectorAll(".message-text_content-wrap__hZPyw");
-            var atmsg = "@" + document.querySelector(".card_name__3yGhB").innerText;
+            var usernames = Array.from(document.querySelectorAll("[class^='message-stamp_name__']")).concat(Array.from(document.querySelectorAll("[class^='message-image_name__']")));
+            var msgs = document.querySelectorAll("[class^='message-text_content-wrap__']");
+            var atmsg = "@" + document.querySelector("[class^='card_name__']").innerText;
             for (let i = 0; i < usernames.length; i++) {
                 usernames[i].style = "cursor:pointer";
                 if (usernames[i].className.indexOf("call-enabled") == -1) {
@@ -133,7 +129,7 @@ const sth = {
                         document.querySelector("#copy-area").select();
                         document.execCommand("copy");
                         document.body.removeChild(cp);
-                        document.querySelectorAll(".message-container_textarea-bar__ZvlXz")[0].focus();
+                        document.querySelectorAll("[class^='message-container_textarea-bar__']")[0].focus();
                         cp = null;
                     });
                     usernames[i].classList.add("call-enabled");
@@ -142,7 +138,7 @@ const sth = {
             for (let x = 0; x < msgs.length; x++) {
                 if (msgs[x] && msgs[x].className.indexOf("called-checked") == -1 && msgs[x].innerText.indexOf(atmsg) != -1) {
                     var msg = msgs[x].innerText;
-                    var user = msgs[x].parentNode.querySelectorAll(".truncate.message-text_name__ygn9j")[0].innerText;
+                    var user = msgs[x].parentNode.querySelectorAll("[class^='message-stamp_name__']")[0].innerText;
                     if (!atexist(user, msg)) {
                         alert(user + " @了你");
                         toat(msgs[x].parentNode.parentNode.parentNode);
@@ -155,7 +151,7 @@ const sth = {
         };
     },
     GUIadjust: {
-        subf1: function (e, setting, min, max) {
+        subf1: function(e, setting, min, max) {
             switch (e.target.value) {
                 case min:
                 case "" + min:
@@ -183,8 +179,8 @@ const sth = {
             };
             sth.savesettings();
         },
-        subf2: function (opt) {
-            var sidebar = document.querySelector(".sidebar_root__6Jp7C");
+        subf2: function(opt) {
+            var sidebar = document.querySelector("[class^='sidebar_root__']");
             if (!document.querySelector("#" + opt.id)) {
                 var outerdiv = document.createElement("div");
                 outerdiv.id = opt.id + "-outerdiv";
@@ -219,7 +215,7 @@ const sth = {
                 };
             };
         },
-        subf3: function (outerdiv, opt) {
+        subf3: function(outerdiv, opt) {
             if (!outerdiv.querySelector("." + opt.id)) {
                 var el = document.createElement("div");
                 el.innerHTML = opt.icon;
@@ -238,8 +234,8 @@ const sth = {
             };
             return null;
         },
-        main: function () {
-            if (document.querySelector(".sidebar_root__6Jp7C")) {
+        main: function() {
+            if (document.querySelector("[class^='sidebar_root__']")) {
                 sth.GUIadjust.subf2({
                     max: 50,
                     min: 0,
@@ -320,10 +316,10 @@ const sth = {
                         (el) => {
                             el.addEventListener("change", (e) => {
                                 if (e.target.checked) {
-                                    document.querySelector(".desktop_root__3KNh_").style = "flex-direction: row-reverse;";
+                                    document.querySelector("[class^='desktop_root__']").style = "flex-direction: row-reverse;";
                                     sth.settings.totalreverse = true;
                                 } else {
-                                    document.querySelector(".desktop_root__3KNh_").style = "flex-direction: row;";
+                                    document.querySelector("[class^='desktop_root__']").style = "flex-direction: row;";
                                     sth.settings.totalreverse = false;
                                 };
                                 sth.savesettings();
@@ -356,12 +352,12 @@ const sth = {
                     ],
                     extra: (el) => {
                         var script = document.createElement("script");
-                        script.onload = function () {
+                        script.onload = function() {
                             if (sth.settings.enableBetterComment) {
                                 el.click();
                             };
                         };
-                        script.src = "https://unpkg.com/ajax-hook@2.0.3/dist/ajaxhook.min.js";//https://github.com/wendux/Ajax-hook
+                        script.src = "https://unpkg.com/ajax-hook@2.0.3/dist/ajaxhook.min.js"; //https://github.com/wendux/Ajax-hook
                         document.head.appendChild(script);
                     }
                 });
@@ -369,14 +365,14 @@ const sth = {
             if (document.querySelector("#comments")) {
                 var root = document.querySelectorAll("#comments");
                 if (!root[root.length - 1].querySelector(".onlyauthor-hook")) {
-                    var btn = root[root.length - 1].querySelectorAll(".comments_right-btn__3bCoO")[0];
+                    var btn = root[root.length - 1].querySelectorAll("[class^='comments_right-btn__']")[0];
                     btn.addEventListener("click", (e) => {
                         if (sth.settings.enableBetterComment) {
                             sth.commentEnchant.justlookAt(e);
                         };
                     });
                     btn.classList.add("onlyauthor-hook");
-                    btn.setAttribute("data-author", root[root.length - 1].querySelector(".thought_name__1SmAb").innerText);
+                    btn.setAttribute("data-author", root[root.length - 1].querySelector("[class^='thought_name__']").innerText);
                 };
                 if (!root[root.length - 1].querySelector(".thought-widget")) {
                     var outerdiv = document.createElement("div");
@@ -405,12 +401,12 @@ const sth = {
             document.body.style.setProperty("--imgleft", ((100 - sth.settings.imgwidth) / 2) + "%");
         },
     },
-    imgdl: function () {
+    imgdl: function() {
         var dlicon = document.createElement("div");
         dlicon.innerText = "下载";
         dlicon.id = "newdl";
-        if (!document.querySelector("#newdl") && document.querySelectorAll(".image_button__1Pu4L").length > 0) {
-            document.querySelectorAll(".image_button__1Pu4L")[1].parentNode.append(dlicon);
+        if (!document.querySelector("#newdl") && document.querySelectorAll("[class^='image_button__']").length > 0) {
+            document.querySelectorAll("[class^='image_button__']")[1].parentNode.append(dlicon);
             document.querySelector("#newdl").addEventListener("click", () => {
                 if (document.querySelectorAll("img.pswp__img")[1]) {
                     window.open(document.querySelectorAll("img.pswp__img")[1].src);
@@ -421,8 +417,8 @@ const sth = {
         };
         dlicon = null;
     },
-    search: function () {
-        const subf1 = function (_avatar, _nickname, _content, _date, data_id) {
+    search: function() {
+        const subf1 = function(_avatar, _nickname, _content, _date, data_id) {
             var item = document.createElement("div");
             item.className = "searchitem";
             item.innerHTML = '<div class="poster"><img><div style="display: flex;flex-direction: column;align-items: flex-start;padding: 0 0 0 5px;"><span class="nickname"></span><span class="date"></span></div></div><p class="content"></p>';
@@ -455,12 +451,12 @@ const sth = {
             document.querySelector("#searchres").appendChild(item);
             item = date = content = avatar = nick = null;
         };
-        const subf2 = function (query) {
+        const subf2 = function(query) {
             var xhr = new XMLHttpRequest();
             var node = window.location.pathname.slice(3);
             xhr.open("get", "https://api.mew.fun/api/v1/nodes/" + node + "/search-thoughts?keyword=" + query + "&limit=100", true);
             xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTA3MzY2NTM5OTgwODAwIiwiaWF0IjoxNjIzNjg2MjQ2fQ.0cN11hX3KGfdPoEwMnIffODjvnYy9Rt6EbHBdgg282c");
-            xhr.onreadystatechange = function () {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState != 4) {
                     document.querySelector("#searchres").innerHTML = "";
                     subf1(sth.datas.defaultavatar, "提示", "正在努力搜索中！")
@@ -508,19 +504,19 @@ const sth = {
                 s = null;
             });
             searchicon.innerHTML = sth.datas.searchicon;
-            document.querySelector(".sidebar_logo__WsdlD").after(searchicon);
+            document.querySelector("[class^='sidebar_logo__']").after(searchicon);
             searchicon = null;
         };
     },
     commentEnchant: {
-        addfunc: function (funcname, on, func) {
+        addfunc: function(funcname, on, func) {
             sth.datas.activefunc[on][funcname] = func;
         },
-        removefunc: function (funcname) {
+        removefunc: function(funcname) {
             delete sth.datas.activefunc.request[funcname];
             delete sth.datas.activefunc.response[funcname];
         },
-        justlookAt: function (e) {
+        justlookAt: function(e) {
             sth.commentEnchant.removefunc("onlysb");
             if (e.target.innerText == "只看作者") {
                 var onlysb = prompt("打算只看谁的评论呢？填入Ta的昵称：", e.target.getAttribute("data-author"));
@@ -550,11 +546,12 @@ const sth = {
                         });
                         return res;
                     };
+
                     function getreplies(url) {
                         var res;
                         var xhr = new XMLHttpRequest();
                         xhr.open("get", url, false);
-                        xhr.onreadystatechange = function () {
+                        xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4 && xhr.status == 200) {
                                 res = JSON.parse(xhr.responseText);
                             };
@@ -575,7 +572,7 @@ const sth = {
                 sth.commentEnchant.removefunc("onlysb");
             };
         },
-        setajaxhook: function () {
+        setajaxhook: function() {
             if (ah) {
                 ah.proxy({
                     onRequest: (config, handler) => {
@@ -600,7 +597,7 @@ const sth = {
             };
         }
     },
-    act: function () {
+    act: function() {
         if (localStorage.settings) {
             sth.settings = JSON.parse(localStorage.settings);
         } else {
@@ -610,11 +607,11 @@ const sth = {
             var e = document.createElement("link");
             e.rel = "stylesheet";
             e.type = "text/css";
-            e.href = "https://cdn.jsdelivr.net/gh/yige233/bettermew/mew.css?md5="+sth.datas.cssmd5;
+            e.href = "https://cdn.jsdelivr.net/gh/yige233/bettermew/mew.css?md5=" + sth.datas.cssmd5;
             document.head.appendChild(e);
             e = null;
         })();
-        var observer = new MutationObserver(function () {
+        var observer = new MutationObserver(function() {
             try {
                 sth.urlclickable();
                 sth.imgdl();
@@ -622,8 +619,7 @@ const sth = {
                 sth.calluser();
                 sth.autorefresh();
                 sth.search();
-            }
-            catch (err) {
+            } catch (err) {
                 console.log(err);
                 return false;
             };
@@ -637,4 +633,3 @@ const sth = {
     }
 };
 sth.act();
-

@@ -1,24 +1,24 @@
-.topic-selector_root__3hWXB:hover {
+[class^='topic-selector_root__']:hover {
     height: unset
 }
 
-.topic-selector_root__3hWXB button {
+[class^='topic-selector_root__'] button {
     height: 30px;
     margin: 5px 5px 0px 0px;
 }
 
-.topic-selector_root__3hWXB {
+[class^='topic-selector_root__'] {
     height: 43px;
     flex-wrap: wrap;
 }
 
-.thought_content__2tOby p {
+[class^='thought_content__'] p {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.thought_root__2UUuy {
+[class^='thought_root__'] {
     padding: 1px 1px 1px 1px;
 }
 
@@ -32,38 +32,50 @@ body {
     left: 5%;
 }
 
-.thought_root__2UUuy .thought_topic-wrapper__i6-5O {
+[class^='thought_root__'] [class^='thought_topic-wrapper__'] {
     margin-top: 0px;
 }
 
-.thought_root__2UUuy .actions_actions-with-reactions-wrapper__2tjMB, .thought_root__2UUuy .thought_head__1Ww2C {
+[class^='thought_root__'] [class^='actions_actions-with-reactions-wrapper__'],
+[class^='thought_root__'] [class^='thought_head__'] {
     margin-bottom: 0px;
     margin-top: 0px;
     transform: scale(0.75);
     margin-left: -14%;
 }
 
-.post-preview_cover__DkpA8, .thought_img-wrapper__1uyhs, .card_frame-wrapper__RmrBC, .thought_player-wrapper__jVn4a, .typing-bar_typing-wrap__VbL8K, .card_third-thumb-wrapper__Av98_, .comment-item_deleted__2jlzI {
+[class^='post-preview_cover__'],
+[class^='thought_img-wrapper__'],
+[class^='card_frame-wrapper__'],
+[class^='hought_player-wrapper__'],
+[class^='typing-bar_typing-wrap__'],
+[class^='card_third-thumb-wrapper__'],
+[class^='comment-item_deleted__'] {
     display: none;
 }
 
-.images-grid_root__2SUMq {
+[class^='images-grid_root__'] {
     width: var(--imgwidth);
     left: var(--imgleft);
 }
 
-.comment-item_images-area__2m9_H {
+[class^='comment-item_images-area__'] {
     width: 70%;
     left: 15%;
 }
 
-.bg-gray-300 {
+p>.bg-gray-300 {
     background-color: unset;
     width: var(--imgwidth);
     left: var(--imgleft);
 }
 
-.images-grid_img-ratio__1RAW9 {
+div>.bg-gray-300 {
+    width: unset;
+    height: unset;
+}
+
+[class^='images-grid_img-ratio__'] {
     width: unset;
 }
 
@@ -157,11 +169,13 @@ body {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
-.searchitem .content, #searchicon {
+.searchitem .content,
+#searchicon {
     cursor: pointer;
 }
 
-.searchitem div, .searchitem p {
+.searchitem div,
+.searchitem p {
     padding: 0px 10px 10px 10px;
 }
 
@@ -186,7 +200,7 @@ body {
     font-size: 10px;
 }
 
-.desktop_left-container__iDp7e {
+[class^='desktop_left-container__'] {
     flex-basis: var(--leftsidewidth) !important
 }
 
@@ -195,20 +209,24 @@ body {
     color: rgb(255 70 175);
 }
 
-.desktop_right-container__KZ6_1 {
+[class^='desktop_right-container__'] {
     flex-basis: var(--rightsidewidth) !important
 }
 
-.base_root__2YsYm {
+[class^='base_root__'] {
     z-index: 9 !important
 }
 
-.message-text_content-wrap__hZPyw {
+[class^='message-text_content-wrap__'] {
     display: block;
 }
 
-.comments_modal__2b0m5 {
+[class^='comments_modal__'] {
     z-index: 10 !important;
+}
+
+[class^='comments_modal-out__'] {
+    max-width: 50%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -240,56 +258,94 @@ body {
         --colors-background-dialog: 55 55 55;
         --colors-background-heading: 45 45 45;
     }
-    .thought-view_post-content__3nf-X>div p, h1, h2, h3 {
+    [class^='thought-view_post-content__']>div p,
+    h1,
+    h2,
+    h3 {
         color: rgb(var(--colors-emphasis)) !important;
     }
-    div.message-container_list__3Fisu>div, div.message-container_list__3Fisu, .message-stamp_bubble__3rEa-, .containers_middle-root__WMWjt {
+    [class^='message-container_list__']>div,
+    [class^='message-container_list__'],
+    [class^='message-stamp_bubble__'],
+    [class^='containers_middle-root__'] {
         background-color: rgb(var(--colors-background-lighter));
     }
-    .containers_chat-header__1U1gU, .message-container_reply-bar__3Gbmt {
+    [class^='containers_chat-header__'],
+    [class^='message-container_reply-bar__'] {
         background-color: rgb(var(--colors-background-darker)) !important;
     }
-    .thought_info-wrapper__2IoVP {
+    [class^='thought_info-wrapper__'] {
         color: white;
     }
-    .thought_info-wrapper__2IoVP:hover {
+    [class^='thought_info-wrapper__']:hover {
         background-color: rgb(var(--colors-gray-200));
     }
-    textarea, .pin-list_root__1kBek, .comments_title-bar__361Cc {
+    textarea,
+    [class^='pin-list_root__'],
+    [class^='comments_title-bar__'] {
         background: rgb(var(--colors-background-lighter)) !important;
     }
     div.w-full.flex.justify-center.absolute.top-0.z-10.bg-background-regular.h-14.items-center {
         background-color: rgb(var(--colors-background-regular)) !important;
     }
-    .comment-item_name__3XDYe, .comment-item_action-btn___t_Lq, .text-sm.truncate, .card_name__sI-us, .text-black {
+    [class^='comment-item_name__'],
+    [class^='comment-item_action-btn__'],
+    .text-sm.truncate,
+    [class^='card_name__'],
+    .text-black {
         color: rgb(var(--colors-msg));
     }
-    .containers_selector__tMuOU {
+    [class^='containers_selector__'] {
         background-color: rgb(var(--colors-background-regular));
     }
-    .card_root__185Tc, .button_reaction-btn__1pz7w, .search-bar_input__3bvsA {
+    [class^='card_root__'],
+    [class^='button_reaction-btn__'],
+    [class^='search-bar_input__'] {
         background-color: rgb(var(--colors-background-receive-msg));
     }
-    .card_content__2Ll2o, .item-in-list_header__31CU8, .thought_quote-bar__1sliX, .font-medium, .text-md.truncate, .text-3xl, .text-xl, .my-4, .wiki-item_header__2XrPK, .text-2xl, div.MuiDialogContent-root>p, .user-setting-dialog_header__8oNfm, .right_white-btn__2jyHw, .ProseMirror, .searchdisplay div.form div {
+    [class^='card_content__'],
+    [class^='item-in-list_header__'],
+    [class^='thought_quote-bar__'],
+    .font-medium,
+    .text-md.truncate,
+    .text-3xl,
+    .text-xl,
+    .my-4,
+    [class^='wiki-item_header__'],
+    .text-2xl,
+    div.MuiDialogContent-root>p,
+    [class^='user-setting-dialog_header__'],
+    [class^='right_white-btn__'],
+    .ProseMirror,
+    .searchdisplay div.form div {
         color: rgb(var(--colors-receive-msg));
     }
-    .MuiPaper-elevation16, .MuiPaper-elevation {
+    .MuiPaper-elevation16,
+    .MuiPaper-elevation {
         background-color: rgb(var(--colors-background-regular));
     }
-    .base_root__1cPwo.base_card__2LZP5.base_no-outline__2oRvM, .base_root__1cPwo.base_card__2LZP5.base_no-outline__2oRvM:active, .card_action-btn__1mWBv {
+    [class^='base_no-outline__'],
+    [class^='base_no-outline__']:active,
+    [class^='card_action-btn__'] {
         background-color: rgb(var(--colors-background-receive-msg));
         color: rgb(var(--colors-receive-msg));
     }
-    .card_identity-card-root-desktop__2MtG1 .card_action-btn__1mWBv, input.text-field_input__3AyuA, .text-field_root__2eE2I, .searchitem, .searchdisplay input {
+    [class^='card_identity-card-root-desktop__'] [class^='card_action-btn__'],
+    [class^='text-field_input__'],
+    [class^='text-field_root__'],
+    .searchitem,
+    .searchdisplay input {
         background-color: rgb(var(--colors-background-receive-msg));
         color: rgb(var(--colors-receive-msg));
     }
-    .message-container_reaction-panel__1God9, .drawer_root__1WN7c.drawer_is-menu__4jjkJ.drawer_dialog__1N_bY, .plain-input_compose-textarea-wrapper__3oJPr {
+    [class^='message-container_reaction-panel__'],
+    [class^='drawer_dialog__'],
+    [class^='plain-input_compose-textarea-wrapper__'] {
         background-color: rgb(var(--colors-background-morelighter));
     }
 }
 
-.comment-item_root__1jR_s {
+[class^='comment-item_root__'] {
     content-visibility: auto;
     min-width: 500px;
 }
@@ -325,7 +381,8 @@ input.switcher+label {
     user-select: none;
 }
 
-input.switcher+label:before, input.switcher+label:after {
+input.switcher+label:before,
+input.switcher+label:after {
     display: block;
     position: absolute;
     top: 0px;
