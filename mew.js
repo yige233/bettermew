@@ -4,19 +4,18 @@ const sth = {
         rightsidewidth: 20,
         totalreverse: false,
         last50atmsg: [],
-        autorefresh: true,
         imgwidth: 50,
         enableBetterComment: false
     },
     datas: {
-        ver: 0.53,
+        ver: 0.54,
         whatsnew: [
-            "当前脚本版本:0.53",
+            "当前脚本版本:0.54",
             "更新内容：",
-            "1、修复7月19日由于mew网页更新导致的脚本失效问题",
+            "1、删除保存自动刷新状态功能：mew已支持该功能。"
         ],
         activefunc: { request: {}, response: {} },
-        cssmd5: "9b2d25179984a8a9be3255f26ccd60d6",
+        cssmd5: "0c3fc3ef9bf08c01c9c9cca45280204e",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>',
         totopicon: '<svg t="1624339130920" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1179" width="40" height="40"><path d="M708.85376 416.19456c0 2.0992-0.65536 4.1984-1.9968 5.96992-2.68288 3.56352-7.424 4.89472-11.5712 3.24608L571.52512 376.5248l0 286.52544c0 5.4784-4.44416 9.92256-9.9328 9.92256l-99.18464 0c-5.46816 0-9.91232-4.44416-9.91232-9.92256L452.49536 376.5248l-123.78112 48.88576c-4.13696 1.6384-8.87808 0.3072-11.56096-3.24608-2.69312-3.56352-2.68288-8.47872 0.06144-12.01152L504.13568 167.0144c1.88416-2.44736 4.78208-3.87072 7.86432-3.87072s5.9904 1.4336 7.86432 3.87072l186.9312 243.13856C708.15744 411.92448 708.85376 414.0544 708.85376 416.19456zM512 726.51776c-46.32576 0-83.88608 37.55008-83.88608 83.88608 0 46.336 37.56032 83.88608 83.88608 83.88608s83.89632-37.55008 83.89632-83.88608C595.89632 764.07808 558.32576 726.51776 512 726.51776z" p-id="1180" fill="#bfbfbf"></path></svg>',
@@ -70,24 +69,6 @@ const sth = {
             };
         };
         subf(document.querySelectorAll("[class^='message-text_content-wrap__']"));
-    },
-    autorefresh: function() {
-        if (!sth.marks.autorefresh_checked) {
-            if (!sth.settings.autorefresh) {
-                document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx").click();
-            };
-            sth.marks.intv1 = setInterval(() => {
-                if (document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx")) {
-                    var switcher = document.querySelector(".MuiSwitch-input.PrivateSwitchBase-input.css-mraihx");
-                    if (sth.settings.autorefresh != switcher.checked) {
-                        sth.settings.autorefresh = switcher.checked;
-                        sth.savesettings();
-                    };
-                    switcher = null;
-                };
-            }, 1000);
-        };
-        sth.marks.autorefresh_checked = true;
     },
     calluser: function() {
         if (document.querySelector("[class^='card_name__']")) {
@@ -617,7 +598,6 @@ const sth = {
                 sth.imgdl();
                 sth.GUIadjust.main();
                 sth.calluser();
-                sth.autorefresh();
                 sth.search();
             } catch (err) {
                 console.log(err);
