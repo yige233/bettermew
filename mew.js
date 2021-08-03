@@ -1,38 +1,47 @@
 const sth = {
     settings: {
+        bl: [],
         leftsidewidth: 20,
         rightsidewidth: 20,
         totalreverse: false,
         last50atmsg: [],
         imgwidth: 50,
-        enableBetterComment: false
+        enableBetterComment: false,
     },
     datas: {
-        ver: 0.54,
+        ver: 0.55,
         whatsnew: [
-            "当前脚本版本:0.54",
+            "当前脚本版本:0.55",
             "更新内容：",
-            "1、删除保存自动刷新状态功能：mew已支持该功能。"
+            "1、增加黑名单功能。黑名单中的人在聊天室的发言将会被隐藏。",
+            "2、更换“搜索”图标。"
         ],
         activefunc: { request: {}, response: {} },
-        cssmd5: "0c3fc3ef9bf08c01c9c9cca45280204e",
+        cssmd5: "f3a2721e0dd6d307e5ca2ea0e98fb03b",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
-        searchicon: '<svg xmlns="http://www.w3.org/2000/svg" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" style="transform: rotate(360deg);width:40px;"><path d="M232.477 215.516l-40.678-40.678a96.108 96.108 0 1 0-16.972 16.97l40.679 40.678a12 12 0 1 0 16.97-16.97zM43.997 116a72 72 0 1 1 72 72a72.081 72.081 0 0 1-72-72z" fill="currentColor"></path></svg>',
+        searchicon: '<svg t="1627976673096" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7438" width="20" height="20"><path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z" fill="#7294da" p-id="7439"></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136 147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392 138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z" fill="#7294da" p-id="7440"></path></svg>',
         totopicon: '<svg t="1624339130920" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1179" width="40" height="40"><path d="M708.85376 416.19456c0 2.0992-0.65536 4.1984-1.9968 5.96992-2.68288 3.56352-7.424 4.89472-11.5712 3.24608L571.52512 376.5248l0 286.52544c0 5.4784-4.44416 9.92256-9.9328 9.92256l-99.18464 0c-5.46816 0-9.91232-4.44416-9.91232-9.92256L452.49536 376.5248l-123.78112 48.88576c-4.13696 1.6384-8.87808 0.3072-11.56096-3.24608-2.69312-3.56352-2.68288-8.47872 0.06144-12.01152L504.13568 167.0144c1.88416-2.44736 4.78208-3.87072 7.86432-3.87072s5.9904 1.4336 7.86432 3.87072l186.9312 243.13856C708.15744 411.92448 708.85376 414.0544 708.85376 416.19456zM512 726.51776c-46.32576 0-83.88608 37.55008-83.88608 83.88608 0 46.336 37.56032 83.88608 83.88608 83.88608s83.89632-37.55008 83.89632-83.88608C595.89632 764.07808 558.32576 726.51776 512 726.51776z" p-id="1180" fill="#bfbfbf"></path></svg>',
     },
     marks: {
         autorefresh_checked: false,
-        intv1: null
+        intv1: null,
     },
     savesettings: function() {
-        localStorage.setItem('settings', JSON.stringify(sth.settings));
+        localStorage.setItem("settings", JSON.stringify(sth.settings));
     },
     vsrsioncheck: function() {
         if (!sth.settings.ver || sth.settings.ver != sth.datas.ver) {
-            alert("感谢下载并使用mew增强脚本" + sth.datas.ver + "版！按下f12键打开控制台，以查看详细更新信息。");
+            alert(
+                "感谢下载并使用mew增强脚本" +
+                sth.datas.ver +
+                "版！按下f12键打开控制台，以查看详细更新信息。"
+            );
             console.clear();
             for (let i = 0; i < sth.datas.whatsnew.length; i++) {
-                console.log("%c" + sth.datas.whatsnew[i], "color: rgb(125 125 125);font-size:16px");
+                console.log(
+                    "%c" + sth.datas.whatsnew[i],
+                    "color: rgb(125 125 125);font-size:16px"
+                );
             }
             sth.settings.ver = sth.datas.ver;
             sth.savesettings();
@@ -42,32 +51,35 @@ const sth = {
     },
     urlclickable: function() {
         const subf = function(el) {
-            var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+            var reg =
+                /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
             for (let i = 0; i < el.length; i++) {
                 if (el[i].className.indexOf("url-turned") == -1) {
                     var txt = el[i].innerText;
                     var s = txt.match(reg);
                     if (s) {
                         for (let x = 0; x < s.length; x++) {
-                            var url = "<a href=" + s[x] + " target=\"_blank\">" + s[x] + "</a>";
+                            var url = "<a href=" + s[x] + ' target="_blank">' + s[x] + "</a>";
                             txt = txt.replace(s[x], url);
                         }
                         el[i].classList.add("url-turned");
                         el[i].innerHTML = txt;
-                    };
-                };
-            };
+                    }
+                }
+            }
             reg = null;
         };
         if (document.querySelector(".MuiPaper-elevation16")) {
-            for (let i = 0; i < document.querySelectorAll(".MuiPaper-elevation16").length; i++) {
+            for (
+                let i = 0; i < document.querySelectorAll(".MuiPaper-elevation16").length; i++
+            ) {
                 var root = document.querySelectorAll(".MuiPaper-root")[i];
                 subf(root.querySelectorAll("p"));
                 subf(root.querySelectorAll("h3"));
                 subf(root.querySelectorAll("h2"));
                 root = null;
-            };
-        };
+            }
+        }
         subf(document.querySelectorAll("[class^='message-text_content-wrap__']"));
     },
     calluser: function() {
@@ -83,21 +95,32 @@ const sth = {
             const writeatmsg = function(user, msg) {
                 if (sth.settings.last50atmsg.length >= 50) {
                     sth.settings.last50atmsg.shift();
-                };
+                }
                 sth.settings.last50atmsg.push({
                     user: user,
-                    msg: msg
+                    msg: msg,
                 });
                 sth.savesettings();
             };
             const atexist = function(user, msg) {
-                return sth.settings.last50atmsg.some(i => {
-                    if (i.user == user && i.msg == msg) { return true };
+                return sth.settings.last50atmsg.some((i) => {
+                    if (i.user == user && i.msg == msg) {
+                        return true;
+                    }
                 });
             };
-            var usernames = Array.from(document.querySelectorAll("[class^='message-stamp_name__']")).concat(Array.from(document.querySelectorAll("[class^='message-image_name__']")));
-            var msgs = document.querySelectorAll("[class^='message-text_content-wrap__']");
-            var atmsg = "@" + document.querySelector("[class^='card_name__']").innerText;
+            var usernames = Array.from(
+                document.querySelectorAll("[class^='truncate message-text_name__']")
+            ).concat(
+                Array.from(
+                    document.querySelectorAll("[class^='truncate message-image_name__']")
+                )
+            );
+            var msgs = document.querySelectorAll(
+                "[class^='message-text_content-wrap__']"
+            );
+            var atmsg =
+                "@" + document.querySelector("[class^='card_name__']").innerText;
             for (let i = 0; i < usernames.length; i++) {
                 usernames[i].style = "cursor:pointer";
                 if (usernames[i].className.indexOf("call-enabled") == -1) {
@@ -110,26 +133,37 @@ const sth = {
                         document.querySelector("#copy-area").select();
                         document.execCommand("copy");
                         document.body.removeChild(cp);
-                        document.querySelectorAll("[class^='message-container_textarea-bar__']")[0].focus();
+                        document
+                            .querySelectorAll(
+                                "[class^='message-container_textarea-bar__']"
+                            )[0]
+                            .focus();
                         cp = null;
                     });
                     usernames[i].classList.add("call-enabled");
-                };
-            };
+                    sth.blacklist.main(usernames[i]);
+                }
+            }
             for (let x = 0; x < msgs.length; x++) {
-                if (msgs[x] && msgs[x].className.indexOf("called-checked") == -1 && msgs[x].innerText.indexOf(atmsg) != -1) {
+                if (
+                    msgs[x] &&
+                    msgs[x].className.indexOf("called-checked") == -1 &&
+                    msgs[x].innerText.indexOf(atmsg) != -1
+                ) {
                     var msg = msgs[x].innerText;
-                    var user = msgs[x].parentNode.querySelectorAll("[class^='message-stamp_name__']")[0].innerText;
+                    var user = msgs[x].parentNode.querySelectorAll(
+                        "[class^='truncate message-text_name__']"
+                    )[0].innerText;
                     if (!atexist(user, msg)) {
                         alert(user + " @了你");
                         toat(msgs[x].parentNode.parentNode.parentNode);
-                        writeatmsg(user, msg)
+                        writeatmsg(user, msg);
                         msgs[x].classList.add("called-checked");
                     }
-                };
+                }
             }
             usernames = msgs = atmsg = null;
-        };
+        }
     },
     GUIadjust: {
         subf1: function(e, setting, min, max) {
@@ -139,14 +173,14 @@ const sth = {
                     if (e.deltaY < 0) {
                         sth.settings[setting]++;
                         e.target.value++;
-                    };
+                    }
                     break;
                 case max:
                 case "" + max:
                     if (e.deltaY > 0) {
                         sth.settings[setting]--;
                         e.target.value--;
-                    };
+                    }
                     break;
                 default:
                     if (e.deltaY < 0) {
@@ -155,9 +189,9 @@ const sth = {
                     } else {
                         sth.settings[setting]--;
                         e.target.value--;
-                    };
+                    }
                     break;
-            };
+            }
             sth.savesettings();
         },
         subf2: function(opt) {
@@ -188,13 +222,13 @@ const sth = {
                 }
                 for (let i = 0; i < opt.events.length; i++) {
                     opt.events[i](el);
-                };
+                }
                 outerdiv.prepend(el);
                 sidebar.append(outerdiv);
                 if (opt.extra) {
                     opt.extra(el);
-                };
-            };
+                }
+            }
         },
         subf3: function(outerdiv, opt) {
             if (!outerdiv.querySelector("." + opt.id)) {
@@ -204,15 +238,15 @@ const sth = {
                 el.classList.add(opt.id);
                 if (opt.style) {
                     el.style = opt.style;
-                };
+                }
                 for (let i = 0; i < opt.events.length; i++) {
                     opt.events[i](el);
-                };
+                }
                 if (opt.extra) {
                     opt.extra(el);
-                };
+                }
                 return el;
-            };
+            }
             return null;
         },
         main: function() {
@@ -233,13 +267,13 @@ const sth = {
                             });
                         },
                         (el) => {
-                            el.addEventListener('wheel', (e) => {
+                            el.addEventListener("wheel", (e) => {
                                 e.target.title = "想法栏宽度:" + e.target.value + "%";
                                 e.preventDefault();
                                 sth.GUIadjust.subf1(e, "leftsidewidth", 0, 50);
                             });
-                        }
-                    ]
+                        },
+                    ],
                 });
                 sth.GUIadjust.subf2({
                     max: 50,
@@ -257,13 +291,13 @@ const sth = {
                             });
                         },
                         (el) => {
-                            el.addEventListener('wheel', (e) => {
+                            el.addEventListener("wheel", (e) => {
                                 e.target.title = "信息栏宽度:" + e.target.value + "%";
                                 e.preventDefault();
                                 sth.GUIadjust.subf1(e, "rightsidewidth", 0, 50);
                             });
-                        }
-                    ]
+                        },
+                    ],
                 });
                 sth.GUIadjust.subf2({
                     max: 100,
@@ -281,12 +315,12 @@ const sth = {
                             });
                         },
                         (el) => {
-                            el.addEventListener('wheel', (e) => {
+                            el.addEventListener("wheel", (e) => {
                                 e.target.title = "图片大小:" + e.target.value + "%";
                                 e.preventDefault();
                                 sth.GUIadjust.subf1(e, "imgwidth", 0, 100);
                             });
-                        }
+                        },
                     ],
                 });
                 sth.GUIadjust.subf2({
@@ -297,12 +331,14 @@ const sth = {
                         (el) => {
                             el.addEventListener("change", (e) => {
                                 if (e.target.checked) {
-                                    document.querySelector("[class^='desktop_root__']").style = "flex-direction: row-reverse;";
+                                    document.querySelector("[class^='desktop_root__']").style =
+                                        "flex-direction: row-reverse;";
                                     sth.settings.totalreverse = true;
                                 } else {
-                                    document.querySelector("[class^='desktop_root__']").style = "flex-direction: row;";
+                                    document.querySelector("[class^='desktop_root__']").style =
+                                        "flex-direction: row;";
                                     sth.settings.totalreverse = false;
-                                };
+                                }
                                 sth.savesettings();
                             });
                         },
@@ -310,8 +346,8 @@ const sth = {
                     extra: (el) => {
                         if (sth.settings.totalreverse) {
                             el.click();
-                        };
-                    }
+                        }
+                    },
                 });
                 sth.GUIadjust.subf2({
                     type: "checkbox",
@@ -326,7 +362,7 @@ const sth = {
                                 } else {
                                     sth.settings.enableBetterComment = false;
                                     ah.unProxy();
-                                };
+                                }
                                 sth.savesettings();
                             });
                         },
@@ -336,73 +372,109 @@ const sth = {
                         script.onload = function() {
                             if (sth.settings.enableBetterComment) {
                                 el.click();
-                            };
+                            }
                         };
-                        script.src = "https://unpkg.com/ajax-hook@2.0.3/dist/ajaxhook.min.js"; //https://github.com/wendux/Ajax-hook
+                        script.src =
+                            "https://unpkg.com/ajax-hook@2.0.3/dist/ajaxhook.min.js"; //https://github.com/wendux/Ajax-hook
                         document.head.appendChild(script);
-                    }
+                    },
                 });
-            };
+            }
             if (document.querySelector("#comments")) {
                 var root = document.querySelectorAll("#comments");
                 if (!root[root.length - 1].querySelector(".onlyauthor-hook")) {
-                    var btn = root[root.length - 1].querySelectorAll("[class^='comments_right-btn__']")[0];
+                    var btn = root[root.length - 1].querySelectorAll(
+                        "[class^='comments_right-btn__']"
+                    )[0];
                     btn.addEventListener("click", (e) => {
                         if (sth.settings.enableBetterComment) {
                             sth.commentEnchant.justlookAt(e);
-                        };
+                        }
                     });
                     btn.classList.add("onlyauthor-hook");
-                    btn.setAttribute("data-author", root[root.length - 1].querySelector("[class^='thought_name__']").innerText);
-                };
+                    btn.setAttribute(
+                        "data-author",
+                        root[root.length - 1].querySelector("[class^='thought_name__']")
+                        .innerText
+                    );
+                }
                 if (!root[root.length - 1].querySelector(".thought-widget")) {
                     var outerdiv = document.createElement("div");
                     outerdiv.className = "thought-widget";
                     root[root.length - 1].appendChild(outerdiv);
-                    outerdiv.appendChild(sth.GUIadjust.subf3(outerdiv, {
-                        id: "to-top",
-                        icon: sth.datas.totopicon,
-                        title: "回到顶部",
-                        events: [(el) => {
-                            el.addEventListener("click", (e) => {
-                                var target = e.target;
-                                if (e.target.tagName == "path") { target = e.target.parentNode.parentNode };
-                                if (e.target.tagName == "svg") { target = e.target.parentNode };
-                                target.parentNode.parentNode.scrollTo({ top: 0, behavior: "smooth" });
-                                target = null;
-                            });
-                        }]
-                    }));
-                };
+                    outerdiv.appendChild(
+                        sth.GUIadjust.subf3(outerdiv, {
+                            id: "to-top",
+                            icon: sth.datas.totopicon,
+                            title: "回到顶部",
+                            events: [
+                                (el) => {
+                                    el.addEventListener("click", (e) => {
+                                        var target = e.target;
+                                        if (e.target.tagName == "path") {
+                                            target = e.target.parentNode.parentNode;
+                                        }
+                                        if (e.target.tagName == "svg") {
+                                            target = e.target.parentNode;
+                                        }
+                                        target.parentNode.parentNode.scrollTo({
+                                            top: 0,
+                                            behavior: "smooth",
+                                        });
+                                        target = null;
+                                    });
+                                },
+                            ],
+                        })
+                    );
+                }
                 root = null;
-            };
-            document.body.style.setProperty("--leftsidewidth", sth.settings.leftsidewidth + "%");
-            document.body.style.setProperty("--rightsidewidth", sth.settings.rightsidewidth + "%");
-            document.body.style.setProperty("--imgwidth", sth.settings.imgwidth + "%");
-            document.body.style.setProperty("--imgleft", ((100 - sth.settings.imgwidth) / 2) + "%");
+            }
+            document.body.style.setProperty(
+                "--leftsidewidth",
+                sth.settings.leftsidewidth + "%"
+            );
+            document.body.style.setProperty(
+                "--rightsidewidth",
+                sth.settings.rightsidewidth + "%"
+            );
+            document.body.style.setProperty(
+                "--imgwidth",
+                sth.settings.imgwidth + "%"
+            );
+            document.body.style.setProperty(
+                "--imgleft",
+                (100 - sth.settings.imgwidth) / 2 + "%"
+            );
+            sth.blacklist.blarea();
         },
     },
     imgdl: function() {
         var dlicon = document.createElement("div");
         dlicon.innerText = "下载";
         dlicon.id = "newdl";
-        if (!document.querySelector("#newdl") && document.querySelectorAll("[class^='image_button__']").length > 0) {
-            document.querySelectorAll("[class^='image_button__']")[1].parentNode.append(dlicon);
+        if (!document.querySelector("#newdl") &&
+            document.querySelectorAll("[class^='image_button__']").length > 0
+        ) {
+            document
+                .querySelectorAll("[class^='image_button__']")[1]
+                .parentNode.append(dlicon);
             document.querySelector("#newdl").addEventListener("click", () => {
                 if (document.querySelectorAll("img.pswp__img")[1]) {
                     window.open(document.querySelectorAll("img.pswp__img")[1].src);
                 } else {
                     window.open(document.querySelector("img.pswp__img").src);
-                };
+                }
             });
-        };
+        }
         dlicon = null;
     },
     search: function() {
         const subf1 = function(_avatar, _nickname, _content, _date, data_id) {
             var item = document.createElement("div");
             item.className = "searchitem";
-            item.innerHTML = '<div class="poster"><img><div style="display: flex;flex-direction: column;align-items: flex-start;padding: 0 0 0 5px;"><span class="nickname"></span><span class="date"></span></div></div><p class="content"></p>';
+            item.innerHTML =
+                '<div class="poster"><img><div style="display: flex;flex-direction: column;align-items: flex-start;padding: 0 0 0 5px;"><span class="nickname"></span><span class="date"></span></div></div><p class="content"></p>';
             var avatar = item.querySelector("img");
             avatar.src = _avatar;
             var nick = item.querySelector(".nickname");
@@ -412,22 +484,25 @@ const sth = {
             date.className = "date";
             if (_date) {
                 date.innerText = "发表于 " + new Date(_date).toLocaleString();
-            };
+            }
             var content = item.querySelector(".content");
             if (_content) {
                 content.innerText = _content;
             } else {
-                content.innerText = "该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情";
-            };
+                content.innerText =
+                    "该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情";
+            }
             content.setAttribute("data-id", data_id);
             content.addEventListener("click", (e) => {
-                if (e.target.tagName == "A") { return false };
+                if (e.target.tagName == "A") {
+                    return false;
+                }
                 var data_id = e.target.getAttribute("data-id");
                 if (data_id) {
                     window.open("https://mew.fun/Recouper/thoughts/" + data_id);
                 } else {
                     alert("无法打开该想法的链接！");
-                };
+                }
             });
             document.querySelector("#searchres").appendChild(item);
             item = date = content = avatar = nick = null;
@@ -435,32 +510,63 @@ const sth = {
         const subf2 = function(query) {
             var xhr = new XMLHttpRequest();
             var node = window.location.pathname.slice(3);
-            xhr.open("get", "https://api.mew.fun/api/v1/nodes/" + node + "/search-thoughts?keyword=" + query + "&limit=100", true);
-            xhr.setRequestHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTA3MzY2NTM5OTgwODAwIiwiaWF0IjoxNjIzNjg2MjQ2fQ.0cN11hX3KGfdPoEwMnIffODjvnYy9Rt6EbHBdgg282c");
+            xhr.open(
+                "get",
+                "https://api.mew.fun/api/v1/nodes/" +
+                node +
+                "/search-thoughts?keyword=" +
+                query +
+                "&limit=100",
+                true
+            );
+            xhr.setRequestHeader(
+                "Authorization",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTA3MzY2NTM5OTgwODAwIiwiaWF0IjoxNjIzNjg2MjQ2fQ.0cN11hX3KGfdPoEwMnIffODjvnYy9Rt6EbHBdgg282c"
+            );
             xhr.onreadystatechange = function() {
                 if (xhr.readyState != 4) {
                     document.querySelector("#searchres").innerHTML = "";
-                    subf1(sth.datas.defaultavatar, "提示", "正在努力搜索中！")
+                    subf1(sth.datas.defaultavatar, "提示", "正在努力搜索中！");
                 }
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     document.querySelector("#searchres").innerHTML = "";
                     var jsonstr = JSON.parse(xhr.responseText);
                     if (jsonstr.entries.length == 0) {
-                        subf1(sth.datas.defaultavatar, "提示", "没有搜索到任何信息！", null, null)
+                        subf1(
+                            sth.datas.defaultavatar,
+                            "提示",
+                            "没有搜索到任何信息！",
+                            null,
+                            null
+                        );
                         return false;
-                    };
+                    }
                     for (let i = 0; i < jsonstr.entries.length; i++) {
                         var poster = jsonstr.objects.users[jsonstr.entries[i].author_id];
                         var avatar = sth.datas.defaultavatar;
                         if (poster.avatar) {
-                            avatar = jsonstr.objects.media[poster.avatar].url + "~tplv-c226mjqywu-size:96.image";
-                        };
-                        subf1(avatar, poster.name, jsonstr.entries[i].status, jsonstr.entries[i].created_at, jsonstr.entries[i].id)
-                    };
+                            avatar =
+                                jsonstr.objects.media[poster.avatar].url +
+                                "~tplv-c226mjqywu-size:96.image";
+                        }
+                        subf1(
+                            avatar,
+                            poster.name,
+                            jsonstr.entries[i].status,
+                            jsonstr.entries[i].created_at,
+                            jsonstr.entries[i].id
+                        );
+                    }
                     if (jsonstr.entries.length == 100) {
-                        subf1(sth.datas.defaultavatar, "提示", "最多只能展示100条结果哦！", null, null)
-                    };
-                };
+                        subf1(
+                            sth.datas.defaultavatar,
+                            "提示",
+                            "最多只能展示100条结果哦！",
+                            null,
+                            null
+                        );
+                    }
+                }
             };
             xhr.send();
         };
@@ -470,16 +576,27 @@ const sth = {
             searchicon.addEventListener("click", () => {
                 var s = document.createElement("div");
                 s.className = "searchroot";
-                s.innerHTML = '<div aria-hidden="true" class="blackback" onclick="this.parentNode.remove()"></div><div class="MuiPaper-root MuiPaper-elevation16 searchdisplay"><div class="form"><input type="text" placeholder="请输入您要搜索的内容..."><button>' + sth.datas.searchicon + '</button><div><span>倒序浏览</span><input type="checkbox"></div></div><div id="searchres"></div></div>';
-                s.querySelector("div.searchdisplay > div.form > button").addEventListener("click", () => {
-                    subf2(document.querySelector("div.searchdisplay > div.form > button").parentNode.children[0].value);
+                s.innerHTML =
+                    '<div aria-hidden="true" class="blackback" onclick="this.parentNode.remove()"></div><div class="MuiPaper-root MuiPaper-elevation16 searchdisplay"><div class="form"><input type="text" placeholder="请输入您要搜索的内容..."><button>' +
+                    sth.datas.searchicon +
+                    '</button><div><span>倒序浏览</span><input type="checkbox"></div></div><div id="searchres"></div></div>';
+                s.querySelector(
+                    "div.searchdisplay > div.form > button"
+                ).addEventListener("click", () => {
+                    subf2(
+                        document.querySelector("div.searchdisplay > div.form > button")
+                        .parentNode.children[0].value
+                    );
                 });
-                s.querySelector("div.searchdisplay > div.form > div > input").addEventListener("change", (e) => {
+                s.querySelector(
+                    "div.searchdisplay > div.form > div > input"
+                ).addEventListener("change", (e) => {
                     if (e.target.checked) {
-                        document.querySelector("#searchres").style = "flex-direction: column-reverse";
+                        document.querySelector("#searchres").style =
+                            "flex-direction: column-reverse";
                     } else {
                         document.querySelector("#searchres").style = "";
-                    };
+                    }
                 });
                 document.body.appendChild(s);
                 s = null;
@@ -487,7 +604,7 @@ const sth = {
             searchicon.innerHTML = sth.datas.searchicon;
             document.querySelector("[class^='sidebar_logo__']").after(searchicon);
             searchicon = null;
-        };
+        }
     },
     commentEnchant: {
         addfunc: function(funcname, on, func) {
@@ -500,22 +617,27 @@ const sth = {
         justlookAt: function(e) {
             sth.commentEnchant.removefunc("onlysb");
             if (e.target.innerText == "只看作者") {
-                var onlysb = prompt("打算只看谁的评论呢？填入Ta的昵称：", e.target.getAttribute("data-author"));
+                var onlysb = prompt(
+                    "打算只看谁的评论呢？填入Ta的昵称：",
+                    e.target.getAttribute("data-author")
+                );
                 if (onlysb == null) {
                     e.stopPropagation();
                     return false;
-                };
+                }
                 sth.commentEnchant.addfunc("onlysb", "response", (response) => {
                     function filter(obj, name) {
                         const res = { entries: [], objects: {} };
                         if (obj.entries.length == 0) {
                             for (let x = 0; x < 1; x++) {
                                 res.entries.push({ id: 0 });
-                            };
+                            }
                         } else {
                             for (let x = 0; x < 20; x++) {
-                                res.entries.push({ id: obj.entries[obj.entries.length - 1].id });
-                            };
+                                res.entries.push({
+                                    id: obj.entries[obj.entries.length - 1].id,
+                                });
+                            }
                         }
                         Object.assign(res.objects, obj.objects);
                         var s = new Set(obj.entries);
@@ -523,10 +645,10 @@ const sth = {
                             if (i.author_id && obj.objects.users[i.author_id].name == name) {
                                 res.entries.push(i);
                                 res.entries.shift();
-                            };
+                            }
                         });
                         return res;
-                    };
+                    }
 
                     function getreplies(url) {
                         var res;
@@ -535,23 +657,28 @@ const sth = {
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4 && xhr.status == 200) {
                                 res = JSON.parse(xhr.responseText);
-                            };
+                            }
                         };
                         xhr.send();
                         return res;
-                    };
+                    }
                     var root = document.querySelectorAll(".onlyauthor-hook");
-                    if (response.config.url.indexOf("authorOnly=1") != -1 && root[root.length - 1].getAttribute("data-filter") == "true") {
-                        var res = getreplies(response.config.url.replace("&authorOnly=1", ""));
+                    if (
+                        response.config.url.indexOf("authorOnly=1") != -1 &&
+                        root[root.length - 1].getAttribute("data-filter") == "true"
+                    ) {
+                        var res = getreplies(
+                            response.config.url.replace("&authorOnly=1", "")
+                        );
                         var res_filted = filter(res, onlysb);
                         response.response = JSON.stringify(res_filted);
                         return response;
-                    };
+                    }
                 });
-                e.target.setAttribute("data-filter", true)
+                e.target.setAttribute("data-filter", true);
             } else {
                 sth.commentEnchant.removefunc("onlysb");
-            };
+            }
         },
         setajaxhook: function() {
             if (ah) {
@@ -559,7 +686,7 @@ const sth = {
                     onRequest: (config, handler) => {
                         for (i in sth.datas.activefunc.request) {
                             config = sth.datas.activefunc.request[i](config);
-                        };
+                        }
                         handler.next(config);
                     },
                     onError: (err, handler) => {
@@ -571,19 +698,53 @@ const sth = {
                             if (res) {
                                 response = res;
                             }
-                        };
+                        }
                         handler.next(response);
-                    }
+                    },
                 });
-            };
-        }
+            }
+        },
+    },
+    blacklist: {
+        main: function(el) {
+            if (el && el.className.indexOf("inblacklist") == -1) {
+                if (sth.settings.bl.includes(el.innerText)) {
+                    el.offsetParent.offsetParent.style = "z-index:-999";
+                    el.classList.add("inblacklist");
+                }
+            }
+        },
+        blarea: function() {
+            var ta = document.createElement("textarea");
+            var bl = "";
+            for (nick in sth.settings.bl) {
+                bl += sth.settings.bl[nick] + "\n";
+            }
+            ta.value = bl;
+            ta.placeholder = "黑名单列表，填写昵称，每行一个"
+            ta.classList.add("blacklist");
+            ta.addEventListener("input", (e) => {
+                var bl = e.target.value;
+                sth.settings.bl = bl.split("\n").filter(function(e) {
+                    return e;
+                });
+                sth.savesettings();
+            });
+            if (
+                document.querySelector("[class^='user-setting-dialog_right__']") &&
+                !document.querySelector("[class^='blacklist']")
+            ) {
+                document.querySelector("[class^='user-setting-dialog_right__']").appendChild(ta);
+            }
+            ta = bl = null;
+        },
     },
     act: function() {
         if (localStorage.settings) {
             sth.settings = JSON.parse(localStorage.settings);
         } else {
             sth.savesettings();
-        };
+        }
         (() => {
             var e = document.createElement("link");
             e.rel = "stylesheet";
@@ -602,14 +763,14 @@ const sth = {
             } catch (err) {
                 console.log(err);
                 return false;
-            };
+            }
         });
         observer.observe(document, {
-            'childList': true,
-            'arrtibutes': true,
-            'subtree': true
+            childList: true,
+            arrtibutes: true,
+            subtree: true,
         });
         sth.vsrsioncheck();
-    }
+    },
 };
 sth.act();

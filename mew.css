@@ -47,7 +47,7 @@ body {
 [class^='post-preview_cover__'],
 [class^='thought_img-wrapper__'],
 [class^='card_frame-wrapper__'],
-[class^='hought_player-wrapper__'],
+[class^='thought_player-wrapper__'],
 [class^='typing-bar_typing-wrap__'],
 [class^='card_third-thumb-wrapper__'],
 [class^='comment-item_deleted__'] {
@@ -119,6 +119,10 @@ div>.bg-gray-300 {
 .searchdisplay div.form div input {
     width: 24px;
     height: 24px;
+}
+
+.searchdisplay div.form svg {
+    margin: 0 0 0 10px;
 }
 
 .searchdisplay input {
@@ -221,12 +225,18 @@ div>.bg-gray-300 {
     display: block;
 }
 
-[class^='comments_modal__'] {
+[class^='MuiModal-root comments_modal__'] {
     z-index: 10 !important;
 }
 
 [class^='comments_modal-out__'] {
     max-width: 50%;
+}
+
+.blacklist {
+    margin: 20px 0 0 0;
+    color: rgb(var(--colors-receive-msg));
+    border: 2px solid rgb(52, 91, 172);
 }
 
 @media (prefers-color-scheme: dark) {
