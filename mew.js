@@ -9,7 +9,7 @@ const sth = {
         enableBetterComment: false,
     },
     datas: {
-        ver: 0.55,
+        ver: 0.56,
         whatsnew: [
             "当前脚本版本:0.56",
             "更新内容：",
