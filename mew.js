@@ -126,7 +126,7 @@ const sth = {
                 if (usernames[i].className.indexOf("call-enabled") == -1) {
                     usernames[i].addEventListener("click", (e) => {
                         var cp = document.createElement("textarea");
-                        cp.innerText = "@" + e.target.innerText + "; ";
+                        cp.innerText = "@" + e.target.innerText + " ";
                         cp.id = "copy-area";
                         cp.style = "opacity: 0;z-index: -999;";
                         document.body.appendChild(cp);
@@ -154,11 +154,24 @@ const sth = {
                     var user = msgs[x].parentNode.querySelectorAll(
                         "[class^='truncate message-text_name__']"
                     )[0].innerText;
-                    if (!atexist(user, msg)) {
-                        alert(user + " @了你");
+                    if (!atexist(user, msg)) {function sendNotification() {
+                        new Notification("通知", {
+                            body: user + " @了你",
+                            icon: 'https://mew.fun/favicon.png'
+                        })
                         toat(msgs[x].parentNode.parentNode.parentNode);
                         writeatmsg(user, msg);
                         msgs[x].classList.add("called-checked");
+                    }
+                    if (window.Notification.permission == "granted") { // 判断是否有权限
+                        sendNotification();
+                    } else if (window.Notification.permission != "denied") {
+                        alert(user + " @了你");
+                        alert("请同意通知授权来获得更好的通知体验");
+                        window.Notification.requestPermission(function (permission) { // 没有权限发起请求
+                    sendNotification();
+                    });
+                    }
                     }
                 }
             }
