@@ -7,13 +7,16 @@ const sth = {
         last50atmsg: [],
         imgwidth: 50,
         enableBetterComment: false,
+        noti_denied: false,
     },
     datas: {
-        ver: 0.56,
+        ver: 0.57,
         whatsnew: [
-            "当前脚本版本:0.56",
+            "当前脚本版本:0.57",
             "更新内容：",
-            "1、优化了@与被@行为的逻辑。"
+            "1、优化了弹窗提醒的方式。",
+            "2、修复了当想法正文中存在特定文本时的脚本错误问题。",
+            "3、由于Mew已修复右键图片时图片消失的Bug，因此删除额外的图片下载按钮。"
         ],
         activefunc: { request: {}, response: {} },
         cssmd5: "f3a2721e0dd6d307e5ca2ea0e98fb03b",
@@ -25,16 +28,37 @@ const sth = {
         autorefresh_checked: false,
         intv1: null,
     },
+    notification: function(title, msg, onclick) {
+        if (!("Notification" in window)) {
+            alert(msg);
+            return;
+        }
+        Notification.requestPermission(function(status) {
+            switch (status) {
+                case "denied":
+                    alert(msg);
+                    if (sth.settings.noti_denied) {
+                        alert("您禁用了通知提醒，因此收到了此弹窗。请同意通知授权来获得更好的通知体验。此条提示将不会再出现。");
+                        sth.settings.noti_denied = true;
+                        sth.savesettings();
+                    };
+                default:
+                    let noti = new Notification(title, {
+                        body: msg,
+                        icon: 'https://mew.fun/favicon.png'
+                    });
+                    noti.onclick = onclick
+            }
+        });
+    },
     savesettings: function() {
         localStorage.setItem("settings", JSON.stringify(sth.settings));
     },
     vsrsioncheck: function() {
         if (!sth.settings.ver || sth.settings.ver != sth.datas.ver) {
-            alert(
-                "感谢下载并使用mew增强脚本" +
+            sth.notification("脚本已更新", "感谢下载并使用mew增强脚本 " +
                 sth.datas.ver +
-                "版！按下f12键打开控制台，以查看详细更新信息。"
-            );
+                "版！按下f12键打开控制台，以查看详细更新信息。", () => { return false })
             console.clear();
             for (let i = 0; i < sth.datas.whatsnew.length; i++) {
                 console.log(
@@ -83,14 +107,6 @@ const sth = {
     },
     calluser: function() {
         if (document.querySelector("[class^='card_name__']")) {
-            const toat = function(el) {
-                el.setAttribute("id", "called");
-                var a = document.createElement("a");
-                a.href = "#called";
-                a.click();
-                el.removeAttribute("id");
-                a = null;
-            };
             const writeatmsg = function(user, msg) {
                 if (sth.settings.last50atmsg.length >= 50) {
                     sth.settings.last50atmsg.shift();
@@ -153,24 +169,12 @@ const sth = {
                     var user = msgs[x].parentNode.querySelectorAll(
                         "[class^='truncate message-text_name__']"
                     )[0].innerText;
-                    if (!atexist(user, msg)) {function sendNotification() {
-                        new Notification("通知", {
-                            body: user + " @了你",
-                            icon: 'https://mew.fun/favicon.png'
-                        })
-                        toat(msgs[x].parentNode.parentNode.parentNode);
+                    if (!atexist(user, msg)) {
                         writeatmsg(user, msg);
                         msgs[x].classList.add("called-checked");
-                    }
-                    if (window.Notification.permission == "granted") { // 判断是否有权限
-                        sendNotification();
-                    } else if (window.Notification.permission != "denied") {
-                        alert(user + " @了你");
-                        alert("请同意通知授权来获得更好的通知体验");
-                        window.Notification.requestPermission(function (permission) { // 没有权限发起请求
-                    sendNotification();
-                    });
-                    }
+                        sth.notification(user + " @了你", msg, () => {
+                            return false;
+                        });
                     }
                 }
             }
@@ -461,26 +465,6 @@ const sth = {
             sth.blacklist.blarea();
         },
     },
-    imgdl: function() {
-        var dlicon = document.createElement("div");
-        dlicon.innerText = "下载";
-        dlicon.id = "newdl";
-        if (!document.querySelector("#newdl") &&
-            document.querySelectorAll("[class^='image_button__']").length > 0
-        ) {
-            document
-                .querySelectorAll("[class^='image_button__']")[1]
-                .parentNode.append(dlicon);
-            document.querySelector("#newdl").addEventListener("click", () => {
-                if (document.querySelectorAll("img.pswp__img")[1]) {
-                    window.open(document.querySelectorAll("img.pswp__img")[1].src);
-                } else {
-                    window.open(document.querySelector("img.pswp__img").src);
-                }
-            });
-        }
-        dlicon = null;
-    },
     search: function() {
         const subf1 = function(_avatar, _nickname, _content, _date, data_id) {
             var item = document.createElement("div");
@@ -582,36 +566,39 @@ const sth = {
             };
             xhr.send();
         };
+        const serachpage = function() {
+            var s = document.createElement("div");
+            s.className = "searchroot";
+            s.innerHTML =
+                '<div aria-hidden="true" class="blackback" onclick="this.parentNode.remove()"></div><div class="MuiPaper-root MuiPaper-elevation16 searchdisplay"><div class="form"><input type="text" placeholder="请输入您要搜索的内容..."><button>' +
+                sth.datas.searchicon +
+                '</button><div><span>倒序浏览</span><input type="checkbox"></div></div><div id="searchres"></div></div>';
+            s.querySelector(
+                "div.searchdisplay > div.form > button"
+            ).addEventListener("click", () => {
+                subf2(
+                    document.querySelector("div.searchdisplay > div.form > button")
+                    .parentNode.children[0].value
+                );
+            });
+            s.querySelector(
+                "div.searchdisplay > div.form > div > input"
+            ).addEventListener("change", (e) => {
+                if (e.target.checked) {
+                    document.querySelector("#searchres").style =
+                        "flex-direction: column-reverse";
+                } else {
+                    document.querySelector("#searchres").style = "";
+                }
+            });
+            document.body.appendChild(s);
+            s = null;
+        };
         if (!document.querySelector("#searchicon")) {
             var searchicon = document.createElement("div");
             searchicon.id = "searchicon";
             searchicon.addEventListener("click", () => {
-                var s = document.createElement("div");
-                s.className = "searchroot";
-                s.innerHTML =
-                    '<div aria-hidden="true" class="blackback" onclick="this.parentNode.remove()"></div><div class="MuiPaper-root MuiPaper-elevation16 searchdisplay"><div class="form"><input type="text" placeholder="请输入您要搜索的内容..."><button>' +
-                    sth.datas.searchicon +
-                    '</button><div><span>倒序浏览</span><input type="checkbox"></div></div><div id="searchres"></div></div>';
-                s.querySelector(
-                    "div.searchdisplay > div.form > button"
-                ).addEventListener("click", () => {
-                    subf2(
-                        document.querySelector("div.searchdisplay > div.form > button")
-                        .parentNode.children[0].value
-                    );
-                });
-                s.querySelector(
-                    "div.searchdisplay > div.form > div > input"
-                ).addEventListener("change", (e) => {
-                    if (e.target.checked) {
-                        document.querySelector("#searchres").style =
-                            "flex-direction: column-reverse";
-                    } else {
-                        document.querySelector("#searchres").style = "";
-                    }
-                });
-                document.body.appendChild(s);
-                s = null;
+                serachpage();
             });
             searchicon.innerHTML = sth.datas.searchicon;
             document.querySelector("[class^='sidebar_logo__']").after(searchicon);
@@ -768,7 +755,6 @@ const sth = {
         var observer = new MutationObserver(function() {
             try {
                 sth.urlclickable();
-                sth.imgdl();
                 sth.GUIadjust.main();
                 sth.calluser();
                 sth.search();
