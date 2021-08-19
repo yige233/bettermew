@@ -37,7 +37,7 @@ const sth = {
             switch (status) {
                 case "denied":
                     alert(msg);
-                    if (sth.settings.noti_denied) {
+                    if (!sth.settings.noti_denied) {
                         alert("您禁用了通知提醒，因此收到了此弹窗。请同意通知授权来获得更好的通知体验。此条提示将不会再出现。");
                         sth.settings.noti_denied = true;
                         sth.savesettings();
