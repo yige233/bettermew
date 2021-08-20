@@ -10,16 +10,15 @@ const sth = {
         noti_denied: false,
     },
     datas: {
-        ver: 0.57,
+        ver: 0.58,
         whatsnew: [
-            "当前脚本版本:0.57",
+            "当前脚本版本:0.58",
             "更新内容：",
-            "1、优化了弹窗提醒的方式。",
-            "2、修复了当想法正文中存在特定文本时的脚本错误问题。",
-            "3、由于Mew已修复右键图片时图片消失的Bug，因此删除额外的图片下载按钮。"
+            "1、修复了私聊窗口显示异常的问题。",
+            "2、修复了一个严重的安全问题。"
         ],
         activefunc: { request: {}, response: {} },
-        cssmd5: "f3a2721e0dd6d307e5ca2ea0e98fb03b",
+        cssmd5: "5fd2a015fac5cf8cd35074ba2a1466fb",
         defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
         searchicon: '<svg t="1627976673096" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7438" width="20" height="20"><path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z" fill="#7294da" p-id="7439"></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136 147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392 138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z" fill="#7294da" p-id="7440"></path></svg>',
         totopicon: '<svg t="1624339130920" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1179" width="40" height="40"><path d="M708.85376 416.19456c0 2.0992-0.65536 4.1984-1.9968 5.96992-2.68288 3.56352-7.424 4.89472-11.5712 3.24608L571.52512 376.5248l0 286.52544c0 5.4784-4.44416 9.92256-9.9328 9.92256l-99.18464 0c-5.46816 0-9.91232-4.44416-9.91232-9.92256L452.49536 376.5248l-123.78112 48.88576c-4.13696 1.6384-8.87808 0.3072-11.56096-3.24608-2.69312-3.56352-2.68288-8.47872 0.06144-12.01152L504.13568 167.0144c1.88416-2.44736 4.78208-3.87072 7.86432-3.87072s5.9904 1.4336 7.86432 3.87072l186.9312 243.13856C708.15744 411.92448 708.85376 414.0544 708.85376 416.19456zM512 726.51776c-46.32576 0-83.88608 37.55008-83.88608 83.88608 0 46.336 37.56032 83.88608 83.88608 83.88608s83.89632-37.55008 83.89632-83.88608C595.89632 764.07808 558.32576 726.51776 512 726.51776z" p-id="1180" fill="#bfbfbf"></path></svg>',
@@ -503,7 +502,17 @@ const sth = {
             document.querySelector("#searchres").appendChild(item);
             item = date = content = avatar = nick = null;
         };
+        const getcookie = function(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
         const subf2 = function(query) {
+            var authcookie = getcookie("tomon_community_token")
             var xhr = new XMLHttpRequest();
             var node = window.location.pathname.slice(3);
             xhr.open(
@@ -517,7 +526,7 @@ const sth = {
             );
             xhr.setRequestHeader(
                 "Authorization",
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTA3MzY2NTM5OTgwODAwIiwiaWF0IjoxNjIzNjg2MjQ2fQ.0cN11hX3KGfdPoEwMnIffODjvnYy9Rt6EbHBdgg282c"
+                "Bearer " + authcookie
             );
             xhr.onreadystatechange = function() {
                 if (xhr.readyState != 4) {

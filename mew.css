@@ -218,7 +218,7 @@ div>.bg-gray-300 {
 }
 
 [class^='base_root__'] {
-    z-index: 9 !important
+    z-index: 10 !important
 }
 
 [class^='message-text_content-wrap__'] {
