@@ -267,6 +267,8 @@ div>.bg-gray-300 {
         --colors-gray-400: 240 240 240;
         --colors-background-dialog: 55 55 55;
         --colors-background-heading: 45 45 45;
+        --colors-gray-900: 255 255 255;
+        --colors-gray-700: 245 245 245;
     }
     [class^='thought-view_post-content__']>div p,
     h1,
@@ -358,6 +360,23 @@ div>.bg-gray-300 {
 [class^='comment-item_root__'] {
     content-visibility: auto;
     min-width: 500px;
+}
+
+[class^='compact-tabbar_tabbar-root__'],
+[class^='relationships_user-item__'],
+[class^='relationships_header__'] {
+    background-color: rgb(var(--colors-background-regular));
+    width: unset;
+}
+
+[class^='relationships_info__'] {
+    max-width: 60% !important;
+}
+
+[class^='compact-tabbar_tabbar-item__'],
+[class^='relationships_name-center__'],
+[class^='relationships_name__'] {
+    color: rgb(var(--colors-receive-msg)) !important;
 }
 
 .thought-widget {
