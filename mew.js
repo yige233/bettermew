@@ -137,6 +137,15 @@ class Mew {
         document.head.append(el);
         return el;
     };
+    static getcookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (let i in ca) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        };
+        return "";
+    };
     conf(options) {
         let pushconfig = (obj, config) => {
                 let conf = {
@@ -263,7 +272,6 @@ class Mew {
                         </li>`);
                     li.querySelector("textarea").addEventListener("input", async (e) => {
                         let value = await item.save.bind(this)(e);
-                        console.log(value);
                         this.savsetting(item.id, value);
                     });
                     return li;
@@ -775,7 +783,7 @@ mew.conf({
         id: "bl",
         type: "text",
         default: [],
-        long_desc: "[立即生效][自动保存]下方的文本框用于填写黑名单。填写昵称，每行一个。",
+        long_desc: "[立即生效]下方的文本框用于填写黑名单。填写昵称，每行一个。",
         value: function () {
             return this._settings.bl.join("\n");
         },
@@ -830,21 +838,12 @@ mew.conf({
                 });
                 document.querySelector("#searchres").append(item);
             };
-            getcookie(cname) {
-                var name = cname + "=";
-                var ca = document.cookie.split(';');
-                for (let i in ca) {
-                    var c = ca[i].trim();
-                    if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-                };
-                return "";
-            };
             search(str) {
                 document.querySelector("#searchres").innerHTML = "";
                 this.loadres(datas.defaultavatar, "提示", "正在努力搜索中！");
                 fetch(`https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}/search-thoughts?keyword=${str}&limit=100`, {
                     headers: {
-                        Authorization: this.getcookie("tomon_community_token")
+                        Authorization: Mew.getcookie("tomon_community_token")
                     }
                 }).then(res => {
                     if (res.status < 200 || res.status > 300) {
@@ -1118,7 +1117,7 @@ mew.conf({
         type: "text",
         id: "custom_css",
         default: "",
-        long_desc: "[自动保存]下方的文本框可以用于加载自定义css样式。",
+        long_desc: "下方的文本框可以用于加载自定义css样式。",
         value: function () {
             return this._settings.custom_css;
         },
@@ -1177,6 +1176,105 @@ mew.conf({
                 console.log(`%c${whatsnew[i]}`, "color: rgb(125 125 125);font-size:16px")
             };
             this.savsetting("ver", announce.ver);
+        };
+    }
+});
+mew.conf({
+    id: "tool_img_id",
+    hide: true,
+    always: true,
+    config_extra: [{
+        type: "text",
+        id: "tool_img_id",
+        default: "",
+        long_desc: "[小工具]输入Mew图片链接，获取图片的Mew id。",
+        value: function () {
+            return "";
+        },
+        save: async function (e) {
+            let input = e.target.value.split("\n").filter((i) => {
+                    return i;
+                }),
+                keystr = input[0].split("~")[0].slice(42),
+                result = await fetch(`https://api.mew.fun/api/v1/medias/image/${keystr}`, {
+                    headers: {
+                        Authorization: Mew.getcookie("tomon_community_token"),
+                    },
+                    method: "POST"
+                }).then((res) => res.json()).then((json) => {
+                    if (json.status) {
+                        return `错误：${json.message}`;
+                    };
+                    return `以上图片的Mew id是：${json.id}`;
+                });
+            e.target.value = [input[0], result].join("\n");
+            return "";
+        },
+    }]
+});
+mew.conf({
+    id: "custom_stamp",
+    short_desc: "快捷发图",
+    long_desc: "在下方的文本框内填入Mew图片id，即可在“发送表情”按钮中快速发图。请不要在私信中使用！！！",
+    config_extra: [{
+        type: "text",
+        id: "custom_stamp_list",
+        default: [],
+        long_desc: "按格式填入Mew图片id及图片说明。每行一条。格式：{id}${说明}。示例：105230866317402112$第九章宣传图",
+        value: function () {
+            return this._settings.custom_stamp_list.join("\n");
+        },
+        save: function (e) {
+            return e.target.value.split("\n").filter((i) => {
+                return i;
+            });
+        }
+    }],
+    func_loop: async function () {
+        if (!document.querySelector("[class^='reaction-panel_stamp-list__']") || document.querySelector(".custom_stamps")) return false;
+        document.querySelector("[class^='reaction-panel_stamp-list__']").classList.add("custom_stamps");
+        let topiclist = await fetch(`https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}`, {
+                headers: {
+                    Authorization: Mew.getcookie("tomon_community_token")
+                }
+            }).then(res => res.json()).then(json => {
+                if (json.topics) return json.topics;
+                return [];
+            }),
+            currentTopic = document.querySelector("[class^='containers_chat-header__']").textContent,
+            topicid = 0;
+        for (let i in topiclist) {
+            if (currentTopic.indexOf(topiclist[i].name) != -1) {
+                topicid = topiclist[i].id;
+                break;
+            };
+        };
+        console.log(topiclist, currentTopic)
+        if (topicid == 0 || this._settings.custom_stamp_list.length == 0) return false;
+        for (let i in this._settings.custom_stamp_list) {
+            let data = this._settings.custom_stamp_list[i].split("$"),
+                desc = (data[1]) ? data[1] : "",
+                insertel = Mew.dom(`
+                <button class="reaction-panel_stamp__8qpSD" title="${desc}">
+                    <picture class="reaction-panel_image__2FjNq">
+                        <source srcset="https://image.mew.fun/tos-cn-i-c226mjqywu/2c7b5e16155b442a9ff0cce985f6ad93" type="image/png">
+                        <img src="" alt="${desc}">
+                    </picture>
+                </button>`);
+            insertel.addEventListener("click", () => {
+                fetch(`https://api.mew.fun/api/v1/topics/${topicid}/messages`, {
+                    headers: {
+                        Authorization: Mew.getcookie("tomon_community_token"),
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nonce: "0",
+                        media: [data[0]]
+                    }),
+                    method: "POST",
+                });
+            });
+            document.querySelector(".custom_stamps").append(insertel);
         };
     }
 });
