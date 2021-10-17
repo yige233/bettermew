@@ -9,7 +9,7 @@
 // @include      https://mew.fun/sector-explore
 // @icon         https://mew.fun/favicon.png
 // @supportURL   https://github.com/yige233/bettermew/issues
-// @require      https://cdn.jsdelivr.net/gh/yige233/bettermew/mew.js
+// @require      https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/mew.js
 // @grant        none
 // ==/UserScript==
 
