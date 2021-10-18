@@ -5,12 +5,11 @@
 // @version      0.31
 // @description  个人向脚本，随着网页的更新，可能会失效。主要功能：https://mew.fun/Dove_yige/thoughts/69082567613583360
 // @author       破损的鞘翅
-// @updateURL    https://pc.doveyige.top/mew/tampermonkey.js
 // @match        https://mew.fun/n/*
 // @match        https://mew.fun/sector-explore
 // @icon         https://mew.fun/favicon.png
 // @supportURL   https://github.com/yige233/bettermew/issues
-// @updateURL    https://cdn.jsdelivr.net/gh/yige233/tampermonkey@latest/mew.js
+// @updateURL    https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.js
 // @grant        GM.registerMenuCommand
 // @grant        GM.getValue
 // @grant        GM.setValue
