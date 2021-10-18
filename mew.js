@@ -7,6 +7,14 @@ class Mew {
     _data = {
         settingicon: `<svg t="1633357352154" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1249" width="32" height="32"><path d="M919.6 405.6l-57.2-8c-12.7-1.8-23-10.4-28-22.1-11.3-26.7-25.7-51.7-42.9-74.5-7.7-10.2-10-23.5-5.2-35.3l21.7-53.5c6.7-16.4 0.2-35.3-15.2-44.1L669.1 96.6c-15.4-8.9-34.9-5.1-45.8 8.9l-35.4 45.3c-7.9 10.2-20.7 14.9-33.5 13.3-14-1.8-28.3-2.8-42.8-2.8-14.5 0-28.8 1-42.8 2.8-12.8 1.6-25.6-3.1-33.5-13.3l-35.4-45.3c-10.9-14-30.4-17.8-45.8-8.9L230.4 168c-15.4 8.9-21.8 27.7-15.2 44.1l21.7 53.5c4.8 11.9 2.5 25.1-5.2 35.3-17.2 22.8-31.7 47.8-42.9 74.5-5 11.8-15.3 20.4-28 22.1l-57.2 8C86 408 72.9 423 72.9 440.8v142.9c0 17.7 13.1 32.7 30.6 35.2l57.2 8c12.7 1.8 23 10.4 28 22.1 11.3 26.7 25.7 51.7 42.9 74.5 7.7 10.2 10 23.5 5.2 35.3l-21.7 53.5c-6.7 16.4-0.2 35.3 15.2 44.1L354 927.8c15.4 8.9 34.9 5.1 45.8-8.9l35.4-45.3c7.9-10.2 20.7-14.9 33.5-13.3 14 1.8 28.3 2.8 42.8 2.8 14.5 0 28.8-1 42.8-2.8 12.8-1.6 25.6 3.1 33.5 13.3l35.4 45.3c10.9 14 30.4 17.8 45.8 8.9l123.7-71.4c15.4-8.9 21.8-27.7 15.2-44.1l-21.7-53.5c-4.8-11.8-2.5-25.1 5.2-35.3 17.2-22.8 31.7-47.8 42.9-74.5 5-11.8 15.3-20.4 28-22.1l57.2-8c17.6-2.5 30.6-17.5 30.6-35.2V440.8c0.2-17.8-12.9-32.8-30.5-35.2z m-408 245.5c-76.7 0-138.9-62.2-138.9-138.9s62.2-138.9 138.9-138.9 138.9 62.2 138.9 138.9-62.2 138.9-138.9 138.9z" fill="#345bac" p-id="1250"></path></svg>`,
         css_basic: `
+    @keyframes appear{
+        from{
+            left: 100%;
+        }
+        to{
+            left: 25%;
+        }
+    }
     .custompage_root {
         position: fixed;
         inset: 0px;
@@ -23,6 +31,8 @@ class Mew {
         z-index: 10;
     }
     .stdpage {
+        width: 50%;
+        left: 25%;
         color: rgba(0, 0, 0, 0.87);
         background-color: rgb(var(--colors-background-regular));
         box-shadow: rgb(0 0 0 / 20%) 0px 8px 10px -5px, rgb(0 0 0 / 14%) 0px 16px 24px 2px, rgb(0 0 0 / 12%) 0px 6px 30px 5px;
@@ -32,7 +42,7 @@ class Mew {
         height: 100%;
         max-width:90%;
         flex: 1 0 auto;
-        z-index: 1200;
+        z-index: 12;
         position: fixed;
         top: 0px;
     }
@@ -90,6 +100,7 @@ class Mew {
         border: 2px solid rgb(52, 91, 172);
         width:100%;
         min-height:100px;
+        white-space: nowrap;
     }
     .title {
         color: rgb(var(--colors-msg));
@@ -104,7 +115,7 @@ class Mew {
     .stdpage ul>li {
         display: flex;
         justify-content: space-between;
-        margin: 10px 20px;
+        margin: 5px 20px;
         align-items: center;
     }
     .stdpage ul {
@@ -125,6 +136,7 @@ class Mew {
     _config_extra = [];
     _settings = {};
     constructor() {
+        Mew.loadcss(this._data.css_basic);
         this._settings = localStorage.settings ? Object.assign({}, this._defaultsetting, JSON.parse(localStorage.settings)) : this._defaultsetting;
         localStorage.setItem("settings", JSON.stringify(this._settings));
     };
@@ -146,6 +158,21 @@ class Mew {
         };
         return "";
     };
+    static stdpage(el) {
+        let page = Mew.dom(`<div class="custompage_root"><div aria-hidden="true" class="blackback"></div><div class="MuiPaper-root MuiPaper-elevation16 stdpage" style="animation: appear 0.5s ease 0s 1 normal;">${el}</div</div>`);
+        page.querySelector(".stdpage").addEventListener("animationend", (e) => {
+            let stdpage = e.target;
+            stdpage.removeAttribute("style");
+            if (stdpage.className.indexOf("disapper") != -1) {
+                stdpage.parentNode.remove();
+            };
+            page.querySelector(".blackback").addEventListener("click", () => {
+                stdpage.classList.add("disapper");
+                stdpage.setAttribute("style", "animation: appear 0.5s ease 0s 1 reverse;");
+            });
+        });
+        return page;
+    };
     conf(options) {
         let pushconfig = (obj, config) => {
                 let conf = {
@@ -162,7 +189,7 @@ class Mew {
                     hide: obj.hide ? obj.hide : null,
                 };
                 for (let k in conf) {
-                    if (conf[k] === null || conf[k] === undefined) delete conf[k]
+                    if (conf[k] === null || conf[k] === undefined) delete conf[k];
                 };
                 config.push(conf);
             },
@@ -172,8 +199,8 @@ class Mew {
             for (let i in options.child_funcs) {
                 pushconfig(Object.assign(options.child_funcs[i], {
                     parent: options.id
-                }), this._config)
-            }
+                }), this._config);
+            };
         };
         if (options.always && !this._settings.mainfunc.includes(options.id)) {
             let list = this._settings.mainfunc;
@@ -195,19 +222,21 @@ class Mew {
                 if (!this._settings.mainfunc.includes(options.id)) return false;
                 if (options[`func_${m}`]) options[`func_${m}`].bind(this)();
                 for (let i in options.child_funcs) {
-                    if (this._settings.childfunc.includes(options.child_funcs[i].id) && options.child_funcs[i][`func_${m}`]) options.child_funcs[i][`func_${m}`].bind(this)()
+                    if (this._settings.childfunc.includes(options.child_funcs[i].id) && options.child_funcs[i][`func_${m}`]) options.child_funcs[i][`func_${m}`].bind(this)();
                 };
             };
         };
     };
     noti(title, msg, onclickfunc) {
         if (!("Notification" in window)) {
-            alert(msg);
+            alert(title + msg);
+            onclickfunc();
             return;
         };
         Notification.requestPermission((status) => {
             if (status == "denied") {
-                alert(msg);
+                alert(title + msg);
+                onclickfunc();
                 if (!this._settings.noti_denied) {
                     alert("您禁用了通知提醒，因此收到了此弹窗。请同意通知授权来获得更好的通知体验。此条提示将不会再次出现。");
                     this.savsetting("noti_denied", true);
@@ -244,24 +273,21 @@ class Mew {
                 };
                 this.savsetting(path, list);
             },
-            switcher: (ul) => {
-                for (let i in this._config) {
-                    let func = this._config[i];
-                    if (func.hide) continue;
-                    let funcpath = (func.parent) ? "childfunc" : "mainfunc",
-                        li = Mew.dom(`
-                        <li ${(func.parent)?"class='childoption'":""}>
-                            <span>${func.short_desc}：${func.long_desc}</span>
-                            <div>
-                                <input type="checkbox" id="control_${func.id}" title="${func.short_desc}" ${(this._settings[funcpath].includes(func.id))?"checked":"" } ${(func.parent==null || this._settings.mainfunc.includes(func.parent))?"":"disabled"} class="switcher" style="display: none;">
-                                <label for="control_${func.id}" title="${func.short_desc}" class="switcher-label"></label>
-                            </div>
-                        </li>`);
-                    li.querySelector(`#control_${func.id}`).addEventListener("click", (e) => {
-                        setting.activatefunc(e, func.id, funcpath)
-                    });
-                    ul.append(li);
-                };
+            switcher: async (item) => {
+                if (item.hide) return false;
+                let funcpath = (item.parent) ? "childfunc" : "mainfunc",
+                    li = Mew.dom(`
+                    <li ${(item.parent)?"class='childoption'":""}>
+                        <span>${item.short_desc}：${item.long_desc}</span>
+                        <div>
+                            <input type="checkbox" id="control_${item.id}" title="${item.short_desc}" ${(this._settings[funcpath].includes(item.id))?"checked":"" } ${(item.parent==null || this._settings.mainfunc.includes(item.parent))?"":"disabled"} class="switcher" style="display: none;">
+                            <label for="control_${item.id}" title="${item.short_desc}" class="switcher-label"></label>
+                        </div>
+                    </li>`);
+                li.querySelector(`#control_${item.id}`).addEventListener("click", (e) => {
+                    setting.activatefunc(e, item.id, funcpath)
+                });
+                return li;
             },
             config_item: async (item) => {
                 if (item.type == "text") {
@@ -315,16 +341,12 @@ class Mew {
                 return false;
             },
             page: async () => {
-                let page = Mew.dom(`
-                <div class="custompage_root">
-                    <div aria-hidden="true" class="blackback" onclick="this.parentNode.remove()"></div>
-                    <div class="MuiPaper-root MuiPaper-elevation16 stdpage">
-                        <div class="title">这里可以尽脚本所能地，客制化Mew Web端。一般情况下，请刷新页面以应用更改。部分更改可立即或重载设置页生效。</div>
-                        <ul></ul>
-                    </div>
-                </div>`),
+                let page = Mew.stdpage(`<div class="title">这里可以尽脚本所能地，客制化Mew Web端。一般情况下，请刷新页面以应用更改。部分更改可立即或重载设置页生效。</div><ul></ul>`),
                     ul = page.querySelector("ul");
-                setting.switcher(ul);
+                for (let i in this._config) {
+                    let li = await setting.switcher(this._config[i]);
+                    if (li) ul.append(li);
+                };
                 ul.append(Mew.dom(`<li><hr style="width:100%" /></li>`));
                 for (let i in this._config_extra) {
                     let li = await setting.config_item(this._config_extra[i]);
@@ -333,10 +355,9 @@ class Mew {
                 document.body.append(page);
             }
         };
-        Mew.loadcss(this._data.css_basic);
         var icon = Mew.dom(`<div id="settingicon">${this._data.settingicon}</div>`);
         icon.addEventListener("click", () => {
-            setting.page()
+            setting.page();
         });
         document.querySelector("[class^='sidebar_root__']").append(icon);
     };
@@ -348,7 +369,7 @@ class Mew {
         };
         var observer = new MutationObserver(() => {
             try {
-                this.basic(); //基本函数，加载设置页
+                this.basic();
                 for (let i in this._config) {
                     if (this._config[i].func_loop && !this._config[i].parent) {
                         this[`func_loop_${this._config[i].id}`]();
@@ -372,14 +393,17 @@ let datas = {
     searchicon: '<svg t="1627976673096" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7438" width="30" height="30"><path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z" fill="#7294da" p-id="7439"></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136 147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392 138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z" fill="#7294da" p-id="7440"></path></svg>',
     css_topic_list: `
     [class^='topic-selector_root__']:hover {
-        height: unset
+        transition: max-height 1s linear;
+        max-height: 500px;
+        height: auto;
     }
     [class^='topic-selector_root__'] button {
         height: 30px;
-        margin: 5px 5px 0px 0px;
+        margin: 5px 0px;
     }
     [class^='topic-selector_root__'] {
-        height: 43px;
+        max-height: 45px;
+        height: 45px;
         flex-wrap: wrap;
     }`,
     css_desktop: `
@@ -392,7 +416,7 @@ let datas = {
     css_thought_in_middle: `
     .MuiPaper-elevation16 {
         width: 50% !important;
-        right: 25%;
+        left: 25%;
     }
     [class^='compact-tabbar_tabbar-root__'],
     [class^='relationships_user-item__'],
@@ -403,20 +427,32 @@ let datas = {
     [class^='relationships_info__'] {
         max-width: 60% !important;
     }
-    [class^='compact-tabbar_tabbar-item__'],
-    [class^='relationships_name-center__'],
-    [class^='relationships_name__'] {
-        color: rgb(var(--colors-receive-msg)) !important;
-    }
     [class^='comment-item_root__'] {
         content-visibility: auto;
+    }
+    [class*='base_card__'] {
+        width:80% !important;
     }
     [class^='comments_modal-out__'] {
         max-width:40%;
     }`,
+    css_whisper_in_middle: `
+    .panel-slide-enter-done {
+        width: 50%;
+        left: 25%;
+        z-index: 10 !important;
+    }`,
+    css_desktop_reverse: `
+    [class^='desktop_root__'] {
+        flex-direction: row-reverse;
+    }
+    [class^='desktop_right-container__'] {
+        margin-right: 1rem;
+    }`,
     css_compact_thought_hide_img: `
     [class^='thought-v2_root__'] [class^='post-preview_cover__'],
     [class^='v2_frame-wrapper__'],
+    [class^='thought-v2_player-wrapper__'],
     [class^='thought-v2_img-wrapper__'] {
         display: none;
     }`,
@@ -431,24 +467,24 @@ let datas = {
         height: unset;
     }`,
     css_search: `
-    .searchpage div.form {
+    .stdpage div.form {
         position: relative;
         width: 300px;
         margin: 40px auto
     }
-    .searchpage div.form div {
+    .stdpage div.form div {
         display: flex;
         flex-direction: row;
         justify-content: center;
     }
-    .searchpage div.form div input {
+    .stdpage div.form div input {
         width: 24px;
         height: 24px;
     }
-    .searchpage div.form svg {
+    .stdpage div.form svg {
         margin: 0 0 0 10px;
     }
-    .searchpage input {
+    .stdpage input {
         border: 2px solid rgb(52, 91, 172);
         border-radius: 10px;
         background: rgb(249, 240, 218);
@@ -458,7 +494,7 @@ let datas = {
         padding-left: 13px;
         outline: none
     }
-    .searchpage button {
+    .stdpage button {
         top: 0;
         right: 0;
         background: rgb(52, 91, 172);
@@ -506,11 +542,11 @@ let datas = {
     .searchitem div.poster .date {
         font-size: 10px;
     }
-    .searchpage div.form div {
+    .stdpage div.form div {
         color: rgb(var(--colors-receive-msg));
     }
     .searchitem,
-    .searchpage input {
+    .stdpage input {
         background-color: rgb(var(--colors-background-receive-msg));
         color: rgb(var(--colors-receive-msg));
     }`,
@@ -535,7 +571,7 @@ let datas = {
             --colors-caption: 235 235 235;
             --colors-background-comment: 60 60 60;
             --colors-background-reply: 80 80 80;
-            --colors-body: 255 255 255;
+            --colors-body: 200 200 200;
             --colors-gray-50: 60 60 60;
             --colors-background-light: 45 45 45;
             --colors-background-selected-comment: 100 100 100;
@@ -546,6 +582,7 @@ let datas = {
             --colors-gray-900: 255 255 255;
             --colors-gray-700: 245 245 245;
             --colors-background-hover:43 43 43;
+            --colors-disabled:200 200 200;
         }
         [class^='thought-view_post-content__']>div p,
         h1,
@@ -580,6 +617,7 @@ let datas = {
         }
         textarea,
         [class^='pin-list_root__'],
+        [class^='node-migration-dialog_node-migration-root__'],
         [class^='comments_title-bar__'] {
             background: rgb(var(--colors-background-lighter)) !important;
         }
@@ -593,9 +631,6 @@ let datas = {
         [class^='card_name__'],
         .text-black {
             color: rgb(var(--colors-msg));
-        }
-        [class^='containers_selector__'] {
-            background-color: rgb(var(--colors-background-regular));
         }
         [class^='card_root__'],
         [class^='v2_root__'],
@@ -619,6 +654,7 @@ let datas = {
             color: rgb(var(--colors-receive-msg));
         }
         .MuiPaper-elevation16,
+        [class^='containers_selector__'],
         .MuiPaper-elevation {
             background-color: rgb(var(--colors-background-regular));
         }
@@ -638,6 +674,14 @@ let datas = {
         [class^='drawer_dialog__'],
         [class^='plain-input_compose-textarea-wrapper__'] {
             background-color: rgb(var(--colors-background-morelighter));
+        }
+        [class^='compact-tabbar_tabbar-item__'],
+        [class^='relationships_name-center__'],
+        [class^='relationships_name__'] {
+            color: rgb(var(--colors-receive-msg)) !important;
+        }
+        [class^='sector-view_sector-header-bar__'] {
+            background-color: rgb(var(--colors-gary-100)) !important;
         }
     }`,
     css_text2url: `
@@ -716,6 +760,22 @@ mew.conf({
     },
 });
 mew.conf({
+    id: "whisper_in_middle",
+    short_desc: "私聊窗口居中",
+    long_desc: "点开私聊窗口后，窗口不再靠边显示而是居中显示。",
+    func_once: function () {
+        Mew.loadcss(datas.css_whisper_in_middle);
+    },
+});
+mew.conf({
+    id: "desktop_reverse",
+    short_desc: "调换想法栏和主页栏",
+    long_desc: "实际上是将整个桌面的排列顺序进行了反转。",
+    func_once: function () {
+        Mew.loadcss(datas.css_desktop_reverse);
+    },
+});
+mew.conf({
     id: "img_size",
     short_desc: "调整想法全文内图片大小",
     long_desc: "可以通过下方的滑动条，来调整想法内图片的显示大小。",
@@ -788,9 +848,7 @@ mew.conf({
             return this._settings.bl.join("\n");
         },
         save: function (e) {
-            return e.target.value.split("\n").filter((i) => {
-                return i;
-            });
+            return e.target.value.split("\n").filter(i => i);
         }
     }],
     func_loop: function () {
@@ -800,7 +858,7 @@ mew.conf({
             let el = usernames[i];
             if (el && el.className.indexOf("inblacklist") == -1) {
                 if (this._settings.bl.includes(el.innerText)) {
-                    el.offsetParent.offsetParent.style = "z-index:-999;height:1px;";
+                    el.offsetParent.offsetParent.style = "transform: scale(0);height:0px;";
                     el.classList.add("inblacklist");
                 };
             };
@@ -821,7 +879,7 @@ mew.conf({
                         <img src="${_avatar}">
                         <div style="display: flex;flex-direction: column;align-items: flex-start;padding: 0 0 0 5px;">
                             <span class="nickname">${_nickname}</span>
-                            <span class="date">${(_date)?"发表于 " + new Date(_date).toLocaleString():""}</span>
+                            <span class="date">${(_date)?"发表于 " + new Date(_date).toLocaleString("chinese", {hour12: false}):""}</span>
                         </div>
                     </div>
                     <p class="content" data-id="${(data_id)?data_id:""}">${(_content)?_content:"该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情"}</p>
@@ -872,24 +930,11 @@ mew.conf({
                 });
             };
             serachpage() {
-                let s = Mew.dom(`
-                <div class="custompage_root">
-                    <div aria-hidden="true" class="blackback" onclick="this.parentNode.remove()"></div>
-                    <div class="MuiPaper-root MuiPaper-elevation16 stdpage searchpage">
-                        <div class="form"><input type="text" placeholder="请输入您要搜索的内容..." \\>
-                            <button>${datas.searchicon}</button>
-                            <div>
-                                <span>倒序浏览</span>
-                                <input type="checkbox">
-                            </div>
-                        </div>
-                        <div id="searchres"></div>
-                    </div>
-                </div>`);
-                s.querySelector("div.stdpage > div.form > button").addEventListener("click", () => {
-                    this.search(document.querySelector("div.stdpage > div.form > button").parentNode.children[0].value);
+                let s = Mew.stdpage(`<div class="form"><input class="search-input" type="text" placeholder="请输入您要搜索的内容..." ><button>${datas.searchicon}</button><div><span>倒序浏览</span><input class="sort" type="checkbox"></div></div><div id="searchres"></div>`);
+                s.querySelector("button").addEventListener("click", () => {
+                    this.search(document.querySelector(".search-input").value);
                 });
-                s.querySelector("div.stdpage > div.form > div > input").addEventListener("change", (e) => {
+                s.querySelector(".sort").addEventListener("change", (e) => {
                     if (e.target.checked) {
                         document.querySelector("#searchres").style = "flex-direction: column-reverse"
                     } else {
@@ -926,6 +971,7 @@ mew.conf({
                     txt = txt.replace(s[x], url);
                 };
                 el.classList.add("url-turned");
+                el.style = "display:block;";
                 el.innerHTML = txt;
             };
         };
@@ -1142,9 +1188,7 @@ mew.conf({
             return "";
         },
         save: async function (e) {
-            let input = e.target.value.split("\n").filter((i) => {
-                    return i;
-                }),
+            let input = e.target.value.split("\n").filter(i => i),
                 result = await fetch(`https://api.mew.fun/api/v1/thoughts/${input[0]}`).then((res) => res.json()).then((json) => {
                     if (json.message) {
                         return `错误：${json.message}`;
@@ -1159,27 +1203,6 @@ mew.conf({
     }]
 });
 mew.conf({
-    id: "ver_check",
-    hide: true,
-    always: true,
-    config_extra: [{
-        id: "ver",
-        default: 0
-    }],
-    func_once: async function () {
-        let announce = await fetch("https://api.mew.fun/api/v1/users/68907366539980800").then(res => res.json()).then(text => JSON.parse(text.description.split("\n")[1]));
-        if (this._settings.ver != announce.ver) {
-            this.noti("脚本已更新", `感谢下载并使用mew增强脚本${announce.ver}版！按下f12键打开控制台，以查看详细更新信息。`);
-            let whatsnew = [`当前脚本版本：${announce.ver}`, "更新内容：", ...announce.whatsnew];
-            console.clear();
-            for (let i in whatsnew) {
-                console.log(`%c${whatsnew[i]}`, "color: rgb(125 125 125);font-size:16px")
-            };
-            this.savsetting("ver", announce.ver);
-        };
-    }
-});
-mew.conf({
     id: "tool_img_id",
     hide: true,
     always: true,
@@ -1192,22 +1215,25 @@ mew.conf({
             return "";
         },
         save: async function (e) {
-            let input = e.target.value.split("\n").filter((i) => {
-                    return i;
-                }),
-                keystr = input[0].split("~")[0].slice(42),
-                result = await fetch(`https://api.mew.fun/api/v1/medias/image/${keystr}`, {
+            let input = e.target.value.split("\n").filter(i => i);
+            let url_handle = async (input) => {
+                if (!/[0-9a-f]{32}?/.test(input)) return input;
+                let hash = input.match(/[0-9a-f]{32}?/g);
+                let id = await fetch(`https://api.mew.fun/api/v1/medias/image/${hash}`, {
                     headers: {
                         Authorization: Mew.getcookie("tomon_community_token"),
                     },
                     method: "POST"
-                }).then((res) => res.json()).then((json) => {
-                    if (json.status) {
-                        return `错误：${json.message}`;
-                    };
-                    return `以上图片的Mew id是：${json.id}`;
+                }).then(async res => {
+                    if (!res.ok) return 0;
+                    let json = await res.json();
+                    if (json.status) return 0
+                    return json.id;
                 });
-            e.target.value = [input[0], result].join("\n");
+                if (id == 0) return "请检查链接是否正确：" + input;
+                return `${id}$${hash}$`;
+            };
+            e.target.value = await url_handle(input[0]);
             return "";
         },
     }]
@@ -1220,44 +1246,49 @@ mew.conf({
         type: "text",
         id: "custom_stamp_list",
         default: [],
-        long_desc: "按格式填入Mew图片id及图片说明。每行一条。格式：{id}${说明}。示例：105230866317402112$第九章宣传图",
+        long_desc: "按格式填入Mew图片id及图片说明。每行一条。格式：{图片id}${[可选]图片hash}${[可选]图片说明}。示例：116188135487934464$e6a9f2dd09c74cc5abcb59af95d3e2d2$[M酱]生气",
         value: function () {
             return this._settings.custom_stamp_list.join("\n");
         },
-        save: function (e) {
-            return e.target.value.split("\n").filter((i) => {
-                return i;
-            });
+        save: async function (e) {
+            return e.target.value.split("\n").filter(i => i);
         }
     }],
     func_loop: async function () {
-        if (!document.querySelector("[class^='reaction-panel_stamp-list__']") || document.querySelector(".custom_stamps")) return false;
-        document.querySelector("[class^='reaction-panel_stamp-list__']").classList.add("custom_stamps");
-        let topiclist = await fetch(`https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}`, {
-                headers: {
-                    Authorization: Mew.getcookie("tomon_community_token")
-                }
-            }).then(res => res.json()).then(json => {
-                if (json.topics) return json.topics;
-                return [];
-            }),
-            currentTopic = document.querySelector("[class^='containers_chat-header__']").textContent,
-            topicid = 0;
-        for (let i in topiclist) {
-            if (currentTopic.indexOf(topiclist[i].name) != -1) {
-                topicid = topiclist[i].id;
-                break;
+        let nonce_gen = (len) => {
+            let nonce = [];
+            for (let i = 0; i < len; i++) {
+                nonce.push(Math.floor(Math.random() * 10))
             };
+            return nonce.join("");
         };
-        console.log(topiclist, currentTopic)
-        if (topicid == 0 || this._settings.custom_stamp_list.length == 0) return false;
+        let header = {
+            Authorization: Mew.getcookie("tomon_community_token")
+        };
+        if (!document.querySelector("[class^='reaction-panel_stamp-list__']") || document.querySelector(".custom_stamps") || this._settings.custom_stamp_list.length == 0) return false;
+        document.querySelector("[class^='reaction-panel_stamp-list__']").classList.add("custom_stamps");
+        let topicid = (document.querySelector("[class^='node-chat_list__']")) ?
+            document.querySelector("[class^='node-chat_list__']").querySelector("span.text-primary").parentNode.previousSibling.children[0].getAttribute("data-id") :
+            await fetch(`https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}`, {
+                headers: header
+            }).then(res => res.json()).then(json => {
+                if (!json.topics) return 0;
+                for (let i in json.topics) {
+                    if (document.querySelector("[class^='containers_chat-header__']").textContent.indexOf(json.topics[i].name) != -1) {
+                        return json.topics[i].id;
+                    };
+                };
+            });
+        if (topicid == 0) return false;
         for (let i in this._settings.custom_stamp_list) {
-            let data = this._settings.custom_stamp_list[i].split("$"),
-                desc = (data[1]) ? data[1] : "",
+            let data = this._settings.custom_stamp_list[i].split("$");
+            if (!/[0-9]{18}/.test(data[0])) continue;
+            let hash = (data[1] && data[1].match(/[0-9a-f]{32}/g)) ? data[1] : "2c7b5e16155b442a9ff0cce985f6ad93",
+                desc = (data[2]) ? data[2] : "木有说明(っ °Д °;)っ",
                 insertel = Mew.dom(`
                 <button class="reaction-panel_stamp__8qpSD" title="${desc}">
                     <picture class="reaction-panel_image__2FjNq">
-                        <source srcset="https://image.mew.fun/tos-cn-i-c226mjqywu/2c7b5e16155b442a9ff0cce985f6ad93" type="image/png">
+                        <source srcset="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" type="image/png">
                         <img src="" alt="${desc}">
                     </picture>
                 </button>`);
@@ -1268,7 +1299,7 @@ mew.conf({
                         "content-type": "application/json",
                     },
                     body: JSON.stringify({
-                        nonce: "0",
+                        nonce: nonce_gen(18),
                         media: [data[0]]
                     }),
                     method: "POST",
@@ -1276,6 +1307,31 @@ mew.conf({
             });
             document.querySelector(".custom_stamps").append(insertel);
         };
+    }
+});
+mew.conf({
+    id: "ver_check",
+    hide: true,
+    always: true,
+    config_extra: [{
+        id: "ver",
+        default: 0
+    }],
+    func_once: async function () {
+        let update_url = `https://api.mew.fun/api/v1/users/68907366539980800`; //release
+        let announce = await fetch(update_url).then(res => res.json()).then(text => JSON.parse(text.description.split("\n")[1]));
+        if (this._settings.ver != announce.ver) {
+            this.noti("脚本有新版本", `最新版本${announce.ver}，请按下F12打开控制台以查看更新内容。`, () => {
+                window.open(`https://www.doveyige.top/bettermewupdate.html#latest`);
+            });
+            let whatsnew = [`当前脚本版本：${announce.ver}`, "更新内容：", ...announce.whatsnew];
+            console.clear();
+            for (let i in whatsnew) {
+                console.log(`%c${whatsnew[i]}`, "color: rgb(125 125 125);font-size:16px")
+            };
+            this.savsetting("ver", announce.ver);
+        };
+        return announce.ver;
     }
 });
 mew.run();
