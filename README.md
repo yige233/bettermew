@@ -1,7 +1,11 @@
-#适用于MEW.fun的优化脚本#
- MEW内脚本据点：mew.fun/n/bettermew
- Greasy Fork发布地址：https://greasyfork.org/zh-CN/scripts/434289-mew-enchantment-autoupdate-ver
-##主要功能：##
+<a href="http://mew.fun"><img align='right' src='https://mew.fun/favicon.png' width='200px'></a>
+
+# 适用于MEW.fun的优化脚本
+
+MEW内脚本据点：https://mew.fun/n/bettermew
+
+Greasy Fork发布地址：https://greasyfork.org/zh-CN/scripts/434289-mew-enchantment-autoupdate-ver
+## 主要功能
 * 深色模式：mew将根据浏览器偏好，在浏览器选择深色模式时自动切换为深色模式。
 * 桌面布局更改：可以通过下方的滑动条，分别调整想法栏和主页栏的宽度。
 * 想法全文居中：点开想法全文后，想法不再靠边显示而是居中显示。
@@ -19,5 +23,5 @@
 * “只看Ta”：点击想法长文内的“只看作者”按钮，会弹出一个提示框；提示框内输入用户昵称，即可查看该用户在本想法的发言。同时该功能会隐藏被删除的评论。
 * 快捷发图：可在“发送表情”按钮中快速发图。要求图片预先已存在于Mew服务器。使用方法：假设聊天栏中存在图片A。右键图片A，选择复制图片链接；将链接填入上述工具的文本框中；等待链接被替换为一串神秘代码；复制该神秘代码到快捷发图的文本框内；然后可以输入小一段说明文字。此时点击聊天栏的“发送表情”按钮，表情栏内会多出一个表情图标，鼠标移到该图标之上，会显示刚刚填写的说明。单击该图标即可在聊天流中发送刚刚填写的id所对应的图片。
 
-##感谢##
+### 感谢
 感谢来自 https://github.com/wendux/Ajax-hook 的ajax拦截器
