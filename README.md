@@ -4,7 +4,7 @@
 
 MEW内脚本据点：https://mew.fun/n/bettermew
 
-Greasy Fork发布地址：https://greasyfork.org/zh-CN/scripts/434289-mew-enchantment-autoupdate-ver
+安装脚本：点击[这个链接](https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.user.js)。
 ## 主要功能
 * 深色模式：mew将根据浏览器偏好，在浏览器选择深色模式时自动切换为深色模式。
 * 桌面布局更改：可以通过下方的滑动条，分别调整想法栏和主页栏的宽度。
