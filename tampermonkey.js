@@ -2,7 +2,7 @@
 // @name         Mew enchantment AutoUpdate ver.
 // @namespace    http://tampermonkey.net/
 // @homepage     https://github.com/yige233/bettermew
-// @version      0.32
+// @version      0.31
 // @description  个人向脚本，随着网页的更新，可能会失效。主要功能：https://mew.fun/Dove_yige/thoughts/69082567613583360
 // @author       破损的鞘翅
 // @match        https://mew.fun/n/*
