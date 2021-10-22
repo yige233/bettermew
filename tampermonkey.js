@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Mew enchantment AutoUpdate ver.
 // @namespace    http://tampermonkey.net/
-//@homepage     https://github.com/yige233/bettermew
-// @version      0.31
+// @homepage     https://github.com/yige233/bettermew
+// @version      0.32
 // @description  个人向脚本，随着网页的更新，可能会失效。主要功能：https://mew.fun/Dove_yige/thoughts/69082567613583360
 // @author       破损的鞘翅
 // @match        https://mew.fun/n/*
@@ -10,6 +10,7 @@
 // @icon         https://mew.fun/favicon.png
 // @supportURL   https://github.com/yige233/bettermew/issues
 // @updateURL    https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.js
+// @downloadURL  https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.js
 // @grant        GM.registerMenuCommand
 // @grant        GM.getValue
 // @grant        GM.setValue
@@ -29,16 +30,18 @@
             localStorage.setItem("settings", "");
             alert("已经清除所有设置！")
         });
-        GM.registerMenuCommand("刷新cdn缓存-仅正式版", async () => {
-            let path = "/gh/yige233/bettermew@latest/mew.js";
-            let res = await fetch(`https://purge.jsdelivr.net${path}`).then(res => res.json()).then(json => {
-                if (json.status != "finished") return "cdn刷新未完成！";
-                if (json.paths[path].throttled) return `cdn刷新冷却中，剩余时间：${json.paths[path].throttlingReset}秒`;
-                alert(`cdn刷新完成，完成于${new Date(json.timestamp).toLocaleString("chinese", {hour12: false})}，请按下Ctrl+F5刷新浏览器缓存。`);
-                return "如果仍然无法更新到新版本，请等待cdn自然刷新。这最多需要24小时。";
+        if (!is_bata) {
+            GM.registerMenuCommand("刷新cdn缓存", async () => {
+                let path = "/gh/yige233/bettermew@latest/mew.js";
+                let res = await fetch(`https://purge.jsdelivr.net${path}`).then(res => res.json()).then(json => {
+                    if (json.status != "finished") return "cdn刷新未完成！";
+                    if (json.paths[path].throttled) return `cdn刷新冷却中，剩余时间：${json.paths[path].throttlingReset}秒`;
+                    alert(`cdn刷新完成于${new Date(json.timestamp).toLocaleString("chinese", {hour12: false})}，请按下Ctrl+F5刷新浏览器缓存。`);
+                    return "如果仍然无法更新到新版本，请等待cdn自然刷新。这最多需要24小时。";
+                });
+                alert(res);
             });
-            alert(res);
-        });
+        };
         GM.registerMenuCommand(bate_notice, () => {
             (is_bata) ? GM.setValue("is_bata", false): GM.setValue("is_bata", true);
             window.location.reload(true);
