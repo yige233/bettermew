@@ -34,9 +34,10 @@
             let res = await fetch(`https://purge.jsdelivr.net${path}`).then(res => res.json()).then(json => {
                 if (json.status != "finished") return "cdn刷新未完成！";
                 if (json.paths[path].throttled) return `cdn刷新冷却中，剩余时间：${json.paths[path].throttlingReset}秒`;
-                alert(`刷新完成，完成于${new Date(json.timestamp).toLocaleString("chinese", {hour12: false})}，如果仍然无法更新到新版本，请等待cdn自然刷新。这最多需要24小时。点击确定以刷新页面`)
-            window.location.reload(true);
-        });
+                alert(`cdn刷新完成，完成于${new Date(json.timestamp).toLocaleString("chinese", {hour12: false})}，请按下Ctrl+F5刷新浏览器缓存。`);
+                return "如果仍然无法更新到新版本，请等待cdn自然刷新。这最多需要24小时。";
+            });
+            alert(res);
         GM.registerMenuCommand(bate_notice, () => {
             (is_bata) ? GM.setValue("is_bata", false): GM.setValue("is_bata", true);
             window.location.reload(true);
