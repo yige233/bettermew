@@ -5,7 +5,7 @@ class Mew {
         childfunc: []
     };
     _data = {
-        settingicon: `<svg t="1633357352154" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1249" width="32" height="32"><path d="M919.6 405.6l-57.2-8c-12.7-1.8-23-10.4-28-22.1-11.3-26.7-25.7-51.7-42.9-74.5-7.7-10.2-10-23.5-5.2-35.3l21.7-53.5c6.7-16.4 0.2-35.3-15.2-44.1L669.1 96.6c-15.4-8.9-34.9-5.1-45.8 8.9l-35.4 45.3c-7.9 10.2-20.7 14.9-33.5 13.3-14-1.8-28.3-2.8-42.8-2.8-14.5 0-28.8 1-42.8 2.8-12.8 1.6-25.6-3.1-33.5-13.3l-35.4-45.3c-10.9-14-30.4-17.8-45.8-8.9L230.4 168c-15.4 8.9-21.8 27.7-15.2 44.1l21.7 53.5c4.8 11.9 2.5 25.1-5.2 35.3-17.2 22.8-31.7 47.8-42.9 74.5-5 11.8-15.3 20.4-28 22.1l-57.2 8C86 408 72.9 423 72.9 440.8v142.9c0 17.7 13.1 32.7 30.6 35.2l57.2 8c12.7 1.8 23 10.4 28 22.1 11.3 26.7 25.7 51.7 42.9 74.5 7.7 10.2 10 23.5 5.2 35.3l-21.7 53.5c-6.7 16.4-0.2 35.3 15.2 44.1L354 927.8c15.4 8.9 34.9 5.1 45.8-8.9l35.4-45.3c7.9-10.2 20.7-14.9 33.5-13.3 14 1.8 28.3 2.8 42.8 2.8 14.5 0 28.8-1 42.8-2.8 12.8-1.6 25.6 3.1 33.5 13.3l35.4 45.3c10.9 14 30.4 17.8 45.8 8.9l123.7-71.4c15.4-8.9 21.8-27.7 15.2-44.1l-21.7-53.5c-4.8-11.8-2.5-25.1 5.2-35.3 17.2-22.8 31.7-47.8 42.9-74.5 5-11.8 15.3-20.4 28-22.1l57.2-8c17.6-2.5 30.6-17.5 30.6-35.2V440.8c0.2-17.8-12.9-32.8-30.5-35.2z m-408 245.5c-76.7 0-138.9-62.2-138.9-138.9s62.2-138.9 138.9-138.9 138.9 62.2 138.9 138.9-62.2 138.9-138.9 138.9z" fill="#345bac" p-id="1250"></path></svg>`,
+        icon_setting: `<svg t="1633357352154" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1249" width="32" height="32"><path d="M919.6 405.6l-57.2-8c-12.7-1.8-23-10.4-28-22.1-11.3-26.7-25.7-51.7-42.9-74.5-7.7-10.2-10-23.5-5.2-35.3l21.7-53.5c6.7-16.4 0.2-35.3-15.2-44.1L669.1 96.6c-15.4-8.9-34.9-5.1-45.8 8.9l-35.4 45.3c-7.9 10.2-20.7 14.9-33.5 13.3-14-1.8-28.3-2.8-42.8-2.8-14.5 0-28.8 1-42.8 2.8-12.8 1.6-25.6-3.1-33.5-13.3l-35.4-45.3c-10.9-14-30.4-17.8-45.8-8.9L230.4 168c-15.4 8.9-21.8 27.7-15.2 44.1l21.7 53.5c4.8 11.9 2.5 25.1-5.2 35.3-17.2 22.8-31.7 47.8-42.9 74.5-5 11.8-15.3 20.4-28 22.1l-57.2 8C86 408 72.9 423 72.9 440.8v142.9c0 17.7 13.1 32.7 30.6 35.2l57.2 8c12.7 1.8 23 10.4 28 22.1 11.3 26.7 25.7 51.7 42.9 74.5 7.7 10.2 10 23.5 5.2 35.3l-21.7 53.5c-6.7 16.4-0.2 35.3 15.2 44.1L354 927.8c15.4 8.9 34.9 5.1 45.8-8.9l35.4-45.3c7.9-10.2 20.7-14.9 33.5-13.3 14 1.8 28.3 2.8 42.8 2.8 14.5 0 28.8-1 42.8-2.8 12.8-1.6 25.6 3.1 33.5 13.3l35.4 45.3c10.9 14 30.4 17.8 45.8 8.9l123.7-71.4c15.4-8.9 21.8-27.7 15.2-44.1l-21.7-53.5c-4.8-11.8-2.5-25.1 5.2-35.3 17.2-22.8 31.7-47.8 42.9-74.5 5-11.8 15.3-20.4 28-22.1l57.2-8c17.6-2.5 30.6-17.5 30.6-35.2V440.8c0.2-17.8-12.9-32.8-30.5-35.2z m-408 245.5c-76.7 0-138.9-62.2-138.9-138.9s62.2-138.9 138.9-138.9 138.9 62.2 138.9 138.9-62.2 138.9-138.9 138.9z" fill="#345bac" p-id="1250"></path></svg>`,
         css_basic: `
     @keyframes appear{
         from{
@@ -46,8 +46,10 @@ class Mew {
         position: fixed;
         top: 0px;
     }
+    input.switcher {
+        display: none;
+    }
     input.switcher+label {
-        margin: 0 0 5px 0;
         width: 40px;
         height: 20px;
         background-color: #dddddd;
@@ -124,7 +126,7 @@ class Mew {
         border: 2px solid rgb(52, 91, 172);
         border-radius: 20px;
     }
-    #settingicon {
+    #icon_setting {
         cursor: pointer;
         padding: 10% 10%;
     }
@@ -172,6 +174,12 @@ class Mew {
             });
         });
         return page;
+    };
+    static async fetchres(url) {
+        const res = await fetch(url, {
+            cache: "force-cache"
+        });
+        return await res.text();
     };
     conf(options) {
         let pushconfig = (obj, config) => {
@@ -262,7 +270,7 @@ class Mew {
         return this._settings[key];
     };
     basic() {
-        if (!document.querySelector("[class^='sidebar_root__']") || document.querySelector("#settingicon")) return false;
+        if (!document.querySelector("[class^='sidebar_root__']") || document.querySelector("#icon_setting")) return false;
         const setting = {
             activatefunc: (e, func, path) => {
                 let list = this._settings[path];
@@ -280,7 +288,7 @@ class Mew {
                     <li ${(item.parent)?"class='childoption'":""}>
                         <span>${item.short_desc}：${item.long_desc}</span>
                         <div>
-                            <input type="checkbox" id="control_${item.id}" title="${item.short_desc}" ${(this._settings[funcpath].includes(item.id))?"checked":"" } ${(item.parent==null || this._settings.mainfunc.includes(item.parent))?"":"disabled"} class="switcher" style="display: none;">
+                            <input type="checkbox" id="control_${item.id}" title="${item.short_desc}" ${(this._settings[funcpath].includes(item.id))?"checked":"" } ${(item.parent==null || this._settings.mainfunc.includes(item.parent))?"":"disabled"} class="switcher">
                             <label for="control_${item.id}" title="${item.short_desc}" class="switcher-label"></label>
                         </div>
                     </li>`);
@@ -319,10 +327,10 @@ class Mew {
                         if (e.target.disabled) return false;
                         switch (e.target.value) {
                             case "0":
-                                if (e.deltaY < 0) e.target.value++;;
+                                if (e.deltaY < 0) e.target.value++;
                                 break;
                             case `${item.max}`:
-                                if (e.deltaY > 0) e.target.value--;;
+                                if (e.deltaY > 0) e.target.value--;
                                 break;
                             default:
                                 if (e.deltaY < 0) {
@@ -355,7 +363,7 @@ class Mew {
                 document.body.append(page);
             }
         };
-        var icon = Mew.dom(`<div id="settingicon">${this._data.settingicon}</div>`);
+        var icon = Mew.dom(`<div id="icon_setting">${this._data.icon_setting}</div>`);
         icon.addEventListener("click", () => {
             setting.page();
         });
@@ -387,10 +395,10 @@ class Mew {
         });
     };
 };
-let datas = {
-    defaultavatar: "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
-    totopicon: '<svg t="1624339130920" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1179" width="40" height="40"><path d="M708.85376 416.19456c0 2.0992-0.65536 4.1984-1.9968 5.96992-2.68288 3.56352-7.424 4.89472-11.5712 3.24608L571.52512 376.5248l0 286.52544c0 5.4784-4.44416 9.92256-9.9328 9.92256l-99.18464 0c-5.46816 0-9.91232-4.44416-9.91232-9.92256L452.49536 376.5248l-123.78112 48.88576c-4.13696 1.6384-8.87808 0.3072-11.56096-3.24608-2.69312-3.56352-2.68288-8.47872 0.06144-12.01152L504.13568 167.0144c1.88416-2.44736 4.78208-3.87072 7.86432-3.87072s5.9904 1.4336 7.86432 3.87072l186.9312 243.13856C708.15744 411.92448 708.85376 414.0544 708.85376 416.19456zM512 726.51776c-46.32576 0-83.88608 37.55008-83.88608 83.88608 0 46.336 37.56032 83.88608 83.88608 83.88608s83.89632-37.55008 83.89632-83.88608C595.89632 764.07808 558.32576 726.51776 512 726.51776z" p-id="1180" fill="#bfbfbf"></path></svg>',
-    searchicon: '<svg t="1627976673096" source="https://www.iconfont.cn" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7438" width="30" height="30"><path d="M222.6944 222.7968A323.1488 323.1488 0 0 0 133.6832 512c19.2512-87.3728 64.512-172.7488 135.0144-243.3024C339.2512 198.1184 424.6272 152.8832 512 133.632c-101.632-19.1488-210.688 10.5216-289.3056 89.1648z" fill="#7294da" p-id="7439"></path><path d="M989.44 822.1184l-121.7024-121.7024a118.016 118.016 0 0 0-92.8-34.1248c114.4576-165.5552 97.92-394.3936-49.4848-541.824-165.9392-165.9904-435.0464-165.9904-601.0368 0-165.9392 165.9904-165.9392 435.1232 0 601.1136 147.4048 147.4304 376.064 163.84 541.7216 49.3824-2.56 33.28 8.8576 67.5328 34.1248 92.8l121.7024 121.728c46.08 45.9776 121.3696 45.9776 167.3472 0 46.208-45.9776 46.208-121.2928 0.128-167.3728zM676.096 676.096c-138.6752 138.6752-363.392 138.6752-502.016 0-138.6752-138.6752-138.6752-363.4432 0-502.1184 138.624-138.6752 363.3408-138.6752 502.016 0 138.6496 138.5728 138.6496 363.4432 0 502.1184z" fill="#7294da" p-id="7440"></path></svg>',
+let resources = {
+    defaultavatar: '/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png',
+    icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/totop.svg',
+    icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/search.svg',
     css_topic_list: `
     [class^='topic-selector_root__']:hover {
         transition: max-height 1s linear;
@@ -431,10 +439,10 @@ let datas = {
         content-visibility: auto;
     }
     [class*='base_card__'] {
-        width:80% !important;
+        width: 80% !important;
     }
     [class^='comments_modal-out__'] {
-        max-width:40%;
+        max-width: 40%;
     }`,
     css_whisper_in_middle: `
     .panel-slide-enter-done {
@@ -450,14 +458,14 @@ let datas = {
         margin-right: 1rem;
     }`,
     css_compact_thought_hide_img: `
-    [class^='thought-v2_root__'] [class^='post-preview_cover__'],
-    [class^='v2_frame-wrapper__'],
-    [class^='thought-v2_player-wrapper__'],
-    [class^='thought-v2_img-wrapper__'] {
+    [class^='thought_root__'] [class^='post-preview_cover__'],
+    [class^='card_frame-wrapper__'],
+    [class^='thought_player-wrapper__'],
+    [class^='thought_img-wrapper__'] {
         display: none;
     }`,
     css_compact_thought_hide_text: `
-    [class^='thought-v2_content__']>p {
+    [class^='thought_content__']>p {
         text-overflow: ellipsis;
         white-space: nowrap;
         display: block !important;
@@ -466,235 +474,19 @@ let datas = {
     .h-\\\[12rem\\\] {
         height: unset;
     }`,
-    css_search: `
-    .stdpage div.form {
-        position: relative;
-        width: 300px;
-        margin: 40px auto
-    }
-    .stdpage div.form div {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    .stdpage div.form div input {
-        width: 24px;
-        height: 24px;
-    }
-    .stdpage div.form svg {
-        margin: 0 0 0 10px;
-    }
-    .stdpage input {
-        border: 2px solid rgb(52, 91, 172);
-        border-radius: 10px;
-        background: rgb(249, 240, 218);
-        color: rgb(158, 156, 156);
-        width: 100%;
-        height: 42px;
-        padding-left: 13px;
-        outline: none
-    }
-    .stdpage button {
-        top: 0;
-        right: 0;
-        background: rgb(52, 91, 172);
-        border-radius: 0 10px 10px 0;
-        height: 42px;
-        width: 42px;
-        cursor: pointer;
-        position: absolute;
-        border: none;
-        outline: none;
-        color: rgb(255, 255, 255)
-    }
-    #searchres {
-        display: flex;
-        flex-direction: column
-    }
-    .searchitem {
-        width: 90%;
-        margin: 5px auto;
-        border-radius: 20px;
-        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
-    }
-    .searchitem .content,
-    #searchicon {
-        cursor: pointer;
-    }
-    .searchitem div,
-    .searchitem p {
-        padding: 0px 10px 10px 10px;
-    }
-    .searchitem div.poster {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding-top: 5px;
-    }
-    .searchitem div.poster img {
-        width: 36px;
-        height: 36px;
-        border-radius: 5px;
-    }
-    .searchitem div.poster .nickname {
-        font-weight: bold
-    }
-    .searchitem div.poster .date {
-        font-size: 10px;
-    }
-    .stdpage div.form div {
-        color: rgb(var(--colors-receive-msg));
-    }
-    .searchitem,
-    .stdpage input {
-        background-color: rgb(var(--colors-background-receive-msg));
-        color: rgb(var(--colors-receive-msg));
-    }`,
-    css_darkmode: `
-    @media (prefers-color-scheme: dark) {
-        body#app {
-            --colors-background-regular: 33 33 33;
-            --colors-background-lighter: 43 43 43;
-            --colors-background-morelighter: 55 55 55;
-            --colors-background-gray: 60 60 60;
-            --colors-emphasis: 230 230 230;
-            --colors-background-receive-msg: 80 80 80;
-            --colors-msg: 235 235 235;
-            --colors-receive-msg: 255 255 255;
-            --colors-background-sent-msg: 120 120 120;
-            --colors-background-darker: 25 25 25;
-            --colors-primary: 114 148 218;
-            --colors-primary-darker: 154 178 228;
-            --colors-gray-200: 140 140 140;
-            --colors-gray-100: 110 110 110;
-            --colors-background-msg: 100 100 100;
-            --colors-caption: 235 235 235;
-            --colors-background-comment: 60 60 60;
-            --colors-background-reply: 80 80 80;
-            --colors-body: 200 200 200;
-            --colors-gray-50: 60 60 60;
-            --colors-background-light: 45 45 45;
-            --colors-background-selected-comment: 100 100 100;
-            --colors-gray-500: 250 250 250;
-            --colors-gray-400: 240 240 240;
-            --colors-background-dialog: 55 55 55;
-            --colors-background-heading: 45 45 45;
-            --colors-gray-900: 255 255 255;
-            --colors-gray-700: 245 245 245;
-            --colors-background-hover:43 43 43;
-            --colors-disabled:200 200 200;
-        }
-        [class^='thought-view_post-content__']>div p,
-        h1,
-        h2,
-        h3 {
-            color: rgb(var(--colors-emphasis)) !important;
-        }
-        [class^='message-container_list__']>div,
-        [class^='message-container_list__'],
-        [class^='v2_bili-root__'],
-        [class^='message-stamp_bubble__'],
-        div[data-embed-type],
-        div[data-embed-type=link]>div,
-        [class^='containers_middle-root__'] {
-            background-color: rgb(var(--colors-background-lighter));
-        }
-        [class^='containers_chat-header__'],
-        [class^='message-container_reply-bar__'],
-        [class^='user-description-dialog_dialog-root'] {
-            background-color: rgb(var(--colors-background-darker)) !important;
-        }
-        .MuiIconButton-sizeSmall,
-        .MuiButtonBase-root {
-            color: white;
-        }
-        .Mui-selected {
-            color: wheat !important;
-        }
-        .MuiIconButton-sizeSmall:hover,
-        [class^='base_root__'] {
-            background-color: rgb(var(--colors-gray-200));
-        }
-        textarea,
-        [class^='pin-list_root__'],
-        [class^='node-migration-dialog_node-migration-root__'],
-        [class^='comments_title-bar__'] {
-            background: rgb(var(--colors-background-lighter)) !important;
-        }
-        div.w-full.flex.justify-center.absolute.top-0.z-10.bg-background-regular.h-14.items-center {
-            background-color: rgb(var(--colors-background-regular)) !important;
-        }
-        [class^='comment-item_name__'],
-        [class^='comment-item_action-btn__'],
-        .text-sm.truncate,
-        [class^='thought-v2_quote-bar__'],
-        [class^='card_name__'],
-        .text-black {
-            color: rgb(var(--colors-msg));
-        }
-        [class^='card_root__'],
-        [class^='v2_root__'],
-        [class^='button_reaction-btn__'],
-        [class^='search-bar_input__'] {
-            background-color: rgb(var(--colors-background-receive-msg));
-        }
-        [class^='card_content__'],
-        [class^='item-in-list_header__'],
-        .font-medium,
-        .text-md.truncate,
-        .text-3xl,
-        .text-xl,
-        .my-4,
-        [class^='wiki-item_header__'],
-        .text-2xl,
-        div.MuiDialogContent-root>p,
-        [class^='user-setting-dialog_header__'],
-        [class^='right_white-btn__'],
-        .ProseMirror{
-            color: rgb(var(--colors-receive-msg));
-        }
-        .MuiPaper-elevation16,
-        [class^='containers_selector__'],
-        .MuiPaper-elevation {
-            background-color: rgb(var(--colors-background-regular));
-        }
-        [class^='base_no-outline__'],
-        [class^='base_no-outline__']:active,
-        [class^='card_action-btn__'] {
-            background-color: rgb(var(--colors-background-receive-msg));
-            color: rgb(var(--colors-receive-msg));
-        }
-        [class^='card_identity-card-root-desktop__'] [class^='card_action-btn__'],
-        [class^='text-field_input__'],
-        [class^='text-field_root__']{
-            background-color: rgb(var(--colors-background-receive-msg));
-            color: rgb(var(--colors-receive-msg));
-        }
-        [class^='message-container_reaction-panel__'],
-        [class^='drawer_dialog__'],
-        [class^='plain-input_compose-textarea-wrapper__'] {
-            background-color: rgb(var(--colors-background-morelighter));
-        }
-        [class^='compact-tabbar_tabbar-item__'],
-        [class^='relationships_name-center__'],
-        [class^='relationships_name__'] {
-            color: rgb(var(--colors-receive-msg)) !important;
-        }
-        [class^='sector-view_sector-header-bar__'] {
-            background-color: rgb(var(--colors-gary-100)) !important;
-        }
-    }`,
+    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/search.css",
+    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/darkmode.css",
     css_text2url: `
     .url-turned a {
         text-decoration: none;
         color: rgb(255 70 175);
     }`,
     css_img_size: `
-    [class^='thought-view-v2_img-wrapper__'] {
+    [class^='thought-view_img-wrapper__'] {
         width: var(--img-width);
         margin: 0 0 0 var(--img-left);
     }
-    [class^='thought-view-v2_post-content__'] div.w-full.bg-center.bg-cover {
+    [class^='thought-view_post-content__'] div.w-full.bg-center.bg-cover {
         width: var(--img-width);
     }`,
     css_thought_widget: `
@@ -713,15 +505,23 @@ let datas = {
     css_only_this_mewer: `
     [class*='comment-item_deleted__'] {
         display: none;
-    }`
+    }`,
+    css_custom_stamp: `
+    .custom_stamps {
+        max-height: 320px;
+        width: 105%;
+        overflow: scroll;
+    }`,
+    icon_node_manage: `https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/node_manage.svg`,
+    css_node_manage: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/node_manage.css',
 };
 let mew = new Mew();
 mew.conf({
     id: "darkmode",
     short_desc: "深色模式",
     long_desc: "mew将根据浏览器偏好，在浏览器选择深色模式时自动切换为深色模式。",
-    func_once: function () {
-        Mew.loadcss(datas.css_darkmode);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_darkmode));
     },
 });
 mew.conf({
@@ -742,7 +542,7 @@ mew.conf({
         max: 50
     }],
     func_once: function () {
-        Mew.loadcss(datas.css_desktop)
+        Mew.loadcss(resources.css_desktop)
     },
     func_loop: function () {
         document.body.style.setProperty("--left-width", this._settings.left_width + "%");
@@ -756,7 +556,7 @@ mew.conf({
     short_desc: "想法全文居中",
     long_desc: "点开想法全文后，想法不再靠边显示而是居中显示。",
     func_once: function () {
-        Mew.loadcss(datas.css_thought_in_middle);
+        Mew.loadcss(resources.css_thought_in_middle);
     },
 });
 mew.conf({
@@ -764,7 +564,7 @@ mew.conf({
     short_desc: "私聊窗口居中",
     long_desc: "点开私聊窗口后，窗口不再靠边显示而是居中显示。",
     func_once: function () {
-        Mew.loadcss(datas.css_whisper_in_middle);
+        Mew.loadcss(resources.css_whisper_in_middle);
     },
 });
 mew.conf({
@@ -772,7 +572,7 @@ mew.conf({
     short_desc: "调换想法栏和主页栏",
     long_desc: "实际上是将整个桌面的排列顺序进行了反转。",
     func_once: function () {
-        Mew.loadcss(datas.css_desktop_reverse);
+        Mew.loadcss(resources.css_desktop_reverse);
     },
 });
 mew.conf({
@@ -787,7 +587,7 @@ mew.conf({
         max: 100
     }],
     func_once: function () {
-        Mew.loadcss(datas.css_img_size)
+        Mew.loadcss(resources.css_img_size)
     },
     func_loop: function () {
         document.body.style.setProperty("--img-width", this._settings.img_width + "%");
@@ -806,7 +606,7 @@ mew.conf({
             short_desc: "隐藏图片",
             long_desc: "隐藏左侧想法栏图片。",
             func_once: function () {
-                Mew.loadcss(datas.css_compact_thought_hide_img);
+                Mew.loadcss(resources.css_compact_thought_hide_img);
             }
         },
         {
@@ -814,7 +614,7 @@ mew.conf({
             short_desc: "缩减文字",
             long_desc: "缩减左侧想法栏文字高度。",
             func_once: function () {
-                Mew.loadcss(datas.css_compact_thought_hide_text);
+                Mew.loadcss(resources.css_compact_thought_hide_text);
             }
         },
         {
@@ -822,7 +622,7 @@ mew.conf({
             short_desc: "更多据点",
             long_desc: "左侧据点栏可显示四个据点。",
             func_once: function () {
-                Mew.loadcss(datas.css_compact_thought_more_node);
+                Mew.loadcss(resources.css_compact_thought_more_node);
             }
         }
     ]
@@ -832,45 +632,15 @@ mew.conf({
     short_desc: "更好的话题栏",
     long_desc: "鼠标置于话题栏上时，将会展开所有话题Tag，移出则收起。",
     func_once: function () {
-        Mew.loadcss(datas.css_topic_list);
+        Mew.loadcss(resources.css_topic_list);
     },
-});
-mew.conf({
-    id: "blacklist",
-    short_desc: "黑名单",
-    long_desc: "下方有一个黑名单文本框，黑名单内用户的发言将不会显示于讨论区。",
-    config_extra: [{
-        id: "bl",
-        type: "text",
-        default: [],
-        long_desc: "[立即生效]下方的文本框用于填写黑名单。填写昵称，每行一个。",
-        value: function () {
-            return this._settings.bl.join("\n");
-        },
-        save: function (e) {
-            return e.target.value.split("\n").filter(i => i);
-        }
-    }],
-    func_loop: function () {
-        if (!document.querySelector("[class^='card_name__']")) return false;
-        var usernames = Array.from(document.querySelectorAll("[class*='message-text_name__']")).concat(Array.from(document.querySelectorAll("[class*='message-image_name__']")));
-        for (let i in usernames) {
-            let el = usernames[i];
-            if (el && el.className.indexOf("inblacklist") == -1) {
-                if (this._settings.bl.includes(el.innerText)) {
-                    el.offsetParent.offsetParent.style = "transform: scale(0);height:0px;";
-                    el.classList.add("inblacklist");
-                };
-            };
-        };
-    }
 });
 mew.conf({
     id: "search",
     short_desc: "PC端想法搜索",
     long_desc: "左侧据点列表上方新增一个搜索按钮，点击后可搜索据点内想法。",
     func_loop: function () {
-        if (document.querySelector("#searchicon") || !document.querySelector("[class^='sidebar_logo__']")) return false;
+        if (document.querySelector("#icon_search") || !document.querySelector("[class^='sidebar_logo__']")) return false;
         const search = new class {
             loadres(_avatar, _nickname, _content, _date, data_id) {
                 let item = Mew.dom(`
@@ -898,7 +668,7 @@ mew.conf({
             };
             search(str) {
                 document.querySelector("#searchres").innerHTML = "";
-                this.loadres(datas.defaultavatar, "提示", "正在努力搜索中！");
+                this.loadres(resources.defaultavatar, "提示", "正在努力搜索中！");
                 fetch(`https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}/search-thoughts?keyword=${str}&limit=100`, {
                     headers: {
                         Authorization: Mew.getcookie("tomon_community_token")
@@ -913,26 +683,26 @@ mew.conf({
                 }).then(res => res.json()).then(res => {
                     document.querySelector("#searchres").innerHTML = "";
                     if (res.entries.length == 0) {
-                        this.loadres(datas.defaultavatar, "提示", "没有搜索到任何信息！");
+                        this.loadres(resources.defaultavatar, "提示", "没有搜索到任何信息！");
                         return false;
                     };
                     for (let i in res.entries) {
                         let poster = res.objects.users[res.entries[i].author_id],
-                            avatar = (poster.avatar) ? res.objects.media[poster.avatar].url : datas.defaultavatar;
+                            avatar = (poster.avatar) ? res.objects.media[poster.avatar].url : resources.defaultavatar;
                         this.loadres(avatar, poster.name, res.entries[i].status, res.entries[i].created_at, res.entries[i].id);
                     };
                     if (res.entries.length == 100) {
-                        this.loadres(datas.defaultavatar, "提示", "最多只能展示100条结果哦！")
+                        this.loadres(resources.defaultavatar, "提示", "最多只能展示100条结果哦！")
                     };
                 }).catch(err => {
                     document.querySelector("#searchres").innerHTML = "";
-                    this.loadres(datas.defaultavatar, "提示", err);
+                    this.loadres(resources.defaultavatar, "提示", err);
                 });
             };
             serachpage() {
-                let s = Mew.stdpage(`<div class="form"><input class="search-input" type="text" placeholder="请输入您要搜索的内容..." ><button>${datas.searchicon}</button><div><span>倒序浏览</span><input class="sort" type="checkbox"></div></div><div id="searchres"></div>`);
+                let s = Mew.stdpage(`<div class="form"><input class="search_input" type="text" placeholder="请输入您要搜索的内容..." ><button class="search_btn"></button></div><div><span>倒序浏览</span><input id="sort" class="sort switcher" type="checkbox"><label for="sort"></label></div><div id="searchres"></div>`);
                 s.querySelector("button").addEventListener("click", () => {
-                    this.search(document.querySelector(".search-input").value);
+                    this.search(document.querySelector(".search_input").value);
                 });
                 s.querySelector(".sort").addEventListener("change", (e) => {
                     if (e.target.checked) {
@@ -944,20 +714,22 @@ mew.conf({
                 document.body.append(s);
             };
         };
-        Mew.loadcss(datas.css_search);
-        var searchicon = Mew.dom(`<div id="searchicon">${datas.searchicon}</div>`);
-        searchicon.addEventListener("click", () => {
+        var icon_search = Mew.dom(`<div id="icon_search"  style="background-image:url(${resources.icon_search});width:40px;height:40px;background-repeat: round;"></div>`);
+        icon_search.addEventListener("click", () => {
             search.serachpage();
         });
-        document.querySelector("[class^='sidebar_logo__']").after(searchicon);
+        document.querySelector("[class^='sidebar_logo__']").after(icon_search);
     },
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_search));
+    }
 });
 mew.conf({
     id: "text2url",
     short_desc: "Url变为可点击",
     long_desc: "将讨论区内不可点击的链接转换为可点击。",
     func_once: function () {
-        Mew.loadcss(datas.css_text2url);
+        Mew.loadcss(resources.css_text2url);
     },
     func_loop: function () {
         const text2url = function (el) {
@@ -985,22 +757,15 @@ mew.conf({
     short_desc: "回到顶部",
     long_desc: "在想法全文内增加一个“回到顶部”按钮。",
     func_once: function () {
-        Mew.loadcss(datas.css_thought_widget);
+        Mew.loadcss(resources.css_thought_widget);
     },
     func_loop: function () {
         if (!document.querySelector("#comments")) return false;
         var root = document.querySelectorAll("#comments");
         if (root[root.length - 1].querySelector(".thought-widget")) return false;
-        let div = Mew.dom(`<div class="thought-widget"><div title="回到顶部" class="to-top">${datas.totopicon}</div></div>`);
+        let div = Mew.dom(`<div class="thought-widget"><div title="回到顶部" class="to-top" style="height: 40px;width: 40px;cursor: pointer;background: url('https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/totop.svg') center center no-repeat;"></div></div>`);
         div.addEventListener("click", (e) => {
-            var target = e.currentTarget;
-            if (e.target.tagName == "path") {
-                target = e.target.parentNode.parentNode
-            };
-            if (e.target.tagName == "svg") {
-                target = e.target.parentNode
-            };
-            target.parentNode.parentNode.scrollTo({
+            e.target.parentNode.parentNode.scrollTo({
                 top: 0,
                 behavior: "smooth",
             });
@@ -1077,7 +842,7 @@ mew.conf({
         default: "",
     }],
     func_once: function () {
-        Mew.loadcss(datas.css_only_this_mewer);
+        Mew.loadcss(resources.css_only_this_mewer);
         let lib = document.createElement("script"),
             hook = async (response) => {
                 if (response.config.url.indexOf("authorOnly=1") == -1) return false;
@@ -1151,7 +916,7 @@ mew.conf({
                 };
             };
         btn.addEventListener("click", callback);
-        btn.setAttribute("data-author", root[root.length - 1].querySelector("[class^='thought-v2_name__']").innerText);
+        btn.setAttribute("data-author", root[root.length - 1].querySelector("[class^='thought_name__']").innerText);
         btn.classList.add("onlyauthor-hook");
     }
 });
@@ -1210,7 +975,7 @@ mew.conf({
         type: "text",
         id: "tool_img_id",
         default: "",
-        long_desc: "[小工具]输入Mew图片链接，获取图片的Mew id。",
+        long_desc: "[小工具]输入Mew图片链接，获取适用于自定义表情功能的神秘代码。",
         value: function () {
             return "";
         },
@@ -1240,13 +1005,13 @@ mew.conf({
 });
 mew.conf({
     id: "custom_stamp",
-    short_desc: "快捷发图",
-    long_desc: "在下方的文本框内填入Mew图片id，即可在“发送表情”按钮中快速发图。请不要在私信中使用！！！",
+    short_desc: "自定义表情",
+    long_desc: "在下方的文本框内填入神秘代码(见下方文本框说明)，即可在“发送表情”按钮中使用自定义表情。",
     config_extra: [{
         type: "text",
         id: "custom_stamp_list",
         default: [],
-        long_desc: "按格式填入Mew图片id及图片说明。每行一条。格式：{图片id}${[可选]图片hash}${[可选]图片说明}。示例：116188135487934464$e6a9f2dd09c74cc5abcb59af95d3e2d2$[M酱]生气",
+        long_desc: "按格式填入用于自定义表情功能的神秘代码。也可以填入包含神秘代码的订阅链接。每行一条。神秘代码格式：{图片id}${[可选]图片hash}${[可选]图片说明}。示例：116188135487934464$e6a9f2dd09c74cc5abcb59af95d3e2d2$[M酱]生气",
         value: function () {
             return this._settings.custom_stamp_list.join("\n");
         },
@@ -1280,16 +1045,29 @@ mew.conf({
                 };
             });
         if (topicid == 0) return false;
+        let stamps = [];
         for (let i in this._settings.custom_stamp_list) {
-            let data = this._settings.custom_stamp_list[i].split("$");
-            if (!/[0-9]{18}/.test(data[0])) continue;
+            if (!/(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(this._settings.custom_stamp_list[i])) {
+                stamps.push(this._settings.custom_stamp_list[i]);
+                continue;
+            };
+            await Mew.fetchres(this._settings.custom_stamp_list[i]).then(text => text.split("\n").filter(i => i)).then(arr => {
+                for (let i in arr) {
+                    stamps.push(arr[i]);
+                };
+            }).catch(() => []);
+        };
+        for (let i in stamps) {
+            if (stamps[i].slice(0, 1) == "#") continue;
+            let data = stamps[i].split("$");
+            if (!/[0-9]{17,18}/.test(data[0])) continue;
             let hash = (data[1] && data[1].match(/[0-9a-f]{32}/g)) ? data[1] : "2c7b5e16155b442a9ff0cce985f6ad93",
                 desc = (data[2]) ? data[2] : "木有说明(っ °Д °;)っ",
                 insertel = Mew.dom(`
                 <button class="reaction-panel_stamp__8qpSD" title="${desc}">
                     <picture class="reaction-panel_image__2FjNq">
                         <source srcset="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" type="image/png">
-                        <img src="" alt="${desc}">
+                        <img src="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" alt="${desc}">
                     </picture>
                 </button>`);
             insertel.addEventListener("click", () => {
@@ -1307,6 +1085,9 @@ mew.conf({
             });
             document.querySelector(".custom_stamps").append(insertel);
         };
+    },
+    func_once: function () {
+        Mew.loadcss(resources.css_custom_stamp);
     }
 });
 mew.conf({
@@ -1318,7 +1099,7 @@ mew.conf({
         default: 0
     }],
     func_once: async function () {
-        let update_url = `https://api.mew.fun/api/v1/users/68907366539980800`; //release
+        let update_url = `https://api.mew.fun/api/v1/users/68907366539980800`;
         let announce = await fetch(update_url).then(res => res.json()).then(text => JSON.parse(text.description.split("\n")[1]));
         if (this._settings.ver != announce.ver) {
             this.noti("脚本有新版本", `最新版本${announce.ver}，请按下F12打开控制台以查看更新内容。`, () => {
