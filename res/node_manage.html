@@ -1,0 +1,141 @@
+<div class="container">
+    <div class="title">
+        <span>据点管理</span>
+    </div>
+    <div class="accordion">
+        <div class="accordion__item">
+            <input type="checkbox" class="accordion__toggle" id="node_basic" />
+            <div class="accordion__header">
+                <label for="node_basic"></label>
+                <span class="accordion__title">据点基本信息：名称·据点代号·简介·管理员</span>
+            </div>
+            <div class="accordion__content">
+                <div class="input_container">
+                    <span class="container__addon">据点名称</span>
+                    <input type="text" class="container__input" />
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">领主</span>
+                    <input id="" type="text" class="container__input" disabled />
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">据点代号</span>
+                    <input type="text" class="container__input" />
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">据点介绍</span>
+                    <textarea maxlength="140" class="container__input"
+                        placeholder="应少于140个字符。删除原有介绍会导致保存失败。"></textarea>
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">据点图标</span>
+                    <input type="text" class="container__input" placeholder="填入Mew图片的id。" />
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">保存</span>
+                    <button class="container__input">保存</button>
+                </div>
+            </div>
+        </div>
+        <div class="accordion__item">
+            <input type="checkbox" class="accordion__toggle" id="node_topic" />
+            <div class="accordion__header">
+                <label for="node_topic"></label>
+                <span class="accordion__title">话题管理：话题创建·删除·排序</span>
+            </div>
+            <div class="accordion__content">
+                <div class="tab_container">
+                    <div class="tab1">话题一览</div>
+                    <div class="tab2">排序话题</div>
+                    <div class="tab3">添加话题</div>
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion__item">
+            <input type="checkbox" class="accordion__toggle" id="node_speech" />
+            <div class="accordion__header">
+                <label for="node_speech"></label>
+                <span class="accordion__title">门槛与发言：加入门槛·发言限制·搜索·曝光</span>
+            </div>
+            <div class="accordion__content">
+                <div class="input_container">
+                    <span class="container__addon">可被公开搜索</span>
+                    <input type="checkbox" class="switcher container__input" id="searchable" />
+                    <label for="searchable"></label>
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">据点标签：添加/删除Tag。一行一个，最多10个。</span>
+                    <textarea maxlength="140" class="container__input"></textarea>
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">设置发言门槛，答题后方可发言。</span>
+                    <input type="checkbox" class="switcher container__input" id="enable_speak_question" />
+                    <label for="enable_speak_question"></label>
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">问题</span>
+                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。" />
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">设置为私密据点，不加入无法看到据点内容。</span>
+                    <input type="checkbox" class="switcher container__input" id="enable_join_question" />
+                    <label for="enable_join_question"></label>
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">问题</span>
+                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。" />
+                </div>
+                <div class="input_container">
+                    <span class="container__addon">保存</span>
+                    <button class="container__input">保存</button>
+                </div>
+            </div>
+        </div>
+        <div class="accordion__item">
+            <input type="checkbox" class="accordion__toggle" id="node_join" />
+            <div class="accordion__header">
+                <label for="node_join"></label>
+                <span class="accordion__title">加入申请列表：黑名单·删除·举报·管理</span>
+            </div>
+            <div class="accordion__content">
+                <div class="tab_container">
+                    <div class="tab1">申请者</div>
+                    <div class="tab2">已通过</div>
+                    <div class="tab3">已拒绝</div>
+                    <div class="content">content</div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion__item">
+            <input type="checkbox" class="accordion__toggle" id="node_require_speech" />
+            <div class="accordion__header">
+                <label for="node_require_speech"></label>
+                <span class="accordion__title">发言申请列表：黑名单·删除·举报·管理</span>
+            </div>
+            <div class="accordion__content">
+                <div class="tab_container">
+                    <div class="tab1">申请者</div>
+                    <div class="tab2">正式成员</div>
+                    <div class="tab3">已拒绝</div>
+                    <div class="content">content</div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion__item">
+            <input type="checkbox" class="accordion__toggle" id="node_member" />
+            <div class="accordion__header">
+                <label for="node_member"></label>
+                <span class="accordion__title">成员管理：黑名单·删除·举报·管理</span>
+            </div>
+            <div class="accordion__content">
+                <div class="tab_container">
+                    <div class="tab1">全部成员</div>
+                    <div class="tab2">受限成员</div>
+                    <div class="tab3">据点黑名单</div>
+                    <div class="content">content</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

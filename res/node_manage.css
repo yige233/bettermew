@@ -1,0 +1,173 @@
+[class^="tab"],
+#icon_node_manage {
+    cursor: pointer;
+}
+
+.container {
+    display: grid;
+    width: 90%;
+    padding: 0 0 5% 0;
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: 80px 1fr;
+}
+
+.container span {
+    color: rgb(var(--colors-receive-msg))
+}
+
+.container>div {
+    border: 1px dashed #888;
+}
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion__item {
+    border: 1px dashed;
+    width: 95%;
+    margin: 5px auto;
+}
+
+.accordion__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    cursor: pointer;
+    padding: 16px;
+    border: 1px dashed;
+    margin: 5px;
+}
+
+.accordion__content {
+    visibility: hidden;
+    transition: all 0.2s linear;
+    max-height: 0px;
+    padding: 0px 15px;
+    overflow: scroll;
+    border: 1px dashed;
+    margin: 5px;
+}
+
+.accordion__toggle {
+    display: none;
+}
+
+.accordion__toggle+div>label {
+    margin: 1px 5px;
+    width: 40px;
+    height: 20px;
+    background-color: #dddddd;
+    border-radius: 20px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+}
+
+.accordion__toggle+div>label:before,
+.accordion__toggle+div>label:after {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    content: "";
+}
+
+.accordion__toggle+div>label:before {
+    right: 0px;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    transition: background 0.4s;
+}
+
+.accordion__toggle+div>label:after {
+    width: 20px;
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: margin 0.4s;
+}
+
+.accordion__toggle:checked+div>label:before {
+    background-color: rgb(114 148 218);
+}
+
+.accordion__toggle:checked+div>label:after {
+    margin-left: 20px;
+}
+
+
+
+.accordion__toggle:checked~.accordion__content {
+    visibility: visible;
+    max-height: 600px;
+    padding: 15px;
+}
+
+.input_container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 5px 0px;
+}
+
+.container__input {
+    min-width: 80%;
+    border: 1px dashed;
+}
+
+.container__addon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.tab_container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "tab1 tab2 tab3"
+        "content content content";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30px 8fr;
+    gap: 5px;
+}
+
+.tab_container>div {
+    border: 1px dashed #888;
+}
+
+.tab1 {
+    grid-area: tab1;
+    margin: 0 auto;
+}
+
+.tab2 {
+    grid-area: tab2;
+    margin: 0 auto;
+}
+
+.tab3 {
+    grid-area: tab3;
+    margin: 0 auto;
+}
+
+.content {
+    grid-area: content;
+}
+
+.sortbtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.sortbtn>button {
+    border: 1px dashed;
+    margin: 2px 10px;
+}
