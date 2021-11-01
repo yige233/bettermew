@@ -596,7 +596,7 @@ mew.conf({
                     if (e.target.tagName == "A") return false;
                     var data_id = e.target.getAttribute("data-id");
                     if (data_id) {
-                        window.open("https://mew.fun/bettermew@4cbcef5/thoughts/" + data_id)
+                        window.open("https://mew.fun/bettermew/thoughts/" + data_id)
                     } else {
                         return false
                     };
@@ -1732,7 +1732,7 @@ mew.conf({
         let announce = await fetch(update_url).then(res => res.json()).then(text => JSON.parse(text.description.split("\n")[1]));
         if (this._settings.ver != announce.ver) {
             this.noti("脚本有新版本", `最新版本${announce.ver}，请按下F12打开控制台以查看更新内容。`, () => {
-                window.open(`https://www.doveyige.top/bettermew@4cbcef5update.html#latest`);
+                window.open(`https://www.doveyige.top/bettermewupdate.html#latest`);
             });
             let whatsnew = [`当前脚本版本：${announce.ver}`, "更新内容：", ...announce.whatsnew];
             console.clear();
