@@ -415,7 +415,7 @@ let resources = {
     css_compact_thought_hide_img: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_img.css",
     css_compact_thought_hide_text: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_text.css",
     css_compact_thought_more_node: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_more_node.css",
-    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/search.css",
+    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@be3fa4e/css/search.css",
     css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/darkmode.css",
     css_text2url: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/text2url.css",
     css_img_size: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/img_size.css",
