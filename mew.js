@@ -405,41 +405,41 @@ class Mew {
     };
 };
 let resources = {
-    icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
-    icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
-    css_topic_list: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/topic_list.css",
-    css_desktop: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/desktop.css",
-    css_thought_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_in_middle.css",
-    css_whisper_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/whisper_in_middle.css",
-    css_desktop_reverse: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/desktop_reverse.css",
-    css_compact_thought_hide_img: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_img.css",
-    css_compact_thought_hide_text: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_text.css",
-    css_compact_thought_more_node: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_more_node.css",
-    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/search.css",
-    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/darkmode.css",
-    css_text2url: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/text2url.css",
-    css_img_size: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/img_size.css",
-    css_thought_widget: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_widget.css",
-    css_only_this_mewer: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/only_this_mewer.css",
-    css_custom_stamp: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/custom_stamp.css",
-    icon_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/node_manage.svg",
-    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/node_manage.css",
-    template_node_mng: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage.html",
-    template_node_mng_text_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_text_card.html",
-    template_node_mng_topic_tab1: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab1.html",
-    template_node_mng_topic_tab2_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_card.html",
-    template_node_mng_topic_tab2_btn: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_btn.html",
-    template_node_mng_topic_tab3: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab3.html",
-    template_node_mng_member_normal_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_normal_card.html",
-    template_node_mng_member_ban_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_ban_card.html",
-    template_node_mng_member_search_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_search_card.html",
-    template_node_mng_req_pending_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_req_pending_card.html",
-    template_node_mng_req_approved_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_req_approved_card.html",
-    template_node_mng_req_rejected_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_req_rejected_card.html",
-    template_node_mng_shelf: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf.html",
-    template_node_mng_shelf_entry: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_entry.html",
-    template_node_mng_shelf_addshelf: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_addshelf.html",
-    template_node_mng_shelf_addentry: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_addentry.html",
+    icon_totop: 'https://pc.doveyige.top/mew/icon/totop.svg',
+    icon_search: 'https://pc.doveyige.top/mew/icon/search.svg',
+    css_topic_list: "https://pc.doveyige.top/mew/css/topic_list.css",
+    css_desktop: "https://pc.doveyige.top/mew/css/desktop.css",
+    css_thought_in_middle: "https://pc.doveyige.top/mew/css/thought_in_middle.css",
+    css_whisper_in_middle: "https://pc.doveyige.top/mew/css/whisper_in_middle.css",
+    css_desktop_reverse: "https://pc.doveyige.top/mew/css/desktop_reverse.css",
+    css_compact_thought_hide_img: "https://pc.doveyige.top/mew/css/compact_thought_hide_img.css",
+    css_compact_thought_hide_text: "https://pc.doveyige.top/mew/css/compact_thought_hide_text.css",
+    css_compact_thought_more_node: "https://pc.doveyige.top/mew/css/compact_thought_more_node.css",
+    css_search: "https://pc.doveyige.top/mew/css/search.css",
+    css_darkmode: "https://pc.doveyige.top/mew/css/darkmode.css",
+    css_text2url: "https://pc.doveyige.top/mew/css/text2url.css",
+    css_img_size: "https://pc.doveyige.top/mew/css/img_size.css",
+    css_thought_widget: "https://pc.doveyige.top/mew/css/thought_widget.css",
+    css_only_this_mewer: "https://pc.doveyige.top/mew/css/only_this_mewer.css",
+    css_custom_stamp: "https://pc.doveyige.top/mew/css/custom_stamp.css",
+    icon_node_manage: "https://pc.doveyige.top/mew/icon/node_manage.svg",
+    css_node_manage: "https://pc.doveyige.top/mew/css/node_manage.css",
+    template_node_mng: "https://pc.doveyige.top/mew/template/node_manage.html",
+    template_node_mng_text_card: "https://pc.doveyige.top/mew/template/node_manage_member_text_card.html",
+    template_node_mng_topic_tab1: "https://pc.doveyige.top/mew/template/node_manage_topic_tab1.html",
+    template_node_mng_topic_tab2_card: "https://pc.doveyige.top/mew/template/node_manage_topic_tab2_card.html",
+    template_node_mng_topic_tab2_btn: "https://pc.doveyige.top/mew/template/node_manage_topic_tab2_btn.html",
+    template_node_mng_topic_tab3: "https://pc.doveyige.top/mew/template/node_manage_topic_tab3.html",
+    template_node_mng_member_normal_card: "https://pc.doveyige.top/mew/template/node_manage_member_normal_card.html",
+    template_node_mng_member_ban_card: "https://pc.doveyige.top/mew/template/node_manage_member_ban_card.html",
+    template_node_mng_member_search_card: "https://pc.doveyige.top/mew/template/node_manage_member_search_card.html",
+    template_node_mng_req_pending_card: "https://pc.doveyige.top/mew/template/node_manage_req_pending_card.html",
+    template_node_mng_req_approved_card: "https://pc.doveyige.top/mew/template/node_manage_req_approved_card.html",
+    template_node_mng_req_rejected_card: "https://pc.doveyige.top/mew/template/node_manage_req_rejected_card.html",
+    template_node_mng_shelf: "https://pc.doveyige.top/mew/template/node_manage_shelf.html",
+    template_node_mng_shelf_entry: "https://pc.doveyige.top/mew/template/node_manage_shelf_entry.html",
+    template_node_mng_shelf_addshelf: "https://pc.doveyige.top/mew/template/node_manage_shelf_addshelf.html",
+    template_node_mng_shelf_addentry: "https://pc.doveyige.top/mew/template/node_manage_shelf_addentry.html",
 };
 let mew = new Mew();
 mew.conf({
@@ -596,7 +596,7 @@ mew.conf({
                     if (e.target.tagName == "A") return false;
                     var data_id = e.target.getAttribute("data-id");
                     if (data_id) {
-                        window.open("https://mew.fun/bettermew@4cbcef5/thoughts/" + data_id)
+                        window.open("https://mew.fun/betterMew/thoughts/" + data_id)
                     } else {
                         return false
                     };
@@ -1728,11 +1728,12 @@ mew.conf({
         default: 0
     }],
     func_once: async function () {
-        let update_url = `https://api.mew.fun/api/v1/users/68907366539980800`;
+        //let update_url=`https://api.mew.fun/api/v1/users/68907366539980800`;//release
+        let update_url = `https://api.mew.fun/api/v1/users/71867266618302464`; //bata
         let announce = await fetch(update_url).then(res => res.json()).then(text => JSON.parse(text.description.split("\n")[1]));
         if (this._settings.ver != announce.ver) {
             this.noti("脚本有新版本", `最新版本${announce.ver}，请按下F12打开控制台以查看更新内容。`, () => {
-                window.open(`https://www.doveyige.top/bettermew@4cbcef5update.html#latest`);
+                window.open(`https://www.doveyige.top/bettermewupdate.html#latest`);
             });
             let whatsnew = [`当前脚本版本：${announce.ver}`, "更新内容：", ...announce.whatsnew];
             console.clear();
@@ -1745,3 +1746,41 @@ mew.conf({
     }
 });
 mew.run();
+/**
+ * 请不要直接修改或删除Mew 类中以下划线开头的属性；请不要为Mew对象直接添加新属性。请统统用config_extra扔到settings里。当然引用还是可以的
+ * Mew.dom(str)：传入一段字符串，返回由该字符串解析成的dom对象。
+ * Mew.ladcss(css)：加载一段css。返回style元素。（.dom()套壳）
+ * Mew.getcookie(cname)：返回cname对应的cookie。
+ * Mew.stdpage(el)：返回一个“标准页面”dom对象。传入置于标准页面内的dom字符串。
+ *  * Mew.conf(options)的参数说明（以*开头的项均为可选项）：
+ {
+    id: "字符串。用于标识一个功能。",
+    hide: "*布尔值。用于控制该功能是否在配置页中显示开关。",
+    always: "*布尔值。用于控制该功能是否始终开启。",
+    short_desc: "字符串。该项功能的短简介，或者说name。",
+    long_desc: "字符串。该项功能的完整简介。",
+    config_extra: "*数组。包含若干个额外配置项。",
+    func_loop: "*函数对象。该功能启用时，仅随脚本运行一次的函数。注意：函数将被绑定到Mew对象上。而箭头函数可能会导致一些问题。",
+    func_once: "*函数对象。该功能启用时，每当dom树更新时就会调用一次的函数。注意事项同上。",
+    child_funcs: "*数组。包含若干个子配置项。其结构与父配置项相似但又有不同。"
+}
+ * config_extra的参数说明：
+{
+    id: "字符串。用于标识一个额外配置项。该id会被添加到Mew.settings里，然后你就可以用Mew.settings.id来读取它，Mew.savsetting()来保存它。",
+    type: "*字符串。只能是text（渲染为文本框）或number（渲染为input[type=range]元素）。空则不渲染。",
+    default: "任意。该配置的默认值。",
+    long_desc: "*字符串。该功能的简介。",
+    value: "*函数对象。type为text时，渲染textarea需要调用该函数，并将其返回的值填入textarea中。使用异步函数",
+    save: "*函数对象。type为text时，保存内容需要调用该函数，并将其返回的值保存到Mew.settings.id中。需要传入一个Event参数。可以使用异步函数",
+    max: "*数字。type为number时，可接受的最大值。"
+}
+ * child_funcs的参数说明：
+    大体上与options相同，但没有always、hide、child_funcs和config_extra。其行为始终受父配置项控制。
+ *
+ * 所有的函数都会被绑定到Mew对象上，即this指向Mew对象。
+ *
+ * Mew.noti(title, msg, ?onclickfunc)：用于发送一个通知。传入标题和通知正文。可选点击时触发的回调函数。
+ * Mew.savsetting(key, ?value)：用value替换key的值。value为空时就是将key的值设为默认。未注册的key会返回false，除此之外返回保存后的值。
+ * Mew.basic() 加载配置页icon。
+ * Mew.run() 运行脚本。
+ */
