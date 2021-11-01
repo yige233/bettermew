@@ -30,6 +30,10 @@
         --colors-gray-700: 245 245 245;
         --colors-background-hover: 43 43 43;
         --colors-disabled: 200 200 200;
+        --colors-card-l1: 70 70 70;
+        --colors-card-l2: 80 80 80;
+        --colors-input: 60 60 60;
+        --colors-btn: 120 120 120;
     }
 
     [class^='thought-view_post-content__']>div p,

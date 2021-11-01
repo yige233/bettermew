@@ -1,19 +1,8 @@
-@media (prefers-color-scheme: dark) {
-    body#app {
-        --colors-card-l1: 70 70 70;
-        --colors-card-l2: 80 80 80;
-        --colors-input: 60 60 60;
-        --colors-btn: 120 120 120;
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    body#app {
-        --colors-card-l1: 230 230 230;
-        --colors-card-l2: 220 220 220;
-        --colors-input: 200 200 200;
-        --colors-btn: 190 190 190;
-    }
+body#app {
+    --colors-card-l1: 230 230 230;
+    --colors-card-l2: 220 220 220;
+    --colors-input: 200 200 200;
+    --colors-btn: 190 190 190;
 }
 
 .tab1,
