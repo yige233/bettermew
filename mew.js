@@ -181,6 +181,15 @@ class Mew {
         });
         return await res.text();
     };
+    static template(str, data) {
+        if (!str) return false;
+        for (let i in data) {
+            if (typeof (data[i]) == "function") continue;
+            let reg = new RegExp(`{{\\s*\\$${i}\\s*}}`, "g");
+            str = str.replace(reg, data[i]);
+        };
+        return str;
+    };
     conf(options) {
         let pushconfig = (obj, config) => {
                 let conf = {
@@ -396,124 +405,41 @@ class Mew {
     };
 };
 let resources = {
-    defaultavatar: '/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png',
-    icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/totop.svg',
-    icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/search.svg',
-    css_topic_list: `
-    [class^='topic-selector_root__']:hover {
-        transition: max-height 1s linear;
-        max-height: 500px;
-        height: auto;
-    }
-    [class^='topic-selector_root__'] button {
-        height: 30px;
-        margin: 5px 0px;
-    }
-    [class^='topic-selector_root__'] {
-        max-height: 45px;
-        height: 45px;
-        flex-wrap: wrap;
-    }`,
-    css_desktop: `
-    [class^='desktop_right-container__'] {
-        flex-basis: var(--right-width) !important
-    }
-    [class^='desktop_left-container__'] {
-        flex-basis: var(--left-width) !important
-    }`,
-    css_thought_in_middle: `
-    .MuiPaper-elevation16 {
-        width: 50% !important;
-        left: 25%;
-    }
-    [class^='compact-tabbar_tabbar-root__'],
-    [class^='relationships_user-item__'],
-    [class^='relationships_header__'] {
-        background-color: rgb(var(--colors-background-regular));
-        width: unset;
-    }
-    [class^='relationships_info__'] {
-        max-width: 60% !important;
-    }
-    [class^='comment-item_root__'] {
-        content-visibility: auto;
-    }
-    [class*='base_card__'] {
-        width: 80% !important;
-    }
-    [class^='comments_modal-out__'] {
-        max-width: 40%;
-    }`,
-    css_whisper_in_middle: `
-    .panel-slide-enter-done {
-        width: 50%;
-        left: 25%;
-        z-index: 10 !important;
-    }`,
-    css_desktop_reverse: `
-    [class^='desktop_root__'] {
-        flex-direction: row-reverse;
-    }
-    [class^='desktop_right-container__'] {
-        margin-right: 1rem;
-    }`,
-    css_compact_thought_hide_img: `
-    [class^='thought_root__'] [class^='post-preview_cover__'],
-    [class^='card_frame-wrapper__'],
-    [class^='thought_player-wrapper__'],
-    [class^='thought_img-wrapper__'] {
-        display: none;
-    }`,
-    css_compact_thought_hide_text: `
-    [class^='thought_content__']>p {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block !important;
-    }`,
-    css_compact_thought_more_node: `
-    .h-\\\[12rem\\\] {
-        height: unset;
-    }`,
-    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/search.css",
-    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/darkmode.css",
-    css_text2url: `
-    .url-turned a {
-        text-decoration: none;
-        color: rgb(255 70 175);
-    }`,
-    css_img_size: `
-    [class^='thought-view_img-wrapper__'] {
-        width: var(--img-width);
-        margin: 0 0 0 var(--img-left);
-    }
-    [class^='thought-view_post-content__'] div.w-full.bg-center.bg-cover {
-        width: var(--img-width);
-    }`,
-    css_thought_widget: `
-    .thought-widget {
-        z-index: 10;
-        position: absolute;
-        width: 40px;
-        bottom: 20%;
-        right: 5%;
-        display: flex;
-        flex-direction: column;
-        background-color: rgb(70 70 70 / 80%);
-        cursor: pointer;
-        border-radius: 20px;
-    }`,
-    css_only_this_mewer: `
-    [class*='comment-item_deleted__'] {
-        display: none;
-    }`,
-    css_custom_stamp: `
-    .custom_stamps {
-        max-height: 320px;
-        width: 105%;
-        overflow: scroll;
-    }`,
-    icon_node_manage: `https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/node_manage.svg`,
-    css_node_manage: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/node_manage.css',
+    icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
+    icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
+    css_topic_list: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/topic_list.css",
+    css_desktop: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/desktop.css",
+    css_thought_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_in_middle.css",
+    css_whisper_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/whisper_in_middle.css",
+    css_desktop_reverse: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/desktop_reverse.css",
+    css_compact_thought_hide_img: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_img.css",
+    css_compact_thought_hide_text: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_text.css",
+    css_compact_thought_more_node: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_more_node.css",
+    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/search.css",
+    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/darkmode.css",
+    css_text2url: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/text2url.css",
+    css_img_size: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/img_size.css",
+    css_thought_widget: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_widget.css",
+    css_only_this_mewer: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/only_this_mewer.css",
+    css_custom_stamp: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/custom_stamp.css",
+    icon_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/node_manage.svg",
+    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/node_manage.css",
+    template_node_mng: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage.html",
+    template_node_mng_text_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_text_card.html",
+    template_node_mng_topic_tab1: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab1.html",
+    template_node_mng_topic_tab2_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_card.html",
+    template_node_mng_topic_tab2_btn: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_btn.html",
+    template_node_mng_topic_tab3: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab3.html",
+    template_node_mng_member_normal_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_normal_card.html",
+    template_node_mng_member_ban_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_ban_card.html",
+    template_node_mng_member_search_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_search_card.html",
+    template_node_mng_req_pending_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_req_pending_card.html",
+    template_node_mng_req_approved_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_req_approved_card.html",
+    template_node_mng_req_rejected_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_req_rejected_card.html",
+    template_node_mng_shelf: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf.html",
+    template_node_mng_shelf_entry: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_entry.html",
+    template_node_mng_shelf_addshelf: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_addshelf.html",
+    template_node_mng_shelf_addentry: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_addentry.html",
 };
 let mew = new Mew();
 mew.conf({
@@ -541,8 +467,8 @@ mew.conf({
         long_desc: "[立即生效]调整主页栏宽度(%)：",
         max: 50
     }],
-    func_once: function () {
-        Mew.loadcss(resources.css_desktop)
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_desktop));
     },
     func_loop: function () {
         document.body.style.setProperty("--left-width", this._settings.left_width + "%");
@@ -555,24 +481,24 @@ mew.conf({
     id: "thought_in_middle",
     short_desc: "想法全文居中",
     long_desc: "点开想法全文后，想法不再靠边显示而是居中显示。",
-    func_once: function () {
-        Mew.loadcss(resources.css_thought_in_middle);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_thought_in_middle));
     },
 });
 mew.conf({
     id: "whisper_in_middle",
     short_desc: "私聊窗口居中",
     long_desc: "点开私聊窗口后，窗口不再靠边显示而是居中显示。",
-    func_once: function () {
-        Mew.loadcss(resources.css_whisper_in_middle);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_whisper_in_middle));
     },
 });
 mew.conf({
     id: "desktop_reverse",
     short_desc: "调换想法栏和主页栏",
     long_desc: "实际上是将整个桌面的排列顺序进行了反转。",
-    func_once: function () {
-        Mew.loadcss(resources.css_desktop_reverse);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_desktop_reverse));
     },
 });
 mew.conf({
@@ -586,8 +512,8 @@ mew.conf({
         long_desc: "[立即生效]调整想法全文内图片大小(%)：",
         max: 100
     }],
-    func_once: function () {
-        Mew.loadcss(resources.css_img_size)
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_img_size))
     },
     func_loop: function () {
         document.body.style.setProperty("--img-width", this._settings.img_width + "%");
@@ -605,24 +531,24 @@ mew.conf({
             id: "compact_thought_hide_img",
             short_desc: "隐藏图片",
             long_desc: "隐藏左侧想法栏图片。",
-            func_once: function () {
-                Mew.loadcss(resources.css_compact_thought_hide_img);
+            func_once: async function () {
+                Mew.loadcss(await Mew.fetchres(resources.css_compact_thought_hide_img));
             }
         },
         {
             id: "compact_thought_hide_text",
             short_desc: "缩减文字",
             long_desc: "缩减左侧想法栏文字高度。",
-            func_once: function () {
-                Mew.loadcss(resources.css_compact_thought_hide_text);
+            func_once: async function () {
+                Mew.loadcss(await Mew.fetchres(resources.css_compact_thought_hide_text));
             }
         },
         {
             id: "compact_thought_more_node",
             short_desc: "更多据点",
             long_desc: "左侧据点栏可显示四个据点。",
-            func_once: function () {
-                Mew.loadcss(resources.css_compact_thought_more_node);
+            func_once: async function () {
+                Mew.loadcss(await Mew.fetchres(resources.css_compact_thought_more_node));
             }
         }
     ]
@@ -631,8 +557,8 @@ mew.conf({
     id: "topic_list",
     short_desc: "更好的话题栏",
     long_desc: "鼠标置于话题栏上时，将会展开所有话题Tag，移出则收起。",
-    func_once: function () {
-        Mew.loadcss(resources.css_topic_list);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_topic_list));
     },
 });
 mew.conf({
@@ -642,66 +568,101 @@ mew.conf({
     func_loop: function () {
         if (document.querySelector("#icon_search") || !document.querySelector("[class^='sidebar_logo__']")) return false;
         const search = new class {
-            loadres(_avatar, _nickname, _content, _date, data_id) {
+            buildcard(options) {
+                let option = {
+                    avatar: (options.avatar) ? options.avatar : "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
+                    nick: (options.nick) ? options.nick : "Result Card",
+                    content: (options.content) ? options.content : "该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情",
+                    date: (options.date) ? "发表于：" + new Date(options.date).toLocaleString("chinese", {
+                        hour12: false
+                    }) : new Date().toLocaleString("chinese", {
+                        hour12: false
+                    }),
+                    data_id: (options.data_id) ? options.data_id : "",
+                };
                 let item = Mew.dom(`
                 <div class="searchitem">
                     <div class="poster">
-                        <img src="${_avatar}">
+                        <img src="${option.avatar}">
                         <div style="display: flex;flex-direction: column;align-items: flex-start;padding: 0 0 0 5px;">
-                            <span class="nickname">${_nickname}</span>
-                            <span class="date">${(_date)?"发表于 " + new Date(_date).toLocaleString("chinese", {hour12: false}):""}</span>
+                            <span class="nickname">${option.nick}</span>
+                            <span class="date">${option.date}</span>
                         </div>
                     </div>
-                    <p class="content" data-id="${(data_id)?data_id:""}">${(_content)?_content:"该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情"}</p>
+                    <p class="content" data-id="${option.data_id}">${option.content}</p>
                 </div>`),
                     content = item.querySelector(".content");
                 content.addEventListener("click", (e) => {
                     if (e.target.tagName == "A") return false;
                     var data_id = e.target.getAttribute("data-id");
                     if (data_id) {
-                        window.open("https://mew.fun/betterMew/thoughts/" + data_id)
+                        window.open("https://mew.fun/bettermew@4cbcef5/thoughts/" + data_id)
                     } else {
                         return false
                     };
                 });
-                document.querySelector("#searchres").append(item);
+                return item;
             };
-            search(str) {
-                document.querySelector("#searchres").innerHTML = "";
-                this.loadres(resources.defaultavatar, "提示", "正在努力搜索中！");
-                fetch(`https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}/search-thoughts?keyword=${str}&limit=100`, {
+            async getsearchres(keyword, pagination) {
+                let base_url = `https://api.mew.fun/api/v1/nodes/${window.location.pathname.slice(3)}/search-thoughts?keyword=${keyword}&limit=100`;
+                let url = (pagination) ? `${base_url}&pagination=${pagination}` : base_url;
+                let res = await fetch(url, {
                     headers: {
                         Authorization: Mew.getcookie("tomon_community_token")
                     }
-                }).then(res => {
-                    if (res.status < 200 || res.status > 300) {
-                        var error = new Error(res.statusText);
-                        error.res = res;
-                        throw error;
-                    };
-                    return res;
-                }).then(res => res.json()).then(res => {
-                    document.querySelector("#searchres").innerHTML = "";
-                    if (res.entries.length == 0) {
-                        this.loadres(resources.defaultavatar, "提示", "没有搜索到任何信息！");
-                        return false;
-                    };
-                    for (let i in res.entries) {
-                        let poster = res.objects.users[res.entries[i].author_id],
-                            avatar = (poster.avatar) ? res.objects.media[poster.avatar].url : resources.defaultavatar;
-                        this.loadres(avatar, poster.name, res.entries[i].status, res.entries[i].created_at, res.entries[i].id);
-                    };
-                    if (res.entries.length == 100) {
-                        this.loadres(resources.defaultavatar, "提示", "最多只能展示100条结果哦！")
-                    };
-                }).catch(err => {
-                    document.querySelector("#searchres").innerHTML = "";
-                    this.loadres(resources.defaultavatar, "提示", err);
                 });
+                return await res.json();
+            };
+            async search(keyword, pagination) {
+                let container = document.querySelector("#searchres");
+                let searching = this.buildcard({
+                    nick: "提示",
+                    content: "正在努力搜索中！"
+                });
+                container.append(searching);
+                let res = await this.getsearchres(keyword, (pagination) ? pagination : null);
+                searching.remove();
+                if (res.message) {
+                    container.append(this.buildcard({
+                        nick: "提示",
+                        content: res.message
+                    }));
+                };
+                if (res.entries.length == 0) {
+                    container.append(this.buildcard({
+                        nick: "提示",
+                        content: "没有搜索到任何信息！"
+                    }));
+                    return false;
+                };
+                for (let i in res.entries) {
+                    let poster = res.objects.users[res.entries[i].author_id],
+                        avatar = (poster.avatar) ? res.objects.media[poster.avatar].url : null;
+                    container.append(this.buildcard({
+                        avatar: avatar,
+                        nick: poster.name,
+                        content: res.entries[i].status,
+                        date: res.entries[i].created_at,
+                        data_id: res.entries[i].id
+                    }));
+                };
+                if (res.entries.length == 100) {
+                    let next = this.buildcard({
+                        nick: "提示",
+                        content: "点击我加载更多结果(ง •_•)ง"
+                    });
+                    next.addEventListener("click", async () => {
+                        await this.search(keyword, res.pagination);
+                        next.remove();
+                    });
+                    container.append(next);
+                };
             };
             serachpage() {
                 let s = Mew.stdpage(`<div class="form"><input class="search_input" type="text" placeholder="请输入您要搜索的内容..." ><button class="search_btn"></button></div><div><span>倒序浏览</span><input id="sort" class="sort switcher" type="checkbox"><label for="sort"></label></div><div id="searchres"></div>`);
                 s.querySelector("button").addEventListener("click", () => {
+                    let container = document.querySelector("#searchres");
+                    container.innerHTML = "";
                     this.search(document.querySelector(".search_input").value);
                 });
                 s.querySelector(".sort").addEventListener("change", (e) => {
@@ -714,7 +675,7 @@ mew.conf({
                 document.body.append(s);
             };
         };
-        var icon_search = Mew.dom(`<div id="icon_search"  style="background-image:url(${resources.icon_search});width:40px;height:40px;background-repeat: round;"></div>`);
+        var icon_search = Mew.dom(`<div id="icon_search" style="background-image:url(${resources.icon_search});width:40px;height:40px;background-repeat: round;"></div>`);
         icon_search.addEventListener("click", () => {
             search.serachpage();
         });
@@ -728,8 +689,8 @@ mew.conf({
     id: "text2url",
     short_desc: "Url变为可点击",
     long_desc: "将讨论区内不可点击的链接转换为可点击。",
-    func_once: function () {
-        Mew.loadcss(resources.css_text2url);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_text2url));
     },
     func_loop: function () {
         const text2url = function (el) {
@@ -756,14 +717,14 @@ mew.conf({
     id: "thought_widget",
     short_desc: "回到顶部",
     long_desc: "在想法全文内增加一个“回到顶部”按钮。",
-    func_once: function () {
-        Mew.loadcss(resources.css_thought_widget);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_thought_widget));
     },
     func_loop: function () {
         if (!document.querySelector("#comments")) return false;
         var root = document.querySelectorAll("#comments");
         if (root[root.length - 1].querySelector(".thought-widget")) return false;
-        let div = Mew.dom(`<div class="thought-widget"><div title="回到顶部" class="to-top" style="height: 40px;width: 40px;cursor: pointer;background: url('https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/res/totop.svg') center center no-repeat;"></div></div>`);
+        let div = Mew.dom(`<div class="thought-widget"><div title="回到顶部" class="to-top" style="height: 40px;width: 40px;cursor: pointer;background: url('${resources.icon_totop}') center center no-repeat;"></div></div>`);
         div.addEventListener("click", (e) => {
             e.target.parentNode.parentNode.scrollTo({
                 top: 0,
@@ -841,8 +802,8 @@ mew.conf({
         id: "only_this_mewer",
         default: "",
     }],
-    func_once: function () {
-        Mew.loadcss(resources.css_only_this_mewer);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_only_this_mewer));
         let lib = document.createElement("script"),
             hook = async (response) => {
                 if (response.config.url.indexOf("authorOnly=1") == -1) return false;
@@ -1086,8 +1047,676 @@ mew.conf({
             document.querySelector(".custom_stamps").append(insertel);
         };
     },
-    func_once: function () {
-        Mew.loadcss(resources.css_custom_stamp);
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_custom_stamp));
+    }
+});
+mew.conf({
+    id: "node_manage",
+    short_desc: "PC端据点管理",
+    long_desc: "允许据点管理员在PC端管理据点。非管理员无法保存设置。",
+    func_loop: async function () {
+        if (document.querySelector("#icon_node_manage") || !document.querySelector("[class^='sidebar_logo__']")) return false;
+        const manage = new class {
+            header = {
+                Authorization: Mew.getcookie("tomon_community_token"),
+                "Content-Type": "application/json; charset=utf-8"
+            };
+            api = "https://api.mew.fun/api/v1/nodes/";
+            async fetchdata(url, options) {
+                let option = {
+                    alert: (options.alert == false) ? false : true,
+                    method: (options.method) ? options.method : "PATCH",
+                    data: (options.data) ? options.data : {},
+                    onsuccess: (options.onsuccess) ? options.onsuccess : "据点信息保存成功！",
+                    onfail: (options.onfail) ? options.onfail : "据点信息保存失败！",
+                };
+                for (let k in option.data) {
+                    if (option.data[k] === null) delete option.data[k];
+                };
+                let body = JSON.stringify(option.data);
+                let fetch_option = {
+                    headers: this.header,
+                    method: option.method,
+                    body: body
+                };
+                if (option.method == "GET") delete fetch_option.body;
+                return new Promise(async (resolve, reject) => {
+                    if (body.length == 2 && !["DELETE", "GET", "PUT"].includes(option.method)) {
+                        reject({
+                            message: "没有改动任何数据！"
+                        });
+                        return;
+                    };
+                    let result = await fetch(url, fetch_option);
+                    let json = (result.status == 204) ? {
+                        message: "204 No Content"
+                    } : await result.json();
+                    if (result.ok) {
+                        if (option.alert) mew.noti(option.onsuccess, option.onsuccess);
+                        resolve(json);
+                        return;
+                    };
+                    if (option.alert) mew.noti(option.onfail, json.message);
+                    reject(json);
+                })
+            };
+            async page_render() {
+                let s = Mew.stdpage(await Mew.fetchres(resources.template_node_mng));
+                s.querySelector(`#node_basic`).parentNode.querySelector("button").addEventListener("click", () => {
+                    this.save_basic();
+                });
+                s.querySelector(`#node_speech`).parentNode.querySelector("button").addEventListener("click", () => {
+                    this.save_speech();
+                });
+                document.body.append(s);
+                await fetch(this.api + window.location.pathname.slice(3), {
+                    headers: this.header
+                }).then(res => res.json()).then(json => {
+                    this.node_basic = json;
+                    this.load_basic(json);
+                    this.load_speech(json);
+                    this.load_topics_switch();
+                    this.load_member_switch();
+                    this.load_joinreq_switch();
+                    this.load_speakreq_switch();
+                    this.load_shelf();
+                });
+                this.textcard = await Mew.fetchres(resources.template_node_mng_text_card);
+            };
+            load_basic(json) {
+                let inputs = document.querySelector(`#node_basic`).parentNode.querySelectorAll(".container__input");
+                inputs[0].value = json.name;
+                inputs[1].value = json.objects.users[json.super_moderator].username;
+                inputs[2].value = json.node_name;
+                inputs[3].value = (json.description) ? json.description : "";
+                inputs[4].value = (json.icon) ? json.icon : "";
+            };
+            async save_basic() {
+                let inputs = document.querySelector(`#node_basic`).parentNode.querySelectorAll(".container__input");
+                let new_data = {
+                    name: (this.node_basic.name != inputs[0].value) ? inputs[0].value : null,
+                    node_name: (this.node_basic.node_name != inputs[2].value) ? inputs[2].value : null,
+                    description: (this.node_basic.description != inputs[3].value) ? inputs[3].value : null,
+                    icon: (this.node_basic.icon != inputs[4].value) ? inputs[4].value : null,
+                };
+                await this.fetchdata(this.api + this.node_basic.id, {
+                    data: new_data
+                }).then(json => this.node_basic = json);
+            };
+            load_speech(json) {
+                let inputs = document.querySelector(`#node_speech`).parentNode.querySelectorAll(".container__input");
+                inputs[0].checked = json.searchable;
+                if (json.searchable) inputs[0].checked = "checked";
+                inputs[1].value = (json.tags.length >= 1) ? json.tags.join("\n") : "";
+                inputs[2].checked = json.enable_speak_question;
+                inputs[4].checked = json.enable_join_question;
+                if (json.speak_questions.length == 0 || !json.enable_speak_question) {
+                    inputs[3].setAttribute("disabled", "disabled")
+                } else {
+                    inputs[3].value = json.speak_questions[0].content;
+                };
+                if (json.join_questions.length == 0 || !json.enable_join_question) {
+                    inputs[5].setAttribute("disabled", "disabled")
+                } else {
+                    inputs[5].value = json.join_questions[0].content;
+                };
+            };
+            async save_speech() {
+                let inputs = document.querySelector(`#node_speech`).parentNode.querySelectorAll(".container__input");
+                let new_data = {
+                    searchable: (this.node_basic.searchable != inputs[0].checked) ? inputs[0].checked : null,
+                    tags: (this.node_basic.tags.join("\n") != inputs[1].value) ? inputs[1].value.split("\n").filter(i => i) : null,
+                    enableSpeakQuestion: (this.node_basic.enable_speak_question != inputs[2].checked) ? inputs[2].checked : null,
+                    enableJoinQuestion: (this.node_basic.enable_join_question != inputs[4].checked) ? inputs[4].checked : null,
+                };
+                if (this.node_basic.enable_speak_question && this.node_basic.speak_questions[0].content != inputs[3].value) {
+                    this.fetchdata(`${this.api + this.node_basic.id}/questions/${this.node_basic.speak_questions[0].id}`, {
+                        data: {
+                            content: inputs[3].value
+                        }
+                    });
+                };
+                if (this.node_basic.enable_join_question && this.node_basic.join_questions[0].content != inputs[5].value) {
+                    this.fetchdata(`${this.api + this.node_basic.id}/questions/${this.node_basic.join_questions[0].id}`, {
+                        data: {
+                            content: inputs[5].value
+                        }
+                    });
+                };
+                await this.fetchdata(this.api + this.node_basic.id, {
+                    data: new_data
+                }).then(json => this.node_basic = json);
+            };
+            load_topics_switch() {
+                let root = document.querySelector(`#node_topic`).parentNode;
+                let content = root.querySelector(".content");
+                root.querySelector(".tab1").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_topics_tab1(this.node_basic);
+                });
+                root.querySelector(".tab2").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_topics_tab2(this.node_basic);
+                });
+                root.querySelector(".tab3").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_topics_tab3(this.node_basic);
+                });
+                root.querySelector(".tab1").click();
+            };
+            async load_topics_tab1(json) {
+                let content = document.querySelector(`#node_topic`).parentNode.querySelector(".content");
+                let template = await Mew.fetchres(resources.template_node_mng_topic_tab1);
+                if (json.topics == 0) {
+                    content.append(this.load_textcard("还没有话题！"));
+                    return false;
+                };
+                for (let i in json.topics) {
+                    let card = Mew.dom(Mew.template(template, {
+                        id: json.topics[i].id,
+                        title: json.topics[i].name,
+                        desc_text: (json.topics[i].description) ? json.topics[i].description : "",
+                        desc_media: json.topics[i].media.join("\n")
+                    }));
+                    card.querySelectorAll("button")[0].addEventListener("click", () => {
+                        this.del_topics_tab1(json.topics[i]);
+                    });
+                    card.querySelectorAll("button")[1].addEventListener("click", () => {
+                        this.save_topics_tab1(json.topics[i]);
+                    });
+                    content.append(card);
+                };
+            };
+            save_topics_tab1(topic) {
+                let inputs = document.querySelector(`#_${topic.id}`).parentNode.querySelectorAll(".container__input");
+                let new_data = {
+                    name: inputs[0].value,
+                    description: (!topic.description && inputs[1].value.length >= 1) ? inputs[1].value : null,
+                    media: (topic.media.join("\n") != inputs[2].value) ? inputs[2].value.split("\n").filter(i => i) : null,
+                };
+                this.fetchdata(`https://api.mew.fun/api/v1/topics/${topic.id}`, {
+                    data: new_data
+                });
+            };
+            del_topics_tab1(topic) {
+                let del_confirm = confirm(`防手滑二次确认：真的要删除话题：${topic.name} 吗？`);
+                if (!del_confirm) return false;
+                this.fetchdata(`https://api.mew.fun/api/v1/topics/${topic.id}`, {
+                    method: "DELETE",
+                    onsuccess: "删除话题成功！",
+                    onfail: "删除话题失败！"
+                });
+            };
+            async load_topics_tab2(json) {
+                let content = document.querySelector(`#node_topic`).parentNode.querySelector(".content");
+                let template_card = await Mew.fetchres(resources.template_node_mng_topic_tab2_card);
+                if (json.topics == 0) {
+                    content.append(this.load_textcard("还没有话题！"));
+                    return false;
+                };
+                let btn = Mew.dom(await Mew.fetchres(resources.template_node_mng_topic_tab2_btn));
+                for (let i in json.topics) {
+                    let topic = Mew.dom(Mew.template(template_card, {
+                        id: json.topics[i].id,
+                        title: json.topics[i].name
+                    }));
+                    topic.querySelectorAll("button")[0].addEventListener("click", (e) => {
+                        let root = e.target.parentNode.parentNode;
+                        if (!root.previousSibling) {
+                            return false
+                        };
+                        if (!root.previousSibling.previousSibling) {
+                            content.prepend(topic);
+                            return false
+                        };
+                        root.previousSibling.previousSibling.after(topic);
+                    });
+                    topic.querySelectorAll("button")[1].addEventListener("click", (e) => {
+                        let root = e.target.parentNode.parentNode;
+                        if (!root.nextElementSibling.id) {
+                            return false
+                        };
+                        root.nextElementSibling.after(topic);
+                    });
+                    content.append(topic);
+                };
+                btn.addEventListener("click", () => {
+                    this.save_topics_tab2(json.id);
+                });
+                content.append(btn);
+            };
+            save_topics_tab2(node_id) {
+                let inputs = document.querySelector(`#node_topic`).parentNode.querySelectorAll(".input_container");
+                let positions = [];
+                for (let i = 0; i < inputs.length - 1; i++) {
+                    positions.push({
+                        id: inputs[i].id.slice(11),
+                        position: i + 1,
+                    });
+                };
+                this.fetchdata(`${this.api + node_id}/topics/position`, {
+                    data: {
+                        positions: positions
+                    }
+                });
+            };
+            async load_topics_tab3(json) {
+                let content = document.querySelector(`#node_topic`).parentNode.querySelector(".content");
+                let template = Mew.dom(await Mew.fetchres(template_node_mng_topic_tab3));
+                template.querySelector("button").addEventListener("click", () => {
+                    this.save_topics_tab3(json.id);
+                });
+                content.append(template);
+            };
+            save_topics_tab3(node_id) {
+                if (this.node_basic.topics.length >= 10) {
+                    let _confirm = confirm(`话题数量已经达到10个，确定继续添加话题？`);
+                    if (!_confirm) return false;
+                };
+                let inputs = document.querySelector(`#node_topic`).parentNode.querySelectorAll(".container__input");
+                let new_data = {
+                    name: (inputs[0].value) ? inputs[0].value : null,
+                    description: (inputs[1].value) ? inputs[1].value : null,
+                    media: (inputs[2].value) ? inputs[2].value.split("\n").filter(i => i) : null,
+                };
+                this.fetchdata(`${this.api + node_id}/topics`, {
+                    method: "POST",
+                    onsuccess: "话题创建成功！",
+                    onfail: "话题创建失败！",
+                    data: new_data
+                }).catch(err => err);
+            };
+            load_member_switch() {
+                let root = document.querySelector(`#node_member`).parentNode;
+                let content = root.querySelector(".content");
+                root.querySelector(".tab1").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_search(content, this.node_basic.id);
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/members?limit=50`);
+                });
+                root.querySelector(".tab2").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_search(content, this.node_basic.id, ["type=restricted"]);
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/members?limit=50&type=restricted`);
+                });
+                root.querySelector(".tab3").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_search(content, this.node_basic.id, ["type=blocked"], "ban");
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/bans?limit=50`, null, "ban");
+                });
+                root.querySelector(".tab1").click();
+            };
+            load_joinreq_switch() {
+                let root = document.querySelector(`#node_join`).parentNode;
+                let content = root.querySelector(".content");
+                root.querySelector(".tab1").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=join&state=pending&limit=50`, null, "req_pending_join");
+                });
+                root.querySelector(".tab2").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=join&state=approved&limit=50`, null, "req_approved");
+                });
+                root.querySelector(".tab3").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=join&state=rejected&limit=50`, null, "req_rejected_join");
+                });
+                root.querySelector(".tab1").click();
+            };
+            load_speakreq_switch() {
+                let root = document.querySelector(`#node_speak`).parentNode;
+                let content = root.querySelector(".content");
+                root.querySelector(".tab1").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=speak&state=pending&limit=50`, null, "req_pending_speak");
+                });
+                root.querySelector(".tab2").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=speak&state=approved&limit=50`, null, "req_approved");
+                });
+                root.querySelector(".tab3").addEventListener("click", () => {
+                    content.innerHTML = "";
+                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=speak&state=rejected&limit=50`, null, "req_rejected_speak");
+                });
+                root.querySelector(".tab1").click();
+            };
+            async load_member_card(content, base_url, after, type) {
+                let template = await Mew.fetchres(resources.template_node_mng_member_normal_card);
+                let template_ban = await Mew.fetchres(resources.template_node_mng_member_ban_card);
+                let template_req_pending = await Mew.fetchres(resources.template_node_mng_req_pending_card);
+                let template_req_approved = await Mew.fetchres(resources.template_node_mng_req_approved_card);
+                let template_req_rejected = await Mew.fetchres(resources.template_node_mng_req_rejected_card);
+                let members = await this.fetchdata((after) ? `${base_url}&after=${after}` : base_url, {
+                    alert: false,
+                    method: "GET"
+                }).catch(err => {
+                    content.append(this.load_textcard("加载成员列表时发生错误：" + err.message));
+                });
+                if (!members) return false;
+                if (members.entries.length == 0) {
+                    content.append(this.load_textcard("啥也没有(っ °Д °;)っ"));
+                    return false;
+                };
+                for (let i in members.entries) {
+                    let user = members.entries[i];
+                    if (after) {
+                        if (user.is_super_moderator || user.is_moderator) continue;
+                    };
+                    switch (type) {
+                        case "ban":
+                            content.append(await this.load_ban_card(members, user, template_ban));
+                            break;
+                        case "req_pending_join":
+                            content.append(this.load_req_pending_card(members, user, template_req_pending, "join"));
+                            break;
+                        case "req_pending_speak":
+                            content.append(this.load_req_pending_card(members, user, template_req_pending, "speak"));
+                            break;
+                        case "req_approved":
+                            content.append(this.load_req_approved_card(members, user, template_req_approved));
+                            break;
+                        case "req_rejected_join":
+                            content.append(this.load_req_rejected_card(members, user, template_req_rejected, "join"));
+                            break;
+                        case "req_rejected_speak":
+                            content.append(this.load_req_rejected_card(members, user, template_req_rejected, "speak"));
+                            break;
+                        default:
+                            content.append(this.load_member_normal_card(members, user, template));
+                            break;
+                    };
+                };
+                if (members.entries.length == 50) {
+                    let loadmore = this.load_textcard("点击加载更多");
+                    loadmore.querySelector(".accordion__header").addEventListener("click", async () => {
+                        await this.load_member_card(content, base_url, members.next_cursor);
+                        loadmore.remove();
+                    });
+                    content.append(loadmore);
+                };
+            };
+            load_member_normal_card(json, user, template) {
+                let card = Mew.dom(Mew.template(template, {
+                    username: json.objects.users[user.user_id].username,
+                    name: json.objects.users[user.user_id].name,
+                    class: (user.is_super_moderator) ? "领主" : (user.is_moderator) ? "管理员" : "成员",
+                    P_moderator: (user.is_moderator) ? "checked" : "",
+                    P_thought: ([32, 32 + 16, 32 + 64, 16 + 32 + 64].includes(user.permissions_deny)) ? "" : "checked",
+                    P_talk: ([16, 16 + 32, 16 + 64, 16 + 32 + 64].includes(user.permissions_deny)) ? "" : "checked",
+                    P_comment: ([64, 64 + 32, 64 + 16, 16 + 32 + 64].includes(user.permissions_deny)) ? "" : "checked",
+                }));
+                card.querySelectorAll("button")[0].addEventListener("click", () => {
+                    let _confirm = confirm("确定将领主身份转移给Ta吗？你将不再拥有该据点和该据点的管理权限。");
+                    if (!_confirm) return false;
+                    this.fetchdata(this.api + user.node_id, {
+                        data: {
+                            superModerator: user.user_id
+                        },
+                        onsuccess: "领主转移成功！",
+                        onfail: "领主转移失败！"
+                    });
+                });
+                card.querySelectorAll("button")[1].addEventListener("click", () => {
+                    this.ban_someone(user.user_id);
+                });
+                card.querySelectorAll("button")[2].addEventListener("click", () => {
+                    let _confirm = confirm("成员将被移出据点，但可重新加入。确定将该成员移出据点吗？");
+                    if (!_confirm) return false;
+                    this.fetchdata(`${this.api + user.node_id}/members/${user.user_id}`, {
+                        method: "DELETE",
+                        onsuccess: "移出据点成功！",
+                        onfail: "移出据点失败！"
+                    });
+                });
+                card.querySelectorAll("button")[3].addEventListener("click", () => {
+                    let inputs = document.querySelector(`#${json.objects.users[user.user_id].username}`).parentNode.querySelectorAll("input.container__input");
+                    let P_thought = (inputs[0].checked) ? 0 : 32,
+                        P_talk = (inputs[1].checked) ? 0 : 16,
+                        P_comment = (inputs[2].checked) ? 0 : 64;
+                    let data = {
+                        isModerator: inputs[3].checked,
+                        permissionsDeny: P_comment + P_talk + P_thought
+                    };
+                    this.fetchdata(`${this.api + user.node_id}/members/${user.user_id}`, {
+                        data: data
+                    });
+                });
+                return card;
+            };
+            load_req_pending_card(json, user, template, type) {
+                if (!["join", "speak"].includes(type)) return false;
+                let card = Mew.dom(Mew.template(template, {
+                    username: json.objects.users[user.user_id].username,
+                    name: json.objects.users[user.user_id].name,
+                    date: new Date(user.applied_at).toLocaleString("chinese", {
+                        hour12: false
+                    }),
+                    awnser: user.answers[0].content
+                }));
+                card.querySelectorAll("button")[1].addEventListener("click", () => {
+                    this.fetchdata(`${this.api + user.node_id}/applications/${type}/${user.user_id}`, {
+                        data: {
+                            state: "approved"
+                        },
+                        onsuccess: "成功通过申请！",
+                        onfail: "通过申请失败！"
+                    });
+                });
+                card.querySelectorAll("button")[2].addEventListener("click", () => {
+                    this.fetchdata(`${this.api + user.node_id}/applications/${type}/${user.user_id}`, {
+                        data: {
+                            state: "rejected"
+                        },
+                        onsuccess: "成功拒绝申请！",
+                        onfail: "拒绝申请失败！"
+                    });
+                });
+                return card;
+            };
+            load_req_approved_card(json, user, template) {
+                let card = Mew.dom(Mew.template(template, {
+                    username: json.objects.users[user.user_id].username,
+                    name: json.objects.users[user.user_id].name,
+                    date: new Date(user.applied_at).toLocaleString("chinese", {
+                        hour12: false
+                    }),
+                    awnser: user.answers[0].content
+                }));
+                return card;
+            };
+            load_req_rejected_card(json, user, template, type) {
+                if (!["join", "speak"].includes(type)) return false;
+                let card = Mew.dom(Mew.template(template, {
+                    username: json.objects.users[user.user_id].username,
+                    name: json.objects.users[user.user_id].name,
+                    date: new Date(user.applied_at).toLocaleString("chinese", {
+                        hour12: false
+                    }),
+                    awnser: user.answers[0].content
+                }));
+                card.querySelectorAll("button")[1].addEventListener("click", () => {
+                    this.ban_someone(user.user_id);
+                });
+                card.querySelectorAll("button")[2].addEventListener("click", () => {
+                    this.fetchdata(`${this.api + user.node_id}/applications/${type}/${user.user_id}`, {
+                        data: {
+                            state: "pending"
+                        },
+                        onsuccess: "恢复申请成功！",
+                        onfail: "恢复申请失败！"
+                    });
+                });
+                return card;
+            };
+            async load_ban_card(json, user, template) {
+                let card = Mew.dom(Mew.template(template, {
+                    username: json.objects.users[user.user_id].username,
+                    name: json.objects.users[user.user_id].name,
+                    date: new Date(user.banned_at).toLocaleString("chinese", {
+                        hour12: false
+                    }),
+                    op_username: await fetch("https://api.mew.fun/api/v1/users/" + user.operator_id).then(res => res.json()).then(json => json.username),
+                }));
+                card.querySelectorAll("button")[2].addEventListener("click", () => {
+                    let _confirm = confirm("成员将被移出黑名单，并可以重新加入据点。确定将该成员移出黑名单吗？");
+                    if (!_confirm) return false;
+                    this.fetchdata(`${this.api + user.node_id}/bans/${user.user_id}`, {
+                        method: "DELETE",
+                        onsuccess: "移出黑名单成功！",
+                        onfail: "移出黑名单失败！"
+                    });
+                });
+                return card;
+            };
+            ban_someone(id) {
+                let _confirm = confirm("成员将被移出据点，且无法重新加入。确定将该成员加入黑名单吗？");
+                if (!_confirm) return false;
+                this.fetchdata(`${this.api + this.node_basic,id}/bans/${id}`, {
+                    method: "PUT",
+                    onsuccess: "加入黑名单成功！",
+                    onfail: "加入黑名单失败！"
+                });
+            };
+            async load_member_search(content, node_id, query, type) {
+                query = (query) ? query : [];
+                type = (type) ? type : null;
+                let search = Mew.dom(await Mew.fetchres(resources.template_node_mng_member_search_card));
+                let input = search.querySelector(".accordion__content").querySelectorAll("input")[0];
+                search.querySelector("button").addEventListener("click", async () => {
+                    let params = [`keyword=${input.value}`];
+                    for (let i in query) {
+                        params.push(query[i])
+                    };
+                    content.innerHTML = "";
+                    await this.load_member_search(content, node_id, query);
+                    await this.load_member_card(content, `${this.api + node_id}/members/search?${params.join("&")}`, null, type);
+                });
+                content.append(search);
+            };
+            load_textcard(text) {
+                let card = Mew.dom(Mew.template(this.textcard, {
+                    text: text
+                }));
+                return card;
+            };
+            async load_shelf() {
+                let content = document.querySelector("#node_library").parentNode.querySelector(".accordion__content");
+                let template = await Mew.fetchres(resources.template_node_mng_shelf);
+                let template_entry = await Mew.fetchres(resources.template_node_mng_shelf_entry);
+                let template_addshelf = Mew.dom(await Mew.fetchres(resources.template_node_mng_shelf_addshelf));
+                let template_addentry = await Mew.fetchres(resources.template_node_mng_shelf_addentry);
+                let lib = await this.fetchdata(`${this.api + this.node_basic.id}/libraries`, {
+                    alert: false,
+                    method: "GET"
+                });
+                for (let i in lib.entries) {
+                    let entry = lib.entries[i];
+                    if (entry.parent_id) {
+                        let shelf_entry = this.load_shelf_entry(entry, template_entry);
+                        content.querySelector(`#shelf_${entry.parent_id}`).parentNode.querySelectorAll(".input_container")[1].append(shelf_entry);
+                        continue;
+                    };
+                    let shelf = this.load_shelf_bookshelf(entry, template, template_addentry);
+                    content.append(shelf);
+                };
+                template_addshelf.querySelector("button").addEventListener("click", () => {
+                    let name = template_addshelf.querySelector("input.container__input").value;
+                    let data = {
+                        name: (name) ? name : null,
+                    };
+                    this.fetchdata(`${this.api + this.node_basic.id}/libraries`, {
+                        method: "POST",
+                        data: data,
+                        onsuccess: "创建书架成功！",
+                        onfail: "创建书架失败！"
+                    }).catch(err => err);
+                });
+                content.append(template_addshelf);
+            };
+            load_shelf_entry(entry, template_entry) {
+                let shelf_entry = Mew.dom(Mew.template(template_entry, {
+                    id: entry.id,
+                    title: entry.name,
+                    desc_text: (entry.description) ? entry.description : entry.name,
+                    desc_image: (entry.icon) ? entry.icon : ""
+                }));
+                shelf_entry.querySelectorAll("button")[0].addEventListener("click", () => {
+                    let del_confirm = confirm(`防手滑二次确认：真的要删除词条：${entry.name} 吗？`);
+                    if (!del_confirm) return false;
+                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                        method: "DELETE",
+                        onsuccess: "删除词条成功！",
+                        onfail: "删除词条失败！",
+                    });
+                });
+                shelf_entry.querySelectorAll("button")[1].addEventListener("click", () => {
+                    let inputs = shelf_entry.querySelectorAll(".container__input");
+                    let data = {
+                        name: (inputs[0].value) ? inputs[0].value : null,
+                        description: (inputs[1].value) ? inputs[1].value : null,
+                        icon: (inputs[2].value) ? inputs[2].value : null,
+                        parentId: entry.id,
+                    };
+                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                        data: data
+                    });
+                });
+                return shelf_entry;
+            };
+            load_shelf_bookshelf(entry, template_bookshelf, template_addentry) {
+                let shelf = Mew.dom(Mew.template(template_bookshelf, {
+                    id: entry.id,
+                    title: entry.name
+                }));
+                shelf.querySelectorAll("button")[0].addEventListener("click", () => {
+                    let del_confirm = confirm(`防手滑二次确认：真的要删除书架：${entry.name} 吗？`);
+                    if (!del_confirm) return false;
+                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                        method: "DELETE",
+                        onsuccess: "删除书架成功！",
+                        onfail: "删除书架失败！",
+                    });
+                });
+                shelf.querySelectorAll("button")[1].addEventListener("click", () => {
+                    let inputs = shelf.querySelectorAll(".container__input");
+                    let data = {
+                        name: (inputs[0].value) ? inputs[0].value : null,
+                    };
+                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                        data: data
+                    });
+                });
+                let addentry = Mew.dom(Mew.template(template_addentry, {
+                    parent_id: entry.id
+                }));
+                addentry.querySelector("button").addEventListener("click", () => {
+                    let inputs = addentry.querySelectorAll(".container__input");
+                    let data = {
+                        name: (inputs[0].value) ? inputs[0].value : null,
+                        description: (inputs[1].value) ? inputs[1].value : null,
+                        icon: (inputs[2].value) ? inputs[2].value : null,
+                        parentId: entry.id,
+                    }
+                    this.fetchdata(`${this.api + this.node_basic.id}/libraries`, {
+                        method: "POST",
+                        data: data,
+                        onsuccess: "添加词条成功！",
+                        onfail: "添加词条失败！"
+                    }).catch(err => err);
+                });
+                shelf.querySelectorAll(".input_container")[1].append(addentry);
+                return shelf;
+            };
+        };
+        var icon_node_manage = Mew.dom(`<div id="icon_node_manage" style="background-image:url(${resources.icon_node_manage});background-repeat: round;width:40px;height:40px"></div>`);
+        icon_node_manage.addEventListener("click", () => {
+            manage.page_render();
+        });
+        document.querySelector("[class^='sidebar_logo__']").after(icon_node_manage);
+    },
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_node_manage));
     }
 });
 mew.conf({
@@ -1103,7 +1732,7 @@ mew.conf({
         let announce = await fetch(update_url).then(res => res.json()).then(text => JSON.parse(text.description.split("\n")[1]));
         if (this._settings.ver != announce.ver) {
             this.noti("脚本有新版本", `最新版本${announce.ver}，请按下F12打开控制台以查看更新内容。`, () => {
-                window.open(`https://www.doveyige.top/bettermewupdate.html#latest`);
+                window.open(`https://www.doveyige.top/bettermew@4cbcef5update.html#latest`);
             });
             let whatsnew = [`当前脚本版本：${announce.ver}`, "更新内容：", ...announce.whatsnew];
             console.clear();
