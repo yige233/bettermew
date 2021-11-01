@@ -1,0 +1,5 @@
+.custom_stamps {
+    max-height: 320px;
+    width: 105%;
+    overflow: scroll;
+}

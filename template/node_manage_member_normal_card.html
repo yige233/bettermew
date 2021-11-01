@@ -1,0 +1,45 @@
+<div class="accordion__item">
+    <input type="checkbox" class="accordion__toggle" id="member_{{$username}}" />
+    <div class="accordion__header">
+        <label for="member_{{$username}}"></label>
+        <span class="accordion__title">{{$class}}：{{$name}}</span>
+    </div>
+    <div class="accordion__content">
+        <div class="input_container">
+            <span class="container__addon">发布想法</span>
+            <input type="checkbox" class="switcher container__input" id="p_thought_{{$username}}" {{$P_thought}} />
+            <label for="p_thought_{{$username}}"></label>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">参与讨论</span>
+            <input type="checkbox" class="switcher container__input" id="p_talk_{{$username}}" {{$P_talk}} />
+            <label for="p_talk_{{$username}}"></label>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">发表评论</span>
+            <input type="checkbox" class="switcher container__input" id="p_comment_{{$username}}" {{$P_comment}} />
+            <label for="p_comment_{{$username}}"></label>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">设为管理员</span>
+            <input type="checkbox" class="switcher container__input" id="p_moderator_{{$username}}" {{$P_moderator}} />
+            <label for="p_moderator_{{$username}}"></label>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">转让领主</span>
+            <button class="container__input">转让领主身份给 @{{$username}}</button>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">加入黑名单</span>
+            <button class="container__input">将 @{{$username}} 加入黑名单</button>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">移出据点</span>
+            <button class="container__input">将 @{{$username}} 移出据点</button>
+        </div>
+        <div class="input_container">
+            <span class="container__addon">保存</span>
+            <button class="container__input">保存</button>
+        </div>
+    </div>
+</div>

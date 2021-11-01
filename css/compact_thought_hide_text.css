@@ -1,0 +1,5 @@
+[class^='thought_content__']>p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block !important;
+}

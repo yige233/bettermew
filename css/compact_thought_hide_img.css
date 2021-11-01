@@ -1,0 +1,6 @@
+[class^='thought_root__'] [class^='post-preview_cover__'],
+[class^='card_frame-wrapper__'],
+[class^='thought_player-wrapper__'],
+[class^='thought_img-wrapper__'] {
+    display: none;
+}

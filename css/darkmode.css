@@ -1,0 +1,150 @@
+@media (prefers-color-scheme: dark) {
+    body#app {
+        --colors-background-regular: 33 33 33;
+        --colors-background-lighter: 43 43 43;
+        --colors-background-morelighter: 55 55 55;
+        --colors-background-gray: 60 60 60;
+        --colors-emphasis: 230 230 230;
+        --colors-background-receive-msg: 80 80 80;
+        --colors-msg: 235 235 235;
+        --colors-receive-msg: 255 255 255;
+        --colors-background-sent-msg: 120 120 120;
+        --colors-background-darker: 25 25 25;
+        --colors-primary: 114 148 218;
+        --colors-primary-darker: 154 178 228;
+        --colors-gray-200: 140 140 140;
+        --colors-gray-100: 110 110 110;
+        --colors-background-msg: 100 100 100;
+        --colors-caption: 235 235 235;
+        --colors-background-comment: 60 60 60;
+        --colors-background-reply: 80 80 80;
+        --colors-body: 200 200 200;
+        --colors-gray-50: 60 60 60;
+        --colors-background-light: 45 45 45;
+        --colors-background-selected-comment: 100 100 100;
+        --colors-gray-500: 250 250 250;
+        --colors-gray-400: 240 240 240;
+        --colors-background-dialog: 55 55 55;
+        --colors-background-heading: 45 45 45;
+        --colors-gray-900: 255 255 255;
+        --colors-gray-700: 245 245 245;
+        --colors-background-hover: 43 43 43;
+        --colors-disabled: 200 200 200;
+    }
+
+    [class^='thought-view_post-content__']>div p,
+    h1,
+    h2,
+    h3 {
+        color: rgb(var(--colors-emphasis)) !important;
+    }
+
+    [class^='message-container_list__']>div,
+    [class^='message-container_list__'],
+    [class^='card_bili-root__'],
+    [class^='message-stamp_bubble__'],
+    div[data-embed-type],
+    div[data-embed-type=link]>div,
+    [class^='containers_middle-root__'] {
+        background-color: rgb(var(--colors-background-lighter));
+    }
+
+    [class^='containers_chat-header__'],
+    [class^='message-container_reply-bar__'],
+    [class^='user-description-dialog_dialog-root'] {
+        background-color: rgb(var(--colors-background-darker)) !important;
+    }
+
+    .MuiIconButton-sizeSmall,
+    .MuiButtonBase-root {
+        color: white;
+    }
+
+    .Mui-selected {
+        color: wheat !important;
+    }
+
+    .MuiIconButton-sizeSmall:hover,
+    [class^='base_root__'] {
+        background-color: rgb(var(--colors-gray-200));
+    }
+
+    textarea,
+    [class^='pin-list_root__'],
+    [class^='node-migration-dialog_node-migration-root__'],
+    [class^='comments_title-bar__'] {
+        background: rgb(var(--colors-background-lighter)) !important;
+    }
+
+    div.w-full.flex.justify-center.absolute.top-0.z-10.bg-background-regular.h-14.items-center {
+        background-color: rgb(var(--colors-background-regular)) !important;
+    }
+
+    [class^='comment-item_name__'],
+    [class^='comment-item_action-btn__'],
+    .text-sm.truncate,
+    [class^='thought_quote-bar__'],
+    [class^='card_name__'],
+    .text-black {
+        color: rgb(var(--colors-msg));
+    }
+
+    [class^='card_root__'],
+    [class^='v2_root__'],
+    [class^='button_reaction-btn__'],
+    [class^='search-bar_input__'] {
+        background-color: rgb(var(--colors-background-receive-msg));
+    }
+
+    [class^='card_content__'],
+    [class^='item-in-list_header__'],
+    .font-medium,
+    .text-md.truncate,
+    .text-3xl,
+    .text-xl,
+    .my-4,
+    [class^='wiki-item_header__'],
+    .text-2xl,
+    div.MuiDialogContent-root>p,
+    [class^='user-setting-dialog_header__'],
+    [class^='right_white-btn__'],
+    .ProseMirror {
+        color: rgb(var(--colors-receive-msg));
+    }
+
+    .MuiPaper-elevation16,
+    [class^='containers_selector__'],
+    .MuiPaper-elevation {
+        background-color: rgb(var(--colors-background-regular));
+    }
+
+    [class^='base_no-outline__'],
+    [class^='base_no-outline__']:active,
+    [class^='card_action-btn__'] {
+        background-color: rgb(var(--colors-background-receive-msg));
+        color: rgb(var(--colors-receive-msg));
+    }
+
+    [class^='card_identity-card-root-desktop__'] [class^='card_action-btn__'],
+    [class^='text-field_input__'],
+    [class^='text-field_root__'] {
+        background-color: rgb(var(--colors-background-receive-msg));
+        color: rgb(var(--colors-receive-msg));
+    }
+
+    [class^='message-container_reaction-panel__'],
+    [class^='drawer_dialog__'],
+    [class^='plain-input_compose-textarea-wrapper__'] {
+        background-color: rgb(var(--colors-background-morelighter));
+    }
+
+    [class^='compact-tabbar_tabbar-item__'],
+    [class^='relationships_name-center__'],
+    [class^='relationships_name__'] {
+        color: rgb(var(--colors-receive-msg)) !important;
+    }
+
+    [class^='sector-view_sector-header-bar__'] {
+        background-color: rgb(var(--colors-gary-100)) !important;
+    }
+}

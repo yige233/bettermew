@@ -1,0 +1,7 @@
+[class^='desktop_root__'] {
+    flex-direction: row-reverse;
+}
+
+[class^='desktop_right-container__'] {
+    margin-right: 1rem;
+}

@@ -1,0 +1,16 @@
+[class^='topic-selector_root__']:hover {
+    transition: max-height 1s linear;
+    max-height: 500px;
+    height: auto;
+}
+
+[class^='topic-selector_root__'] button {
+    height: 30px;
+    margin: 5px 0px;
+}
+
+[class^='topic-selector_root__'] {
+    max-height: 45px;
+    height: 45px;
+    flex-wrap: wrap;
+}

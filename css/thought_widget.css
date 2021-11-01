@@ -1,0 +1,12 @@
+.thought-widget {
+    z-index: 10;
+    position: absolute;
+    width: 40px;
+    bottom: 20%;
+    right: 5%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(70 70 70 / 80%);
+    cursor: pointer;
+    border-radius: 20px;
+}

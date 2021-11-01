@@ -1,0 +1,8 @@
+[class^='thought-view_img-wrapper__'] {
+    width: var(--img-width);
+    margin: 0 0 0 var(--img-left);
+}
+
+[class^='thought-view_post-content__'] div.w-full.bg-center.bg-cover {
+    width: var(--img-width);
+}

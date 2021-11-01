@@ -1,0 +1,81 @@
+.stdpage div.form {
+    display: grid;
+    width: 300px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    grid-template-columns: 7fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+}
+
+.form+div {
+    color: rgb(var(--colors-receive-msg));
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.search_input {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #345bac;
+}
+
+.search_btn {
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    background: url("https://pc.doveyige.top/mew/res/search.svg") center center no-repeat;
+}
+
+#searchres {
+    display: flex;
+    flex-direction: column
+}
+
+.searchitem {
+    width: 90%;
+    margin: 5px auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.searchitem .content,
+#icon_search {
+    cursor: pointer;
+}
+
+.searchitem div,
+.searchitem p {
+    padding: 0px 10px 10px 10px;
+}
+
+.searchitem div.poster {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.searchitem div.poster img {
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+}
+
+.searchitem div.poster .nickname {
+    font-weight: bold
+}
+
+.searchitem div.poster .date {
+    font-size: 10px;
+}
+
+.searchitem,
+.search_input {
+    background-color: rgb(var(--colors-background-receive-msg));
+    color: rgb(var(--colors-receive-msg));
+}
