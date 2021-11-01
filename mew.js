@@ -416,14 +416,14 @@ let resources = {
     css_compact_thought_hide_text: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_text.css",
     css_compact_thought_more_node: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_more_node.css",
     css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@be3fa4e/css/search.css",
-    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/darkmode.css",
+    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@e68d47c/css/darkmode.css",
     css_text2url: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/text2url.css",
     css_img_size: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/img_size.css",
     css_thought_widget: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_widget.css",
     css_only_this_mewer: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/only_this_mewer.css",
     css_custom_stamp: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/custom_stamp.css",
     icon_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/node_manage.svg",
-    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/node_manage.css",
+    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@e68d47c/css/node_manage.css",
     template_node_mng: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage.html",
     template_node_mng_text_card: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_text_card.html",
     template_node_mng_topic_tab1: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab1.html",
@@ -596,7 +596,7 @@ mew.conf({
                     if (e.target.tagName == "A") return false;
                     var data_id = e.target.getAttribute("data-id");
                     if (data_id) {
-                        window.open("https://mew.fun/bettermew/thoughts/" + data_id)
+                        window.open("https://mew.fun/betterMew/thoughts/" + data_id)
                     } else {
                         return false
                     };
