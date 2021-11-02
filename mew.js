@@ -443,14 +443,6 @@ let resources = {
 };
 let mew = new Mew();
 mew.conf({
-    id: "darkmode",
-    short_desc: "深色模式",
-    long_desc: "mew将根据浏览器偏好，在浏览器选择深色模式时自动切换为深色模式。",
-    func_once: async function () {
-        Mew.loadcss(await Mew.fetchres(resources.css_darkmode));
-    },
-});
-mew.conf({
     id: "desktop",
     short_desc: "桌面布局更改",
     long_desc: "可以通过下方的滑动条，分别调整想法栏和主页栏的宽度。",
@@ -1718,6 +1710,14 @@ mew.conf({
     func_once: async function () {
         Mew.loadcss(await Mew.fetchres(resources.css_node_manage));
     }
+});
+mew.conf({
+    id: "darkmode",
+    short_desc: "深色模式",
+    long_desc: "mew将根据浏览器偏好，在浏览器选择深色模式时自动切换为深色模式。",
+    func_once: async function () {
+        Mew.loadcss(await Mew.fetchres(resources.css_darkmode));
+    },
 });
 mew.conf({
     id: "ver_check",
