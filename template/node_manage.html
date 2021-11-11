@@ -11,25 +11,28 @@
             </div>
             <div class="accordion__content">
                 <div class="input_container">
+                    <img src="">
+                </div>
+                <div class="input_container">
                     <span class="container__addon">据点名称</span>
-                    <input type="text" class="container__input" />
+                    <input type="text" class="container__input" value="{{$node_name}}" />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">领主</span>
-                    <input id="" type="text" class="container__input" disabled />
+                    <input id="" type="text" class="container__input" disabled value="{{$node_super_modrator}}" />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">据点代号</span>
-                    <input type="text" class="container__input" />
+                    <input type="text" class="container__input" value="{{$node_id}}" />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">据点介绍</span>
                     <textarea maxlength="140" class="container__input"
-                        placeholder="应少于140个字符。删除原有介绍会导致保存失败。"></textarea>
+                        placeholder="应少于140个字符。">{{$node_desc}}</textarea>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">据点图标</span>
-                    <input type="text" class="container__input" placeholder="填入Mew图片的id。" />
+                    <input type="text" class="container__input" placeholder="填入Mew图片的id。" value="{{$node_icon}}" />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">保存</span>
@@ -61,30 +64,34 @@
             <div class="accordion__content">
                 <div class="input_container">
                     <span class="container__addon">可被公开搜索</span>
-                    <input type="checkbox" class="switcher container__input" id="searchable" />
+                    <input type="checkbox" class="switcher container__input" id="searchable" {{$searchable}} />
                     <label for="searchable"></label>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">据点标签：添加/删除Tag。一行一个，最多10个。</span>
-                    <textarea maxlength="140" class="container__input"></textarea>
+                    <textarea maxlength="140" class="container__input">{{$node_tags}}</textarea>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">设置发言门槛，答题后方可发言。</span>
-                    <input type="checkbox" class="switcher container__input" id="enable_speak_question" />
+                    <input type="checkbox" class="switcher container__input" id="enable_speak_question"
+                        {{$enable_speak_question}} />
                     <label for="enable_speak_question"></label>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">问题</span>
-                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。" />
+                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。"
+                        value="{{$speak_question}}" {{$disable_speak_question}} />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">设置为私密据点，不加入无法看到据点内容。</span>
-                    <input type="checkbox" class="switcher container__input" id="enable_join_question" />
+                    <input type="checkbox" class="switcher container__input" id="enable_join_question"
+                        {{$enable_join_question}} />
                     <label for="enable_join_question"></label>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">问题</span>
-                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。" />
+                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。"
+                        value="{{$join_question}}" {{$disable_join_question}} />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">保存</span>
