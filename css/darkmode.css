@@ -118,6 +118,7 @@
 
     .MuiPaper-elevation16,
     [class^='containers_selector__'],
+    [class^='topic-selector_wrapper__'],
     .MuiPaper-elevation {
         background-color: rgb(var(--colors-background-regular));
     }

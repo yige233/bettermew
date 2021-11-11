@@ -50,7 +50,7 @@
 
 .searchitem div,
 .searchitem p {
-    padding: 0px 10px 10px 10px;
+    padding: 5px 10px;
 }
 
 .searchitem div.poster {
@@ -78,4 +78,28 @@
 .search_input {
     background-color: rgb(var(--colors-background-receive-msg));
     color: rgb(var(--colors-receive-msg));
+}
+
+.poster>div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 0 5px;
+}
+
+.shareto {
+    cursor: pointer;
+}
+
+.sharepage_root>ul>li {
+    cursor: pointer;
+    color: rgb(var(--colors-receive-msg));
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: rgb(var(--colors-background-light));
+    transition: .2s ease;
+}
+
+.sharepage_root>ul>li:hover {
+    background-color: rgb(var(--colors-gray-200));
 }
