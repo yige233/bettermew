@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: dark) {
-    body#app {
+    :root {
         --colors-background-regular: 33 33 33;
         --colors-background-lighter: 43 43 43;
         --colors-background-morelighter: 55 55 55;

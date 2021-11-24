@@ -1,7 +1,7 @@
-[class^='desktop_root__'] {
+[class^='layouts_root__'] {
     flex-direction: row-reverse;
 }
 
-[class^='desktop_right-container__'] {
+[class^='layouts_right-container__'] {
     margin-right: 1rem;
 }

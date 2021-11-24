@@ -1,7 +1,7 @@
-[class^='desktop_right-container__'] {
+[class^='layouts_right-container__'] {
     flex-basis: var(--right-width) !important
 }
 
-[class^='desktop_left-container__'] {
+[class^='layouts_left-container__'] {
     flex-basis: var(--left-width) !important
 }
