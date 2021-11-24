@@ -420,18 +420,18 @@ class Mew {
     };
 };
 let resources = {
-    icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
+    icon_totop: '4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
     css_topic_list: "https://cdn.jsdelivr.net/gh/yige233/bettermew@7d288a8/css/topic_list.css",
-    css_desktop: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/desktop.css",
+    css_desktop: "https://cdn.jsdelivr.net/gh/yige233/bettermew@ce63961/css/desktop.css",
     css_thought_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_in_middle.css",
     css_whisper_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/whisper_in_middle.css",
-    css_desktop_reverse: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/desktop_reverse.css",
+    css_desktop_reverse: "https://cdn.jsdelivr.net/gh/yige233/bettermew@ce63961/css/desktop_reverse.css",
     css_compact_thought_hide_img: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_img.css",
     css_compact_thought_hide_text: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_text.css",
     css_compact_thought_more_node: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_more_node.css",
     css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@a29d7cf/css/search.css",
-    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@a29d7cf/css/darkmode.css",
+    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@ce63961/css/darkmode.css",
     css_text2url: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/text2url.css",
     css_img_size: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/img_size.css",
     css_thought_widget: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_widget.css",
@@ -1012,7 +1012,7 @@ mew.conf({
         type: "text",
         id: "tool_avatar",
         default: "",
-        long_desc: "[小工具]输入Mew图片id，就可以将头像设置为该id指向的图片。",
+        long_desc: "[小工具]输入Mew图片id，就可以将头像设置为该id指向的图片。注意：请不要使用过于花里胡哨的gif，这可能会招致反感。",
         value: function () {
             return "";
         },
@@ -1088,18 +1088,19 @@ mew.conf({
         if (topicid == 0) return false;
         let stamps = [];
         for (let i in this._settings.custom_stamp_list) {
+            if (this._settings.custom_stamp_list[i].slice(0, 1) == "#") continue;
             if (!/(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/.test(this._settings.custom_stamp_list[i])) {
                 stamps.push(this._settings.custom_stamp_list[i]);
                 continue;
             };
             await Mew.fetchres(this._settings.custom_stamp_list[i]).then(text => text.split("\n").filter(i => i)).then(arr => {
                 for (let i in arr) {
+                    if (arr[i].slice(0, 1) == "#") continue;
                     stamps.push(arr[i]);
                 };
             }).catch(() => []);
         };
         for (let i in stamps) {
-            if (stamps[i].slice(0, 1) == "#") continue;
             let data = stamps[i].split("$");
             if (!/[0-9]{17,18}/.test(data[0])) continue;
             let hash = (data[1] && data[1].match(/[0-9a-f]{32}/g)) ? data[1] : "2c7b5e16155b442a9ff0cce985f6ad93",
@@ -1331,7 +1332,7 @@ mew.conf({
                     });
                     card.querySelectorAll("button")[1].addEventListener("click", () => {
                         let topic = json.topics[i];
-                        let inputs = this.page.querySelector(`#_${topic.id}`).parentNode.querySelectorAll(".container__input");
+                        let inputs = this.page.querySelector(`#topic_list_${topic.id}`).parentNode.querySelectorAll(".container__input");
                         let new_data = {
                             name: inputs[0].value,
                             description: (!topic.description && inputs[1].value.length >= 1) ? inputs[1].value : null,
@@ -1803,7 +1804,7 @@ mew.conf({
         }(await Promise.all([
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage.html"),
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_text_card.html"),
-            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab1.html"),
+            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_topic_tab1.html"),
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_card.html"),
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_btn.html"),
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab3.html"),
@@ -1814,9 +1815,9 @@ mew.conf({
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage_req_rejected_card.html"),
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_search_card.html"),
             Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf.html"),
-            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_entry.html"),
-            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_addshelf.html"),
-            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf_addentry.html")
+            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_shelf_entry.html"),
+            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_shelf_addshelf.html"),
+            Mew.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_shelf_addentry.html")
         ]).catch(err => console.log(err)))
     }
 });
