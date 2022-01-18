@@ -1,4 +1,10 @@
 @media (prefers-color-scheme: dark) {
+    body {
+        --colors-card-l1: 70 70 70;
+        --colors-card-l2: 80 80 80;
+        --colors-input: 60 60 60;
+        --colors-btn: 120 120 120;
+    }
     :root {
         --colors-background-regular: 33 33 33;
         --colors-background-lighter: 43 43 43;
