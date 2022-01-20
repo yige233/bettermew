@@ -1,4 +1,4 @@
-import { MewTool, MewPlugin, mew } from "./mew.frame.js"
+import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@d53c27f/mew.frame.js";
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
@@ -22,7 +22,7 @@ let resources = {
 };
 mew.load(new MewPlugin("desktop", {
     short_desc: "桌面布局更改",
-    long_desc: "可以通过下方的滑动条，分别调整想法栏和主页栏的宽度。",
+    long_desc: "可以通滑动条分别调整想法栏和主页栏的宽度。",
     func_once: async function () {
         MewTool.loadcss(await MewTool.fetchres(resources.css_desktop));
     },
@@ -64,7 +64,7 @@ mew.load(new MewPlugin("desktop_reverse", {
 }));
 mew.load(new MewPlugin("img_size", {
     short_desc: "调整想法全文内图片大小",
-    long_desc: "可以通过下方的滑动条，来调整想法内图片的显示大小。",
+    long_desc: "可以通过滑动条来调整想法内图片的显示大小。",
     func_once: async function () {
         MewTool.loadcss(await MewTool.fetchres(resources.css_img_size))
     },
@@ -382,9 +382,9 @@ mew.load(new MewPlugin("search", {
         };
     }
 }));
-mew.load(new MewPlugin("custom_stamp", {
+let plugin_custom_stamps = new MewPlugin("custom_stamp", {
     short_desc: "自定义表情",
-    long_desc: "在下方的文本框内填入神秘代码(见下方文本框说明)，即可在“发送表情”按钮中使用自定义表情。",
+    long_desc: "可在“发送表情”按钮中使用自定义表情。在表情管理页中管理自定义表情。",
     func_loop: async function () {
         let nonce_gen = (len) => {
             let nonce = [];
@@ -409,23 +409,25 @@ mew.load(new MewPlugin("custom_stamp", {
                         <source srcset="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" type="image/png">
                         <img src="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" alt="${the_desc}">
                     </picture>
-                </button>`);
+                </button>`),
+                send = (e) => {
+                    fetch(`https://api.mew.fun/api/v1/topics/${topicid}/messages`, {
+                        headers: {
+                            Authorization: MewTool.getcookie("tomon_community_token"),
+                            "Content-type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            nonce: nonce_gen(18),
+                            media: [id]
+                        }),
+                        method: "POST",
+                    });
+                };
+            mystamp.addEventListener("click", send);
             mystamp.addEventListener('contextmenu', e => {
                 e.preventDefault();
                 MewTool.contextmenu(e, new Map([
-                    ["发送", (e) => {
-                        fetch(`https://api.mew.fun/api/v1/topics/${topicid}/messages`, {
-                            headers: {
-                                Authorization: MewTool.getcookie("tomon_community_token"),
-                                "Content-type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                nonce: nonce_gen(18),
-                                media: [id]
-                            }),
-                            method: "POST",
-                        });
-                    }],
+                    ["发送", send],
                     ["查看完整图片", (e) => {
                         if (document.querySelector("#preview_stamp")) {
                             document.querySelector("#preview_stamp").src = `https://image.mew.fun/${hash}`;
@@ -436,7 +438,7 @@ mew.load(new MewPlugin("custom_stamp", {
                         let timer_el = preview.querySelector("#preview_stamp");
                         preview.apply();
                         let timer = setInterval(() => {
-                            left_time = Number(timer_el.getAttribute("disapper-count"));
+                            let left_time = Number(timer_el.getAttribute("disapper-count"));
                             if (left_time == 0) {
                                 preview.remove();
                                 clearInterval(timer);
@@ -462,11 +464,43 @@ mew.load(new MewPlugin("custom_stamp", {
                 add.addEventListener("contextmenu", (e) => {
                     e.preventDefault();
                     MewTool.contextmenu(e, new Map([
-                        ["添加表情", () => {
-                            this.add();
+                        ["添加表情", async () => {
+                            let url = prompt("填入想存为表情的Mew图片链接：");
+                            if (!url) return false;
+                            let [id, hash] = await MewTool.imgurl2id(url);
+                            if (!id) return mew.notice("提示", "不正确的图片链接！");
+                            let desc = prompt("添加关于该图片的说明：");
+                            desc = (desc) ? desc : "";
+                            let stamp = `${id}$${hash}$${desc}`;
+                            this.page.querySelector(".add_stamp_card").before(this.rend_stamp_card(stamp));
+                            this.save();
                         }],
-                        ["批量添加表情", (e) => {
-                            this.add_batch();
+                        ["从url批量导入表情", async (e) => {
+                            let url = prompt("填入含有表情代码的链接：");
+                            if (!url) return false;
+                            await MewTool.fetchres(url).then(text => this.add_batch(text));
+                        }],
+                        ["批量导入本地表情", (e) => {
+                            let input = MewTool.dom(`<input type="file" style="display:none" accept=".txt" \\>`);
+                            input.addEventListener("change", (e) => {
+                                let reader = new FileReader(); //读入文件
+                                reader.onload = () => {
+                                    this.add_batch(reader.result);
+                                };
+                                reader.readAsText(input.files[0]);
+                                input.remove();
+                            });
+                            document.body.append(input);
+                            input.click();
+                        }],
+                        ["导出表情", (e) => {
+                            let fname = prompt("欲导出的文件名：", "我的Mew表情");
+                            let a = document.createElement('a');
+                            a.download = `${(fname) ? fname : "我的Mew表情"}.txt`;
+                            let blob = new Blob([this.configs.get("stamps").value.join("\n")]);
+                            a.href = URL.createObjectURL(blob);
+                            a.click();
+                            a = null;
                         }],
                         ["快速删除表情", (e) => {
                             if (!this.flag_delete) {
@@ -537,31 +571,17 @@ mew.load(new MewPlugin("custom_stamp", {
                 this.configs.set("stamps", stamps);
 
             };
-            async add() {
-                let url = prompt("填入想存为表情的Mew图片链接：");
-                if (!url) return false;
-                let [id, hash] = await MewTool.imgurl2id(url);
-                if (!id) return mew.notice("提示", "不正确的图片链接！");
-                let desc = prompt("添加关于该图片的说明：");
-                desc = (desc) ? desc : "";
-                let stamp = `${id}$${hash}$${desc}`;
-                this.page.querySelector(".add_stamp_card").before(this.rend_stamp_card(stamp));
-                this.save();
-            };
-            async add_batch() {
-                let url = prompt("填入含有表情代码的链接：");
-                if (!url) return false;
-                await MewTool.fetchres(url).then(text => text.split(/\n|\r|\r\n/).filter(i => i)).then(arr => {
-                    for (let i of arr) {
-                        if (i.slice(0, 1) == "#") continue;
-                        let [id, hash, desc] = i.split("$");
-                        if (!/[0-9]{17,18}/.test(id)) continue;
-                        let stamp = `${id}$${hash}$${(desc) ? desc : ""}`;
-                        this.page.querySelector(".add_stamp_card").before(this.rend_stamp_card(stamp));
-                        this.save();
-                    };
-                });
-            };
+            add_batch(stamps_text) {
+                let arr = stamps_text.split(/\n|\r|\r\n/).filter(i => i);
+                for (let i of arr) {
+                    if (i.slice(0, 1) == "#") continue;
+                    let [id, hash, desc] = i.split("$");
+                    if (!/[0-9]{17,18}/.test(id)) continue;
+                    let stamp = `${id}$${hash}$${(desc) ? desc : ""}`;
+                    this.page.querySelector(".add_stamp_card").before(this.rend_stamp_card(stamp));
+                    this.save();
+                };
+            }
         };
     }
 }).addConf("stamps", {
@@ -571,7 +591,8 @@ mew.load(new MewPlugin("custom_stamp", {
     click: function () {
         new this.func_once_result(this).page.apply();
     }
-}));
+});
+mew.load(plugin_custom_stamps);
 mew.load(new MewPlugin("node_manage", {
     short_desc: "PC端据点管理",
     long_desc: "允许据点管理员在PC端管理据点。非管理员无法保存设置。",
@@ -1359,18 +1380,82 @@ mew.load(new MewPlugin("tool_avatar", {
     }
 }));
 mew.load(new MewPlugin("custom_css", {
-    hide: true,
-    always: true,
+    short_desc: "自定义css",
+    long_desc: "加载自定义css样式。",
     func_once: function () {
         MewTool.loadcss(this.configs.get("custom_css").value);
     }
 }).addConf("custom_css", {
     type: "text",
-    desc: "下方的文本框可以用于加载自定义css样式。",
+    desc: "填入自定义css。",
     get: function () {
         return this.configs.get("custom_css").value;
     },
     set: function (e) {
         return e.target.value;
+    }
+}));
+mew.load(new MewPlugin("fix_img_menu", {
+    long_desc: "点击打开原图时，部分浏览器有没法右键另存为的问题。该插件为原图增加了右键菜单，提供新标签页中打开图片的选项。",
+    short_desc: "修复保存不了图片",
+    func_loop: function () {
+        for (let el of document.querySelectorAll(".pswp__zoom-wrap")) {
+            if (el.className.indexOf("pswp__zoom-wrap-marked") != -1) return false;
+            el.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                let url = el.querySelector("img").src;
+                let options = new Map([
+                    ["新标签页中打开图片", (e) => {
+                        window.open(url);
+                    }],
+                    ["保存图片", async () => {
+                        let mime_type_ext = new Map([
+                            ["image/gif", "gif"],
+                            ["image/x-icon", "ico"],
+                            ["image/svg+xml", "svg"],
+                            ["image/jpeg", "jpg"],
+                            ["image/tiff", "tiff"],
+                            ["image/png", "png"],
+                            ["image/webp", "webp"]
+                        ]);
+                        let blob = await fetch(url).then(res => res.blob());
+                        let a = document.createElement('a');
+                        let fname = prompt("将图片保存为：", `${url.match(/[0-9a-f]{32}?/g)[0]}.${mime_type_ext.get(blob.type) || blob.type}`);
+                        if (!fname) return false;
+                        a.download = fname;
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        a = null;
+                    }],
+                    ["复制图片到剪贴板", async () => {
+                        if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
+                        let blob = await fetch(url + "~tplv-c226mjqywu-size:999999.png").then(res => res.blob());
+                        await navigator.clipboard.write([
+                            new ClipboardItem({
+                                [blob.type]: blob
+                            })
+                        ]);
+                    }],
+                    ["复制图片链接", async () => {
+                        if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
+                        await navigator.clipboard.write([
+                            new ClipboardItem({
+                                "text/plain": new Blob([url], { type: 'text/plain' })
+                            })
+                        ]);
+                    }]
+                ]);
+                mew.isActive(plugin_custom_stamps.id) && options.set("保存为自定义表情", async () => {
+                    let [id, hash] = await MewTool.imgurl2id(url);
+                    let desc = prompt("添加关于该图片的说明：");
+                    desc = (desc) ? desc : "";
+                    let stamps = plugin_custom_stamps.configs.get("stamps").value;
+                    stamps.push(`${id}$${hash}$${desc}`);
+                    plugin_custom_stamps.configs.set("stamps", stamps);
+                });
+                MewTool.contextmenu(e, options);
+            });
+            el.classList.add("pswp__zoom-wrap-marked");
+        }
     }
 }));
