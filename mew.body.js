@@ -1,4 +1,4 @@
-import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@d53c27f/mew.frame.js";
+import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@cb32172/mew.frame.js";
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
