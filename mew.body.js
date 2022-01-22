@@ -1,4 +1,4 @@
-import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@cb32172/mew.frame.js";
+import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@6010ae6/mew.frame.js";
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
@@ -1261,7 +1261,7 @@ mew.load(new MewPlugin("msg_edit", {
             el.parentNode.addEventListener("contextmenu", async e => {
                 e.preventDefault();
                 let message_id = MewTool.getreact(e.currentTarget).children[0].props.id;
-                let message_content = MewTool.getreact(e.currentTarget.children[0]).children[1].props.children
+                let message_content = MewTool.getreact(e.currentTarget.children[0]).children[1].props.children.props.children;
                 let topicid = (document.querySelector("[class*='panel_list__']")) ?
                     document.querySelector("[class*='panel_list__']").querySelector("[class*='sidebar_selected__']").parentNode.getAttribute("data-id") :
                     (MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId) ? MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId : 0
@@ -1310,19 +1310,48 @@ mew.load(new MewPlugin("msg_edit", {
 }));
 mew.load(new MewPlugin("at", {
     short_desc: "@功能",
-    long_desc: "在有人提及您的时候为您弹窗通知；点击用户名可快速复制用户昵称，并将光标置于消息编辑栏。",
-    func_once: function () {
-        mew.ws.on("message_create", async (data) => {
+    long_desc: "在有人提及您的时候为您弹窗通知；点击用户名可快速复制用户昵称，并将光标置于消息编辑栏。@消息需要符合一定的格式。",
+    func_once: async function () {
+        mew.ws.on("message_create", (data) => {
             let author = data.objects.users[data.author_id].name,
+                ats = Object.assign({}, this.configs.get("ats").value),
+                keyword = [...this.configs.get("keywords").value],
+                blocks = Object.assign({}, this.configs.get("ats").value),
+                detected = false,
                 msg = data.content;
-            if (!msg || msg.indexOf("@" + mew.ws.user.name) == -1) return false;
+            if (!msg) return false;
+            for (let i of keyword) {
+                let special = i.match(/[\$|\(|\)|\*|\+|\.|\[|\]|\?|\\|\^|\{|\}|\|]{1}/g);
+                let user = ats["u" + data.author_id];
+                if (special) for (let s of special) i = i.replace(s, "\\" + s);
+                if (!new RegExp(`@${i}+[,|，|。|？|?|!|：|:|;|：|！|\\s]{1}`).test(msg) && !new RegExp(`@${i}$`).test(msg)) continue;
+                detected = true;
+                if (blocks["u" + data.author_id]) {
+                    if (blocks["u" + data.author_id] - Math.floor(new Date() / 1000) > 0) return false;
+                    delete blocks["u" + data.author_id];
+                };
+                if (user) {
+                    user.push(Math.floor(new Date() / 1000));
+                    if (user.length == 8) user.shift();
+                    if (user.length == 7 && user[6] - user[0] <= 180) {
+                        blocks["u" + data.author_id] = Math.floor(new Date() / 1000) + 900;
+                        detected = false;
+                    };
+                } else {
+                    ats["u" + data.author_id] = [Math.floor(new Date() / 1000)];
+                };
+                this.configs.set("ats", ats);
+                this.configs.set("block", blocks);
+                if (detected) break;
+
+            };
+            if (!detected) return false;
             if (data.node_id) {
-                let mynodes = await MewTool.mynodes();
-                for (let i of mynodes.entries) {
+                for (let i of this.func_once_result.entries) {
                     if (i.id == data.node_id) {
                         for (let x of i.topics) {
                             if (x.id == data.topic_id) return mew.notice(`${author} 在 ${i.name} 的 ${x.name} @了你！`, msg, () => {
-                                window.open(`https://mew.fun/n/${i.node_name}?topicId=${x.id}`)
+                                window.open(`https://mew.fun/n/${i.node_name}?topicId=${x.id}`);
                             });
                         };
                     };
@@ -1330,24 +1359,44 @@ mew.load(new MewPlugin("at", {
             };
             mew.notice(`${author} 在私信中@了你！`, msg);
         });
+        return await fetch(`https://api.mew.fun/api/v1/users/@me/mynodes`, {
+            headers: {
+                Authorization: MewTool.getcookie("tomon_community_token")
+            }
+        }).then(res => res.json());
     },
     func_loop: function () {
         let users = Array.from(document.querySelectorAll("[class*='message-text_name__']")).concat(Array.from(document.querySelectorAll("[class*='message-image_name__']")));
         for (let user of users) {
             user.style = "cursor:pointer";
             if (user.className.indexOf("called") == -1) {
-                user.addEventListener("click", (e) => {
-                    let cp = MewTool.dom(`<textarea style="opacity: 0;z-index: -999;">@${e.target.innerText} </textarea>`);
-                    document.body.append(cp);
-                    cp.select();
-                    document.execCommand("copy");
-                    cp.remove();
+                user.addEventListener("click", async (e) => {
+                    if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
+                    await navigator.clipboard.write([
+                        new ClipboardItem({
+                            "text/plain": new Blob(["@" + e.target.innerText], { type: 'text/plain' })
+                        })
+                    ]);
                     document.querySelectorAll("[class^='message-container_textarea-bar__']")[0].focus();
                 });
                 user.classList.add("called");
             };
         };
     }
+}).addConf("keywords", {
+    type: "text",
+    desc: "可以在下方的文本框中添加能触发@提醒的关键词，每行一个。",
+    default: [],
+    get: function () {
+        return this.configs.get("keywords").value.join("\n");
+    },
+    set: function (e) {
+        return e.target.value.split("\n").filter(i => i);
+    }
+}).addConf("ats", {
+    default: {}
+}).addConf("block", {
+    default: {}
 }));
 mew.load(new MewPlugin("tool_avatar", {
     hide: true,
