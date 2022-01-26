@@ -107,31 +107,6 @@ mew.load(new MewPlugin("topic_list", {
         MewTool.loadcss(await MewTool.fetchres(resources.css_topic_list));
     },
 }));
-mew.load(new MewPlugin("text2url", {
-    short_desc: "Url变为可点击",
-    long_desc: "将讨论区内不可点击的链接转换为可点击。",
-    func_once: async function () {
-        MewTool.loadcss(await MewTool.fetchres(resources.css_text2url));
-    },
-    func_loop: function () {
-        let text2url = function (el) {
-            if (el.className.indexOf("url-turned") != -1) return false;
-            var reg = /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g,
-                txt = el.innerText,
-                s = txt.match(reg);
-            if (s) {
-                for (let x of s) {
-                    var url = `<a href="${x}" target="_blank">${x}</a>`;
-                    txt = txt.replace(x, url);
-                };
-                el.classList.add("url-turned");
-                el.style = "display:block;";
-                el.innerHTML = txt;
-            };
-        };
-        for (let i of document.querySelectorAll("[class^='message-text_content-wrap__']")) text2url(i);
-    }
-}));
 mew.load(new MewPlugin("thought_widget", {
     short_desc: "回到顶部",
     long_desc: "在想法全文内增加一个“回到顶部”按钮。",
@@ -1372,11 +1347,7 @@ mew.load(new MewPlugin("at", {
             if (user.className.indexOf("called") == -1) {
                 user.addEventListener("click", async (e) => {
                     if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
-                    await navigator.clipboard.write([
-                        new ClipboardItem({
-                            "text/plain": new Blob(["@" + e.target.innerText], { type: 'text/plain' })
-                        })
-                    ]);
+                    await navigator.clipboard.writeText("@" + e.target.innerText).catch(() => { mew.notice("提示", "可能没有权限写入剪贴板！") });
                     document.querySelectorAll("[class^='message-container_textarea-bar__']")[0].focus();
                 });
                 user.classList.add("called");
@@ -1483,15 +1454,11 @@ mew.load(new MewPlugin("fix_img_menu", {
                             new ClipboardItem({
                                 [blob.type]: blob
                             })
-                        ]);
+                        ]).catch(() => { mew.notice("提示", "可能没有权限写入剪贴板！") });
                     }],
                     ["复制图片链接", async () => {
                         if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
-                        await navigator.clipboard.write([
-                            new ClipboardItem({
-                                "text/plain": new Blob([url], { type: 'text/plain' })
-                            })
-                        ]);
+                        await navigator.clipboard.writeText(url).catch(() => { mew.notice("提示", "可能没有权限写入剪贴板！") });
                     }]
                 ]);
                 mew.isActive(plugin_custom_stamps.id) && options.set("保存为自定义表情", async () => {
