@@ -1,4 +1,4 @@
-import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@6010ae6/mew.frame.js";
+import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@6ee3e2f/mew.frame.js";
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
@@ -265,7 +265,7 @@ mew.load(new MewPlugin("search", {
                         li.addEventListener("click", () => {
                             fetch(`https://api.mew.fun/api/v1/topics/${t.id}/messages`, {
                                 headers: {
-                                    Authorization: MewTool.getcookie("tomon_community_token"),
+                                    Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                                     "Content-type": "application/json; charset=utf-8"
                                 },
                                 body: JSON.stringify({
@@ -291,7 +291,7 @@ mew.load(new MewPlugin("search", {
                 let url = (pagination) ? `${base_url}&pagination=${pagination}` : base_url;
                 let res = await fetch(url, {
                     headers: {
-                        Authorization: MewTool.getcookie("tomon_community_token")
+                        Authorization: localStorage.getItem("mew-token").replace(/"/g, "")
                     }
                 });
                 return await res.json();
@@ -388,7 +388,7 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
                 send = (e) => {
                     fetch(`https://api.mew.fun/api/v1/topics/${topicid}/messages`, {
                         headers: {
-                            Authorization: MewTool.getcookie("tomon_community_token"),
+                            Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                             "Content-type": "application/json",
                         },
                         body: JSON.stringify({
@@ -575,7 +575,7 @@ mew.load(new MewPlugin("node_manage", {
         MewTool.loadcss(await MewTool.fetchres(resources.css_node_manage));
         return new class {
             header = {
-                Authorization: MewTool.getcookie("tomon_community_token"),
+                Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                 "Content-type": "application/json; charset=utf-8"
             };
             api = "https://api.mew.fun/api/v1/nodes/";
@@ -1250,7 +1250,7 @@ mew.load(new MewPlugin("msg_edit", {
                             this.func_once_result(message_id, null, "DELETE");
                             fetch(`https://api.mew.fun/api/v1/topics/${topicid}/messages`, {
                                 headers: {
-                                    Authorization: MewTool.getcookie("tomon_community_token"),
+                                    Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                                     "Content-type": "application/json",
                                 },
                                 body: JSON.stringify({
@@ -1270,7 +1270,7 @@ mew.load(new MewPlugin("msg_edit", {
         return async function (id, content, method) {
             let res = await fetch(`https://api.mew.fun/api/v1/messages/${id}`, {
                 headers: {
-                    Authorization: MewTool.getcookie("tomon_community_token"),
+                    Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                     "Content-Type": "application/json; charset=utf-8"
                 },
                 method: (method) ? method : "PATCH",
@@ -1336,7 +1336,7 @@ mew.load(new MewPlugin("at", {
         });
         return await fetch(`https://api.mew.fun/api/v1/users/@me/mynodes`, {
             headers: {
-                Authorization: MewTool.getcookie("tomon_community_token")
+                Authorization: localStorage.getItem("mew-token").replace(/"/g, "")
             }
         }).then(res => res.json());
     },
@@ -1383,7 +1383,7 @@ mew.load(new MewPlugin("tool_avatar", {
         if (!id) return mew.notice("提示", "不正确的图片链接！");
         await fetch(`https://api.mew.fun/api/v1/users/@me`, {
             headers: {
-                Authorization: MewTool.getcookie("tomon_community_token"),
+                Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
