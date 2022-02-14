@@ -6,6 +6,7 @@ MEW内脚本据点：https://mew.fun/n/bettermew
 
 安装脚本：点击[这个链接](https://cdn.jsdelivr.net/gh/yige233/bettermew@c830692/tampermonkey.user.js)。
 ### 主要功能
+  #### 提示：懒得一遍一遍地重复写了，建议参见Mew上的想法：https://mew.fun/Dove_yige/thoughts/69082567613583360
  * 桌面布局更改：可以通过下方的滑动条，分别调整想法栏和主页栏的宽度。
  * 想法全文居中：点开想法全文后，想法不再靠边显示而是居中显示。
  * 调整想法全文内图片大小：可以通过下方的滑动条，来调整想法内图片的显示大小。
