@@ -2,7 +2,7 @@ import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bet
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
-    css_topic_list: "https://cdn.jsdelivr.net/gh/yige233/bettermew@7d288a8/css/topic_list.css",
+    css_topic_list: "https://cdn.jsdelivr.net/gh/yige233/bettermew@e1c937b/css/topic_list.css",
     css_desktop: "https://cdn.jsdelivr.net/gh/yige233/bettermew@ce63961/css/desktop.css",
     css_thought_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_in_middle.css",
     css_whisper_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/whisper_in_middle.css",
@@ -737,7 +737,7 @@ mew.load(new MewPlugin("node_manage", {
                         let inputs = this.page.querySelector(`#topic_list_${t.id}`).parentNode.querySelectorAll(".container__input");
                         let new_data = {
                             name: inputs[0].value,
-                            description: (!t.description && inputs[1].value.length >= 1) ? inputs[1].value : null,
+                            description: (inputs[1].value.length >= 1) ? inputs[1].value : null,
                             media: (t.media.join("\n") != inputs[2].value) ? inputs[2].value.split("\n").filter(i => i) : null,
                         };
                         this.fetchdata(`https://api.mew.fun/api/v1/topics/${t.id}`, {
@@ -1290,7 +1290,7 @@ mew.load(new MewPlugin("at", {
         mew.ws.on("message_create", (data) => {
             let author = data.objects.users[data.author_id].name,
                 ats = Object.assign({}, this.configs.get("ats").value),
-                keyword = [...this.configs.get("keywords").value],
+                keyword = [mew.ws.user.name, mew.ws.user.username, ...this.configs.get("keywords").value],
                 blocks = Object.assign({}, this.configs.get("ats").value),
                 detected = false,
                 msg = data.content;
