@@ -1,4 +1,4 @@
-let frame_version = 0.73;
+let frame_version = 0.74;
 let data = {
     icon_setting: `<svg t="1633357352154" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1249" width="32" height="32"><path d="M919.6 405.6l-57.2-8c-12.7-1.8-23-10.4-28-22.1-11.3-26.7-25.7-51.7-42.9-74.5-7.7-10.2-10-23.5-5.2-35.3l21.7-53.5c6.7-16.4 0.2-35.3-15.2-44.1L669.1 96.6c-15.4-8.9-34.9-5.1-45.8 8.9l-35.4 45.3c-7.9 10.2-20.7 14.9-33.5 13.3-14-1.8-28.3-2.8-42.8-2.8-14.5 0-28.8 1-42.8 2.8-12.8 1.6-25.6-3.1-33.5-13.3l-35.4-45.3c-10.9-14-30.4-17.8-45.8-8.9L230.4 168c-15.4 8.9-21.8 27.7-15.2 44.1l21.7 53.5c4.8 11.9 2.5 25.1-5.2 35.3-17.2 22.8-31.7 47.8-42.9 74.5-5 11.8-15.3 20.4-28 22.1l-57.2 8C86 408 72.9 423 72.9 440.8v142.9c0 17.7 13.1 32.7 30.6 35.2l57.2 8c12.7 1.8 23 10.4 28 22.1 11.3 26.7 25.7 51.7 42.9 74.5 7.7 10.2 10 23.5 5.2 35.3l-21.7 53.5c-6.7 16.4-0.2 35.3 15.2 44.1L354 927.8c15.4 8.9 34.9 5.1 45.8-8.9l35.4-45.3c7.9-10.2 20.7-14.9 33.5-13.3 14 1.8 28.3 2.8 42.8 2.8 14.5 0 28.8-1 42.8-2.8 12.8-1.6 25.6 3.1 33.5 13.3l35.4 45.3c10.9 14 30.4 17.8 45.8 8.9l123.7-71.4c15.4-8.9 21.8-27.7 15.2-44.1l-21.7-53.5c-4.8-11.8-2.5-25.1 5.2-35.3 17.2-22.8 31.7-47.8 42.9-74.5 5-11.8 15.3-20.4 28-22.1l57.2-8c17.6-2.5 30.6-17.5 30.6-35.2V440.8c0.2-17.8-12.9-32.8-30.5-35.2z m-408 245.5c-76.7 0-138.9-62.2-138.9-138.9s62.2-138.9 138.9-138.9 138.9 62.2 138.9 138.9-62.2 138.9-138.9 138.9z" fill="#345bac" p-id="1250"></path></svg>`,
     css_basic: `
@@ -149,31 +149,43 @@ input[type="range"] {
 }`
 };
 let data_mw_events = new Map([
-    ["message_create", []],
-    ["message_delete", []],
-    ["message_update", []],
+    ["user_update", []],
     ["user_typing", []],
-    ["thought_engagement", []],
-    ["thought_update", []],
-    ["thought_delete", []],
-    ["thought_create", []],
-    ["thought_pin", []],
-    ["thought_unpin", []],
+    ["user_relationship_update", []],
+    ["node_create", []],
     ["node_update", []],
-    ["node_member_activity_change", []],
-    ["node_member_update", []],
-    ["node_member_ban", []],
-    ["node_member_add", []],
-    ["node_member_remove", []],
+    ["node_delete", []],
+    ["node_position", []],
+    ["node_topic_space_position_change", []],
     ["topic_create", []],
     ["topic_update", []],
     ["topic_delete", []],
     ["topic_position", []],
+    ["role_create", []],
+    ["role_update", []],
+    ["role_delete", []],
+    ["role_position", []],
+    ["node_member_add", []],
+    ["node_member_update", []],
+    ["node_member_remove", []],
+    ["node_member_ban", []],
+    ["node_member_activity_change", []],
+    ["message_create", []],
+    ["message_update", []],
+    ["message_delete", []],
+    ["message_acknowledge", []],
+    ["thought_create", []],
+    ["thought_update", []],
+    ["thought_delete", []],
+    ["thought_engagement", []],
     ["comment_engagement", []],
     ["comment_create", []],
-    ["user_relationship_update", []],
-    ["role_update", []],
+    ["comment_update", []],
+    ["comment_delete", []],
     ["notification", []],
+    ["thought_pin", []],
+    ["thought_unpin", []],
+    ["app_update", []],
     ["default", [(data) => console.log(data.event_name)]]
 ]);
 const bm_data = Symbol("mew_data"),
@@ -192,10 +204,18 @@ class Mew_ws {
         this[mw_events] = data_mw_events;
         this.connect();
     };
-    get token() { return localStorage.getItem("mew-token").replace(/"/g, "") };
-    get readyState() { return this[mw_ws].readyState };
-    get user() { return this[mw_user] || {} };
-    get url() { return "wss://gateway.mew.fun/socket.io/?EIO=4&transport=websocket" };
+    get token() {
+        return localStorage.getItem("mew-token").replace(/"/g, "")
+    };
+    get readyState() {
+        return this[mw_ws].readyState
+    };
+    get user() {
+        return this[mw_user] || {}
+    };
+    get url() {
+        return "wss://gateway.mew.fun/socket.io/?EIO=4&transport=websocket"
+    };
     on(event, fn) {
         if (!this[mw_events].has(event) || event == "default") return false;
         this[mw_events].get(event).push(fn);
@@ -271,10 +291,13 @@ class BetterMew {
             subtree: true,
         });
     };
-    get ws() { return this[bm_ws] };
-    get version() { return frame_version };
+    get ws() {
+        return this[bm_ws]
+    };
+    get version() {
+        return frame_version
+    };
     notice(title, msg, onclickfunc) {
-        let onclick = (onclickfunc) ? onclickfunc : () => false;
         if (!("Notification" in window)) {
             let click = confirm(title + msg);
             if (click) onclick();
@@ -296,7 +319,7 @@ class BetterMew {
                 icon: 'https://mew.fun/favicon.png'
             });
             noti.onclick = () => {
-                if (onclickfunc) onclick();
+                if (onclickfunc) onclickfunc();
                 noti.close();
             };
             noti.onshow = () => {
@@ -336,7 +359,7 @@ class BetterMew {
                     </div>
                 </li>`);
             li.querySelector(`#control_${plugin.id}`).addEventListener("click", (e) => {
-                (e.target.checked) ? active.push(plugin.id) : active.splice(active.indexOf(plugin.id), 1)
+                (e.target.checked) ? active.push(plugin.id): active.splice(active.indexOf(plugin.id), 1)
                 this[bm_bettermew].set("active_plugins", active);
             });
             if (!plugin.hide) ul.append(li);
@@ -454,17 +477,21 @@ class class_mp_configs extends Map {
     };
 };
 class MewPlugin {
-    get func_once_result() { return this[mp_func_once_result] || null };
-    get configs() { return this[mp_configs] };
+    get func_once_result() {
+        return this[mp_func_once_result] || null
+    };
+    get configs() {
+        return this[mp_configs]
+    };
     constructor(id, body) {
         this[mp_configs] = new class_mp_configs();
         if (!id) throw new Error("必须为插件定义一个id！");
         body = (typeof (body) != "undefined") ? body : {};
         this.id = id;
-        this.hide = (body.hide) ? body.hide : false;
-        this.always = (body.always) ? body.always : false;
-        this.short_desc = (body.short_desc) ? body.short_desc : "";
-        this.long_desc = (body.long_desc) ? body.long_desc : "";
+        this.hide = body.hide || false;
+        this.always = body.always || false;
+        this.short_desc = body.short_desc || "";
+        this.long_desc = body.long_desc || "";
         this.func_loop = (body.func_loop) ? (async () => {
             await body.func_loop.call(this);
         }) : () => 0;
@@ -484,15 +511,21 @@ class MewPlugin {
         config.type = (["text", "number", "button", "switch"].includes(config.type)) ? config.type : "none";
         switch (config.type) {
             case "text":
-                config.get = (config.get) ? config.get : function () { return "" };
-                config.set = (config.set) ? config.set : function (e) { return "" };
+                config.get = config.get || function () {
+                    return ""
+                };
+                config.set = config.set || function (e) {
+                    return ""
+                };
                 break;
             case "number":
-                config.max = (config.max) ? config.max : 100;
+                config.max = config.max || 100;
                 break;
             case "button":
-                config.click = (config.click) ? config.click : function (e) { return "" };
-                config.short_desc = (config.short_desc) ? config.short_desc : config.desc;
+                config.click = config.click || function (e) {
+                    return ""
+                };
+                config.short_desc = config.short_desc || config.desc;
                 break;
             case "switch":
                 config.default = (typeof (config.default) == "boolean") ? config.default : false;
@@ -508,7 +541,7 @@ class MewPlugin {
 class MewTool {
     static dom(str) {
         let body = new DOMParser().parseFromString(str, 'text/html').body.children[0];
-        return body ? body : new DOMParser().parseFromString(str, 'text/html').head.children[0];
+        return body || new DOMParser().parseFromString(str, 'text/html').head.children[0];
     };
     static getreact(el) {
         let e = /__reactProps\$/;
@@ -574,7 +607,7 @@ class MewTool {
             color: rgb(var(--colors-receive-msg));
             padding: 5px 10px;
             background-color: rgb(var(--colors-background-dialog));
-            transition: .2s ease;          
+            transition: .2s ease;
         }
         #mew_menu>li:first-child {
             border-radius: 10px 10px 0px 0px;
@@ -587,11 +620,16 @@ class MewTool {
         }
         `, "css_bettermew_menu");
         document.querySelector("#mew_menu") && document.querySelector("#mew_menu").remove();
-        optionsMap = (optionsMap) ? optionsMap : new Map();
+        optionsMap = optionsMap || new Map();
+        if (!optionsMap.size) return false;
         let ul = MewTool.dom(`<ul id="mew_menu"></ul>`);
         for (let i of optionsMap) {
-            let li = MewTool.dom(`<li ${(optionsMap.size <= 1) ? "style='border-radius: 10px;'" : ""}><span>${i[0]}</span></li>`);
-            li.addEventListener("click", (e) => { i[1](e); ul.remove() });
+            let text = (typeof (i[0]) == "object" && i[0].text) ? i[0].text : i[0];
+            let li = MewTool.dom(`<li ${(optionsMap.size <= 1) ? "style='border-radius: 10px;'" : ""}><span>${text}</span></li>`);
+            li.addEventListener("click", (e) => {
+                i[1](e);
+                ul.remove();
+            });
             ul.append(li);
             ul.append(document.createElement("hr"));
         };
@@ -601,8 +639,10 @@ class MewTool {
             window.removeEventListener("click", fn);
         };
         document.body.append(ul);
-        ul.style = `left:${e.clientX}px;top:${((e.clientY + ul.clientHeight) > document.body.clientHeight) ? document.body.clientHeight - ul.clientHeight : e.clientY}px;`
-        window.addEventListener("click", fn);
+        ul.style = `left:${e.clientX}px;top:${((e.clientY + ul.clientHeight) > document.body.clientHeight) ? document.body.clientHeight - ul.clientHeight : e.clientY}px;`;
+        setTimeout(() => {
+            window.addEventListener("click", fn);
+        }, 10);
     };
     static async imgurl2id(url) {
         if (!url || !/[0-9a-f]{32}?/.test(url)) return [0, 0];
@@ -622,4 +662,8 @@ class MewTool {
     };
 };
 const mew = new BetterMew();
-export { MewTool, MewPlugin, mew }
+export {
+    MewTool,
+    MewPlugin,
+    mew
+}
