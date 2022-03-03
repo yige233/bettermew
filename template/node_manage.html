@@ -26,13 +26,8 @@
                     <input type="text" class="container__input" value="{{$node_id}}" />
                 </div>
                 <div class="input_container">
-                    <span class="container__addon">据点介绍</span>
-                    <textarea maxlength="140" class="container__input"
-                        placeholder="应少于140个字符。">{{$node_desc}}</textarea>
-                </div>
-                <div class="input_container">
                     <span class="container__addon">据点图标</span>
-                    <input type="text" class="container__input" placeholder="填入Mew图片的id。" value="{{$node_icon}}" />
+                    <input type="text" class="container__input" placeholder="填入Mew图片链接。" value="{{$node_icon}}" />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">保存</span>
@@ -44,13 +39,12 @@
             <input type="checkbox" class="accordion__toggle" id="node_topic" />
             <div class="accordion__header">
                 <label for="node_topic"></label>
-                <span class="accordion__title">话题管理：话题创建·删除·排序</span>
+                <span class="accordion__title">据点搭建：节点·基建·修改·排序</span>
             </div>
             <div class="accordion__content">
                 <div class="tab_container">
-                    <div class="tab1">话题一览</div>
-                    <div class="tab2">排序话题</div>
-                    <div class="tab3">添加话题</div>
+                    <div class="tab1">基建装修</div>
+                    <div class="tab2">节点排序</div>
                     <div class="content"></div>
                 </div>
             </div>
@@ -73,25 +67,21 @@
                 </div>
                 <div class="input_container">
                     <span class="container__addon">设置发言门槛，答题后方可发言。</span>
-                    <input type="checkbox" class="switcher container__input" id="enable_speak_question"
-                        {{$enable_speak_question}} />
+                    <input type="checkbox" class="switcher container__input" id="enable_speak_question" {{$enable_speak_question}} />
                     <label for="enable_speak_question"></label>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">问题</span>
-                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。"
-                        value="{{$speak_question}}" {{$disable_speak_question}} />
+                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。" value="{{$speak_question}}" {{$disable_speak_question}} />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">设置为私密据点，不加入无法看到据点内容。</span>
-                    <input type="checkbox" class="switcher container__input" id="enable_join_question"
-                        {{$enable_join_question}} />
+                    <input type="checkbox" class="switcher container__input" id="enable_join_question" {{$enable_join_question}} />
                     <label for="enable_join_question"></label>
                 </div>
                 <div class="input_container">
                     <span class="container__addon">问题</span>
-                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。"
-                        value="{{$join_question}}" {{$disable_join_question}} />
+                    <input type="text" class="container__input" placeholder="要想填写问题，请打开上方的开关并保存后重载管理页。" value="{{$join_question}}" {{$disable_join_question}} />
                 </div>
                 <div class="input_container">
                     <span class="container__addon">保存</span>
