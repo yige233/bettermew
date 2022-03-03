@@ -1,4 +1,8 @@
-import { MewTool, MewPlugin, mew } from "https://cdn.jsdelivr.net/gh/yige233/bettermew@6ee3e2f/mew.frame.js";
+import {
+    MewTool,
+    MewPlugin,
+    mew
+} from "https://cdn.jsdelivr.net/gh/yige233/bettermew@513bf8c/mew.frame.js";
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
@@ -18,7 +22,7 @@ let resources = {
     css_only_this_mewer: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/only_this_mewer.css",
     css_custom_stamp: "https://cdn.jsdelivr.net/gh/yige233/bettermew@47b4c42/css/custom_stamp.css",
     icon_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/node_manage.svg",
-    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@47b4c42/css/node_manage.css"
+    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@8980c08/css/node_manage.css"
 };
 mew.load(new MewPlugin("desktop", {
     short_desc: "桌面布局更改",
@@ -225,14 +229,14 @@ mew.load(new MewPlugin("search", {
             rendcard(options) {
                 let option = {
                     avatar: (options.avatar) ? options.avatar + "~tplv-c226mjqywu-size:96.image" : "/_next/static/images/default-avatar-1-d21d3e0c70ccc333b797212fed6be0c9.png",
-                    nick: (options.nick) ? options.nick : "Result Card",
-                    content: (options.content) ? options.content : "该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情",
+                    nick: options.nick || "Result Card",
+                    content: options.content || "该想法没有文字OwO 但您仍可点击这段文字了解该想法的详情",
                     date: (options.date) ? "发表于：" + new Date(options.date).toLocaleString("chinese", {
                         hour12: false
                     }) : new Date().toLocaleString("chinese", {
                         hour12: false
                     }),
-                    data_id: (options.data_id) ? options.data_id : "",
+                    data_id: options.data_id || "",
                 };
                 let card = MewTool.dom(`
                 <div class="searchitem">
@@ -303,7 +307,7 @@ mew.load(new MewPlugin("search", {
                     content: "正在努力搜索中！"
                 });
                 container.append(searching);
-                let res = await this.getsearchres(keyword, (pagination) ? pagination : null);
+                let res = await this.getsearchres(keyword, pagination || null);
                 searching.remove();
                 if (res.message) {
                     container.append(this.rendcard({
@@ -372,12 +376,11 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
         if (!document.querySelector("[class^='reaction-panel_stamp-list__']") || document.querySelector(".custom_stamps")) return false;
         document.querySelector("[class^='reaction-panel_stamp-list__']").classList.add("custom_stamps");
         let topicid = (document.querySelector("[class*='panel_list__']")) ?
-            document.querySelector("[class*='panel_list__']").querySelector("[class*='sidebar_selected__']").parentNode.getAttribute("data-id") :
-            (MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId) ? MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId : 0
+            document.querySelector("[class*='panel_list__']").querySelector("[class*='sidebar_selected__']").parentNode.getAttribute("data-id") : MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId || 0
         if (topicid == 0) return false;
         for (let s of stamps) {
             let [id, hash, desc] = s.split("$"),
-                the_desc = (desc) ? desc : "木有说明(っ °Д °;)っ",
+                the_desc = desc || "木有说明(っ °Д °;)っ",
                 mystamp = MewTool.dom(`
                 <button class="reaction-panel_stamp__8qpSD" title="${the_desc}">
                     <picture class="reaction-panel_image__2FjNq">
@@ -433,11 +436,10 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
             flag_delete = false;
             constructor(self) {
                 this.configs = self.configs;
-                this.page = MewTool.stdpage(`<div class="title">在此处管理你的自定义表情：右键单击图片或图标激活菜单。更改将会自动保存。</div><ul class="stamp_manage" ></ul>`);
+                this.page = MewTool.stdpage(`<div class="title">在此处管理你的自定义表情：单击图片或图标激活菜单。更改将会自动保存。</div><ul class="stamp_manage" ></ul>`);
                 let ul = this.page.querySelector("ul");
                 let add = MewTool.dom(`<button class="reaction-panel_stamp__8qpSD add_stamp_card"><img src="https://image.mew.fun/57cd627312954aa7a9d98fa4b1d91148~tplv-c226mjqywu-size:96.image" /></button>`)
-                add.addEventListener("contextmenu", (e) => {
-                    e.preventDefault();
+                add.addEventListener("click", (e) => {
                     MewTool.contextmenu(e, new Map([
                         ["添加表情", async () => {
                             let url = prompt("填入想存为表情的Mew图片链接：");
@@ -445,7 +447,7 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
                             let [id, hash] = await MewTool.imgurl2id(url);
                             if (!id) return mew.notice("提示", "不正确的图片链接！");
                             let desc = prompt("添加关于该图片的说明：");
-                            desc = (desc) ? desc : "";
+                            desc = desc || "";
                             let stamp = `${id}$${hash}$${desc}`;
                             this.page.querySelector(".add_stamp_card").before(this.rend_stamp_card(stamp));
                             this.save();
@@ -470,8 +472,9 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
                         }],
                         ["导出表情", (e) => {
                             let fname = prompt("欲导出的文件名：", "我的Mew表情");
+                            if (!fname) return false;
                             let a = document.createElement('a');
-                            a.download = `${(fname) ? fname : "我的Mew表情"}.txt`;
+                            a.download = `${fname || "我的Mew表情"}.txt`;
                             let blob = new Blob([this.configs.get("stamps").value.join("\n")]);
                             a.href = URL.createObjectURL(blob);
                             a.click();
@@ -500,8 +503,8 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
             };
             rend_stamp_card(stamp) {
                 let [id, hash, desc] = stamp.split("$");
-                let card = MewTool.dom(`<button class="reaction-panel_stamp__8qpSD stamp_card" data="${stamp}" title="${(desc) ? desc : "木有说明(っ °Д °;)っ"}"><img src="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" /></button>`);
-                card.addEventListener("contextmenu", (e) => {
+                let card = MewTool.dom(`<button class="reaction-panel_stamp__8qpSD stamp_card" data="${stamp}" title="${desc || "木有说明(っ °Д °;)っ"}"><img src="https://image.mew.fun/${hash}~tplv-c226mjqywu-size:96.image" /></button>`);
+                card.addEventListener("click", (e) => {
                     e.preventDefault();
                     MewTool.contextmenu(e, new Map([
                         ["置顶", (e) => {
@@ -544,7 +547,6 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
                 let stamps = [];
                 for (let e of e_stamps) stamps.push(e.getAttribute("data"));
                 this.configs.set("stamps", stamps);
-
             };
             add_batch(stamps_text) {
                 let arr = stamps_text.split(/\n|\r|\r\n/).filter(i => i);
@@ -552,7 +554,7 @@ let plugin_custom_stamps = new MewPlugin("custom_stamp", {
                     if (i.slice(0, 1) == "#") continue;
                     let [id, hash, desc] = i.split("$");
                     if (!/[0-9]{17,18}/.test(id)) continue;
-                    let stamp = `${id}$${hash}$${(desc) ? desc : ""}`;
+                    let stamp = `${id}$${hash}$${desc || ""}`;
                     this.page.querySelector(".add_stamp_card").before(this.rend_stamp_card(stamp));
                     this.save();
                 };
@@ -578,17 +580,17 @@ mew.load(new MewPlugin("node_manage", {
                 Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                 "Content-type": "application/json; charset=utf-8"
             };
-            api = "https://api.mew.fun/api/v1/nodes/";
+            api = "https://api.mew.fun/api/v1";
             constructor(templates) {
                 this.templates = templates;
             };
             async fetchdata(url, options) {
                 let option = {
                     alert: (options.alert == false) ? false : true,
-                    method: (options.method) ? options.method : "PATCH",
-                    data: (options.data) ? options.data : {},
-                    onsuccess: (options.onsuccess) ? options.onsuccess : "据点信息保存成功！",
-                    onfail: (options.onfail) ? options.onfail : "据点信息保存失败！",
+                    method: options.method || "PATCH",
+                    data: options.data || {},
+                    onsuccess: options.onsuccess || "据点信息保存成功！",
+                    onfail: options.onfail || "据点信息保存失败！",
                 };
                 for (let k in option.data) {
                     if (option.data[k] === null) delete option.data[k];
@@ -618,29 +620,35 @@ mew.load(new MewPlugin("node_manage", {
                     };
                     if (option.alert) mew.notice(option.onfail, json.message);
                     reject(json);
-                })
-            };
-            async page_render() {
-                await fetch(this.api + window.location.pathname.slice(3), {
-                    headers: this.header
-                }).then(res => res.json()).then(async json => {
-                    this.node_basic = json;
-                    this.page = this.load_basic(json);
-                    this.load_topics_switch();
-                    this.load_member_switch();
-                    this.load_joinreq_switch();
-                    this.load_speakreq_switch();
-                    await this.load_shelf();
-                    this.page.apply();
                 });
             };
-            load_basic(json) {
+            async load_node_info() {
+                this.node_basic = await fetch(this.api + "/nodes/" + window.location.pathname.slice(3), {
+                    headers: this.header
+                }).then(res => res.json());
+                return this.node_basic;
+            };
+            async page_render() {
+                await this.load_node_info();
+                this.page = this.load_basic();
+                this.load_ic_nodes_switch();
+                this.load_member_switch();
+                this.load_joinreq_switch();
+                this.load_speakreq_switch();
+                await this.load_shelf();
+                this.page.apply();
+            };
+            async img(url) {
+                let [id, hash] = await MewTool.imgurl2id(url);
+                return id || false;
+            };
+            load_basic() {
+                let json = this.node_basic;
                 let manage = MewTool.template(this.templates[0], {
                     node_name: json.name,
                     node_super_modrator: json.objects.users[json.super_moderator].username,
                     node_id: json.node_name,
-                    node_desc: (json.description) ? json.description : "",
-                    node_icon: (json.icon) ? json.icon : "",
+                    node_icon: json.icon || "",
                     searchable: (json.searchable) ? "checked" : "",
                     node_tags: (json.tags.length >= 1) ? json.tags.join("\n") : "",
                     enable_speak_question: (json.enable_speak_question) ? "checked" : "",
@@ -655,17 +663,16 @@ mew.load(new MewPlugin("node_manage", {
                     let inputs = s.querySelector(`#node_basic`).parentNode.querySelectorAll(".container__input");
                     let icon = null;
                     if (this.node_basic.icon) {
-                        if (this.node_basic.icon != inputs[4].value) icon = inputs[4].value;
+                        if (this.node_basic.icon != inputs[3].value) icon = await this.img(inputs[3].value);
                     } else {
-                        if (inputs[4].value) icon = inputs[4].value;
+                        if (inputs[3].value) icon = await this.img(inputs[3].value);
                     };
                     let new_data = {
                         name: (this.node_basic.name != inputs[0].value) ? inputs[0].value : null,
                         node_name: (this.node_basic.node_name != inputs[2].value) ? inputs[2].value : null,
-                        description: (this.node_basic.description != inputs[3].value) ? inputs[3].value : null,
                         icon: icon,
                     };
-                    await this.fetchdata(this.api + this.node_basic.id, {
+                    await this.fetchdata(this.api + "/nodes/" + this.node_basic.id, {
                         data: new_data
                     }).then(json => this.node_basic = json);
                 });
@@ -697,59 +704,275 @@ mew.load(new MewPlugin("node_manage", {
                 });
                 return s;
             };
-            load_topics_switch() {
+            load_ic_nodes_switch() {
                 let root = this.page.querySelector(`#node_topic`).parentNode;
                 let content = root.querySelector(".content");
                 root.querySelector(".tab1").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_topics_tab1(this.node_basic);
+                    this.load_ic_nodes_tab1(this.node_basic);
                 });
                 root.querySelector(".tab2").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_topics_tab2(this.node_basic);
-                });
-                root.querySelector(".tab3").addEventListener("click", () => {
-                    content.innerHTML = "";
-                    this.load_topics_tab3(this.node_basic);
+                    this.load_ic_nodes_tab2(this.node_basic);
                 });
                 root.querySelector(".tab1").click();
             };
-            load_topics_tab1(json) {
-                let content = this.page.querySelector(`#node_topic`).parentNode.querySelector(".content");
-                if (json.topics == 0 | !json.topics) return content.append(this.load_textcard("没有话题或者无权限查看话题列表！"));
-                for (let t of json.topics) {
-                    let card = MewTool.dom(MewTool.template(this.templates[2], {
-                        id: t.id,
-                        title: t.name,
-                        desc_text: (t.description) ? t.description : "",
-                        desc_media: t.media.join("\n")
-                    }));
-                    card.querySelectorAll("button")[0].addEventListener("click", () => {
-                        let del_confirm = confirm(`防手滑二次确认：真的要删除话题：${t.name} 吗？`);
-                        if (!del_confirm) return false;
-                        this.fetchdata(`https://api.mew.fun/api/v1/topics/${t.id}`, {
-                            method: "DELETE",
-                            onsuccess: "删除话题成功！",
-                            onfail: "删除话题失败！"
-                        });
-                    });
-                    card.querySelectorAll("button")[1].addEventListener("click", () => {
-                        let inputs = this.page.querySelector(`#topic_list_${t.id}`).parentNode.querySelectorAll(".container__input");
-                        let new_data = {
-                            name: inputs[0].value,
-                            description: (inputs[1].value.length >= 1) ? inputs[1].value : null,
-                            media: (t.media.join("\n") != inputs[2].value) ? inputs[2].value.split("\n").filter(i => i) : null,
-                        };
-                        this.fetchdata(`https://api.mew.fun/api/v1/topics/${t.id}`, {
-                            data: new_data
-                        });
-                    });
-                    content.append(card);
-                };
+            del_ic_node(node) {
+                let del_confirm = confirm(`防手滑二次确认：真的要删除节点：${node.name} 吗？`);
+                if (!del_confirm) return false;
+                return this.fetchdata(`${this.api}/topics/${node.id}`, {
+                    method: "DELETE",
+                    onsuccess: "删除节点成功！",
+                    onfail: "删除节点失败！"
+                }).then(() => this.load_node_info());
             };
-            load_topics_tab2(json) {
+            load_ic_nodes_tab1(json) {
+                const icons = ["friends", "like-bubble", "talk-bubble", "parchment", "pub", "holiday", "flower-shop", "park", "codex", "golden-key", "crown", "aquamarine", "hanging-garden", "mansion", "desert-city", "jade-castle", "black-cat", "orange-cat", "four-leaf-clover", "dango", "modern-city", "hill-castle", "open-air-mansion", "seaside", "envelope", "note", "newspaper", "warn", "seasoning", "free-time", "halloween", "explorer", "matches", "box-gift", "task", "ear-coffee", "christmas-gift", "winter-snow", "snowman-bask", "amusement-park", "rect-potion", "rounded-potion", "gold-sword", "iron-hammer", "sketch", "potted-plants", "gift-warehouse", "forest-hut", "wood", "grenade", "bow-arrow", "tabby-cat", "thermometer", "strawberry-smoothie", "red-spotted-mushroom", "radish", "polaroid-camera", "game-cassette", "coca-cola", "facial-mask", "raw-chocolate", "nutritious-convenient", "iron-pliers", "medical-kit", "white-daisy", "island-map", "iron-magnifier", "fire-extinguisher", "cube-with-stand", "cube-truncated", "cube-corner", "hex-cells", "sliced-hexprism", "pyramid", "sliced-cube", "sliced-cylinder"];
+                const colors = new Map([
+                    ["ruri", {
+                        name: "琉璃",
+                        hex: "#2151a2"
+                    }],
+                    ["yamabuki", {
+                        name: "山吹",
+                        hex: "#f2ab31"
+                    }],
+                    ["terigaki", {
+                        name: "照柿",
+                        hex: "#af5d3e"
+                    }],
+                    ["tsuyukusa", {
+                        name: "露草",
+                        hex: "#4b9dd7"
+                    }],
+                    ["entan", {
+                        name: "铅丹",
+                        hex: "#c0544d"
+                    }],
+                    ["seiji", {
+                        name: "青磁",
+                        hex: "#6da4a2"
+                    }],
+                    ["kikyo", {
+                        name: "桔梗",
+                        hex: "#5b468e"
+                    }],
+                    ["wakatake", {
+                        name: "若竹",
+                        hex: "#649f78"
+                    }],
+                    ["kurumi", {
+                        name: "胡桃",
+                        hex: "#857063"
+                    }],
+                    ["benimidori", {
+                        name: "红碧",
+                        hex: "#7485c9"
+                    }],
+                    ["tokusa", {
+                        name: "木贼",
+                        hex: "#356143"
+                    }],
+                    ["kohaku", {
+                        name: "琥珀",
+                        hex: "#b7732f"
+                    }],
+                    ["kyara", {
+                        name: "伽罗",
+                        hex: "#684c29"
+                    }],
+                    ["ichigo", {
+                        name: "莓",
+                        hex: "#9f4851"
+                    }],
+                    ["araisyu", {
+                        name: "洗朱",
+                        hex: "#eb9167"
+                    }],
+                    ["momo", {
+                        name: "桃",
+                        hex: "#e591a0"
+                    }]
+                ]);
+                const card = MewTool.dom(MewTool.template(this.templates[2], {
+                    moderate_node_name: (json.moderation_topic_id) ? json.objects.topics[json.moderation_topic_id].name : "没有权限查看管理专用节点名称。",
+                    is_moderator: json.member && (json.member.is_moderator || json.member.is_super_moderator) ? "" : "disabled",
+                    map_size_tip: (json.map_size == 3) ? "3x3，请注意装修范围。更改保存后可能需要至少5分钟才会应用。任意时刻节点总数超过5个，基建规模即可扩大至5x5。" : "5x5，更改保存后会立即应用。"
+                }));
+                const ic = new class {
+                    topics = new Map();
+                    menus1 = new Map();
+                    menus2 = new Map();
+                    root = card.querySelector(".ic_root");
+                    constructor(manage, topics) {
+                        this.manage = manage;
+                        this.load_topic(topics)
+                    };
+                    load_topic(topics) {
+                        for (let warp of this.root.children) this.undeploy(warp);
+                        for (let topic of topics) {
+                            this.topics.set(topic.id, Object.assign({}, topic));
+                            if (!topic.deployed) continue;
+                            this.deploy(this.warp(topic.space_position.x + "," + topic.space_position.y), topic.id);
+                        };
+                    };
+                    warp(pos) {
+                        return this.root.querySelector(`div[pos='${pos}']`)
+                    };
+                    deploy(warp, id) {
+                        let topic = this.topics.get(id);
+                        let [x, y] = warp.getAttribute("pos").split(",");
+                        topic.deployed = true;
+                        topic.space_position = {
+                            x: x,
+                            y: y,
+                            z: 0
+                        };
+                        let el = MewTool.dom(`<div
+                        title="${topic.name}"
+                        class="icon_size_${topic.icon.size}"
+                        style="background-color:${colors.get(topic.icon.color).hex}">
+                            <img src="https://cdn.mew.fun/spacelize/preset/icons/${topic.icon.name}.png" />
+                        </div>`);
+                        let menu = (e) => {
+                            MewTool.contextmenu(e, new Map([
+                                [warp.children[0].getAttribute("title"), () => {}],
+                                [`想法：${topic.thought_count}，消息：${topic.message_count}`, () => {}],
+                                ["编辑节点", () => {
+                                    this.edit_ic_node(id);
+                                }],
+                                ["移除节点", () => {
+                                    this.undeploy(warp, id);
+                                }]
+                            ]));
+                        };
+                        this.menus1.set(id, menu);
+                        warp.setAttribute("deployed", true);
+                        warp.addEventListener("click", menu);
+                        warp.removeEventListener("click", this.menus2.get(id) || null);
+                        warp.append(el);
+                    };
+                    undeploy = (warp, id) => {
+                        if (warp.getAttribute("pos") == "0,0") return false;
+                        if (id) this.topics.get(id).deployed = false;
+                        let menu = (e) => {
+                            let deploy = (e) => {
+                                let menus = new Map();
+                                for (let topic of this.topics.values()) {
+                                    if (topic.deployed) continue;
+                                    menus.set({
+                                        text: topic.name,
+                                        id: topic.id
+                                    }, () => {
+                                        this.deploy(warp, topic.id);
+                                    });
+                                };
+                                if (menus.size == 0) return false;
+                                MewTool.contextmenu(e, menus);
+                            };
+                            MewTool.contextmenu(e, new Map([
+                                ["部署节点", deploy],
+                                ["新建节点", () => {
+                                    this.edit_ic_node();
+                                }],
+                            ]));
+                        };
+                        this.menus2.set(id, menu);
+                        warp.innerHTML = "";
+                        warp.setAttribute("deployed", false);
+                        warp.addEventListener("click", menu);
+                        warp.removeEventListener("click", this.menus1.get(id) || null);
+                    };
+                    edit_ic_node(id) {
+                        let topic = (id) ? this.topics.get(id) : {
+                            icon: {}
+                        };
+                        let page = MewTool.stdpage(MewTool.template(this.manage.templates[5], {
+                            title: (id) ? "编辑节点" : "添加节点",
+                            name: topic.name || "",
+                            icon: topic.icon.name || "friends",
+                            color: topic.icon.color || "ruri",
+                            colorhex: topic.icon.color ? colors.get(topic.icon.color).hex : "#2151a2",
+                            size: topic.icon.size || "M",
+                        }));
+                        for (let icon of icons) {
+                            let el = MewTool.dom(`<div><div class="icon_size_M"><img src="https://cdn.mew.fun/spacelize/preset/icons/${icon}.png"></div></div>`);
+                            el.addEventListener("click", () => {
+                                page.querySelectorAll(".node_edit_items")[0].value = icon;
+                                page.querySelector("#node_preview").children[0].src = `https://cdn.mew.fun/spacelize/preset/icons/${icon}.png`;
+                            })
+                            page.querySelectorAll(".container__input")[2].append(el);
+                        };
+                        for (let color of colors) {
+                            let el = MewTool.dom(`<div class="node_edit_selecor" style="background-color:${color[1].hex};"><span>${color[1].name}</span></div>`);
+                            el.addEventListener("click", () => {
+                                page.querySelectorAll(".node_edit_items")[1].value = color[0];
+                                page.querySelector("#node_preview").style = `background-color:${color[1].hex};`
+                            })
+                            page.querySelectorAll(".container__input")[3].append(el);
+                        };
+                        page.querySelectorAll(".container__input")[4].addEventListener("change", (e) => {
+                            let size = ["S", "M", "L"].includes(e.currentTarget.value) ? e.currentTarget.value : null;
+                            if (size) page.querySelector("#node_preview").className = "icon_size_" + e.currentTarget.value;
+                        });
+                        page.querySelectorAll(".container__input")[5].addEventListener("click", () => {
+                            let url = (id) ? `${this.manage.api}/topics/${id}` : `${this.manage.api}/nodes/${json.id}/topics`;
+                            let text = (id) ? "修改" : "创建";
+                            let inputs = page.querySelectorAll(".node_edit_items");
+                            if (!inputs[2].value) return mew.notice("提示", "未填写节点名称！");
+                            let new_data = {
+                                name: inputs[2].value,
+                                icon: {
+                                    name: inputs[0].value,
+                                    size: inputs[3].value || "M",
+                                    color: inputs[1].value,
+                                    customize: false
+                                }
+                            };
+                            this.manage.fetchdata(url, {
+                                method: (id) ? "PATCH" : "POST",
+                                onsuccess: "节点" + text + "成功！",
+                                onfail: "节点" + text + "失败！",
+                                data: new_data
+                            }).then(() => this.manage.load_node_info()).then(json => this.load_topic(json.topics));
+                        });
+                        page.apply();
+                    };
+                    get data() {
+                        let data = [];
+                        for (let topic of this.topics.values()) {
+                            if (!topic.deployed) continue;
+                            data.push({
+                                id: topic.id,
+                                position: topic.space_position,
+                                icon: topic.icon
+                            });
+                        };
+                        return {
+                            View: data
+                        };
+                    };
+                }(this, json.topics);
+                ic.warp("0,0").append(MewTool.dom(`<div class="icon_size_L" style="background-image:url(${json.objects.media[json.icon].url})"></div>`));
+                card.querySelectorAll("button")[0].addEventListener("click", () => {
+                    this.fetchdata(`${this.api}/nodes/${json.id}/topics/space-position`, {
+                        data: ic.data,
+                        method: "POST"
+                    }).then(() => this.load_node_info());
+                });
+                card.querySelectorAll("button")[1].addEventListener("click", () => {
+                    if (!json.moderation_topic_id) return mew.notice("提示", "没有权限修改管理专用节点！");
+                    this.fetchdata(`${this.api}/topics/${json.moderation_topic_id}/moderation`, {
+                        data: {
+                            name: card.querySelector("input").value
+                        }
+                    }).then(() => this.load_node_info());
+                });
+                this.page.querySelector(`#node_topic`).parentNode.querySelector(".content").append(card);
+            };
+            load_ic_nodes_tab2(json) {
                 let content = this.page.querySelector(`#node_topic`).parentNode.querySelector(".content");
-                if (json.topics == 0 || !json.topics) return content.append(this.load_textcard("没有话题或者无权限查看话题列表！"));
+                if (json.topics == 0 || !json.topics) return content.append(this.load_textcard("没有节点或者无权限查看节点列表！"));
                 let btn = MewTool.dom(this.templates[4]);
                 for (let t of json.topics) {
                     let topic = MewTool.dom(MewTool.template(this.templates[3], {
@@ -766,6 +989,14 @@ mew.load(new MewPlugin("node_manage", {
                         let root = e.target.parentNode.parentNode;
                         if (!root.nextElementSibling.id) return false;
                         root.nextElementSibling.after(topic);
+                    });
+                    topic.querySelectorAll("button")[2].addEventListener("click", (e) => {
+                        this.del_ic_node({
+                            id: t.id,
+                            name: t.name
+                        }).then(() => {
+                            topic.remove();
+                        });
                     });
                     content.append(topic);
                 };
@@ -786,46 +1017,23 @@ mew.load(new MewPlugin("node_manage", {
                 });
                 content.append(btn);
             };
-            load_topics_tab3(json) {
-                let content = this.page.querySelector(`#node_topic`).parentNode.querySelector(".content");
-                let template = MewTool.dom(this.templates[5]);
-                template.querySelector("button").addEventListener("click", () => {
-                    if (this.node_basic.topics.length >= 10) {
-                        let _confirm = confirm(`话题数量已经达到10个，确定继续添加话题？`);
-                        if (!_confirm) return false;
-                    };
-                    let inputs = this.page.querySelector(`#node_topic`).parentNode.querySelectorAll(".container__input");
-                    let new_data = {
-                        name: (inputs[0].value) ? inputs[0].value : null,
-                        description: (inputs[1].value) ? inputs[1].value : null,
-                        media: (inputs[2].value) ? inputs[2].value.split("\n").filter(i => i) : null,
-                    };
-                    this.fetchdata(`${this.api + json.id}/topics`, {
-                        method: "POST",
-                        onsuccess: "话题创建成功！",
-                        onfail: "话题创建失败！",
-                        data: new_data
-                    }).catch(err => err);
-                });
-                content.append(template);
-            };
             load_member_switch() {
                 let root = this.page.querySelector(`#node_member`).parentNode;
                 let content = root.querySelector(".content");
                 root.querySelector(".tab1").addEventListener("click", () => {
                     content.innerHTML = "";
                     this.load_member_search(content, this.node_basic.id);
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/members?limit=50`);
+                    this.load_member_card(content, `${this.api}/nodes/${this.node_basic.id}/members?limit=50`);
                 });
                 root.querySelector(".tab2").addEventListener("click", () => {
                     content.innerHTML = "";
                     this.load_member_search(content, this.node_basic.id, ["type=restricted"]);
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/members?limit=50&type=restricted`);
+                    this.load_member_card(content, `${this.api}/nodes/${this.node_basic.id}/members?limit=50&type=restricted`);
                 });
                 root.querySelector(".tab3").addEventListener("click", () => {
                     content.innerHTML = "";
                     this.load_member_search(content, this.node_basic.id, ["type=blocked"], "ban");
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/bans?limit=50`, null, "ban");
+                    this.load_member_card(content, `${this.api}/nodes/${this.node_basic.id}/bans?limit=50`, null, "ban");
                 });
             };
             load_joinreq_switch() {
@@ -833,15 +1041,15 @@ mew.load(new MewPlugin("node_manage", {
                 let content = root.querySelector(".content");
                 root.querySelector(".tab1").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=join&state=pending&limit=50`, null, "req_pending_join");
+                    this.load_member_card(content, `${this.api}/nodes/${this.node_basic.id}/applications?type=join&state=pending&limit=50`, null, "req_pending_join");
                 });
                 root.querySelector(".tab2").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=join&state=approved&limit=50`, null, "req_approved");
+                    this.load_member_card(content, `${this.api}/nodes/${ this.node_basic.id}/applications?type=join&state=approved&limit=50`, null, "req_approved");
                 });
                 root.querySelector(".tab3").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=join&state=rejected&limit=50`, null, "req_rejected_join");
+                    this.load_member_card(content, `${this.api}/nodes/${ this.node_basic.id}/applications?type=join&state=rejected&limit=50`, null, "req_rejected_join");
                 });
             };
             load_speakreq_switch() {
@@ -849,15 +1057,15 @@ mew.load(new MewPlugin("node_manage", {
                 let content = root.querySelector(".content");
                 root.querySelector(".tab1").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=speak&state=pending&limit=50`, null, "req_pending_speak");
+                    this.load_member_card(content, `${this.api}/nodes/${ this.node_basic.id}/applications?type=speak&state=pending&limit=50`, null, "req_pending_speak");
                 });
                 root.querySelector(".tab2").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=speak&state=approved&limit=50`, null, "req_approved");
+                    this.load_member_card(content, `${this.api}/nodes/${ this.node_basic.id}/applications?type=speak&state=approved&limit=50`, null, "req_approved");
                 });
                 root.querySelector(".tab3").addEventListener("click", () => {
                     content.innerHTML = "";
-                    this.load_member_card(content, `${this.api + this.node_basic.id}/applications?type=speak&state=rejected&limit=50`, null, "req_rejected_speak");
+                    this.load_member_card(content, `${this.api}/nodes/${this.node_basic.id}/applications?type=speak&state=rejected&limit=50`, null, "req_rejected_speak");
                 });
             };
             async load_member_card(content, base_url, after, type) {
@@ -922,7 +1130,7 @@ mew.load(new MewPlugin("node_manage", {
                 card.querySelectorAll("button")[0].addEventListener("click", () => {
                     let _confirm = confirm(`确定将领主身份转移给 ${json.objects.users[user.user_id].name} 吗？你将不再拥有该据点和该据点的管理权限。`);
                     if (!_confirm) return false;
-                    this.fetchdata(this.api + user.node_id, {
+                    this.fetchdata(this.api + "/nodes/" + user.node_id, {
                         data: {
                             superModerator: user.user_id
                         },
@@ -936,7 +1144,7 @@ mew.load(new MewPlugin("node_manage", {
                 card.querySelectorAll("button")[2].addEventListener("click", () => {
                     let _confirm = confirm(`${json.objects.users[user.user_id].name} 将被移出据点，但可重新加入。确定将Ta移出据点吗？`);
                     if (!_confirm) return false;
-                    this.fetchdata(`${this.api + user.node_id}/members/${user.user_id}`, {
+                    this.fetchdata(`${this.api}/nodes/${ user.node_id}/members/${user.user_id}`, {
                         method: "DELETE",
                         onsuccess: "移出据点操作成功！",
                         onfail: "移出据点操作失败！"
@@ -951,7 +1159,7 @@ mew.load(new MewPlugin("node_manage", {
                         isModerator: inputs[3].checked,
                         permissionsDeny: P_comment + P_talk + P_thought
                     };
-                    this.fetchdata(`${this.api + user.node_id}/members/${user.user_id}`, {
+                    this.fetchdata(`${this.api}/nodes/${ user.node_id}/members/${user.user_id}`, {
                         data: data
                     });
                 });
@@ -970,7 +1178,7 @@ mew.load(new MewPlugin("node_manage", {
                     awnser: user.answers[0].content
                 }));
                 card.querySelectorAll("button")[1].addEventListener("click", () => {
-                    this.fetchdata(`${this.api + user.node_id}/applications/${type}/${user.user_id}`, {
+                    this.fetchdata(`${this.api}/nodes/${user.node_id}/applications/${type}/${user.user_id}`, {
                         data: {
                             state: "approved"
                         },
@@ -979,7 +1187,7 @@ mew.load(new MewPlugin("node_manage", {
                     });
                 });
                 card.querySelectorAll("button")[2].addEventListener("click", () => {
-                    this.fetchdata(`${this.api + user.node_id}/applications/${type}/${user.user_id}`, {
+                    this.fetchdata(`${this.api}/nodes/${user.node_id}/applications/${type}/${user.user_id}`, {
                         data: {
                             state: "rejected"
                         },
@@ -1017,7 +1225,7 @@ mew.load(new MewPlugin("node_manage", {
                     this.ban_someone(user.user_id, json.objects.users[user.user_id].name);
                 });
                 card.querySelectorAll("button")[2].addEventListener("click", () => {
-                    this.fetchdata(`${this.api + user.node_id}/applications/${type}/${user.user_id}`, {
+                    this.fetchdata(`${this.api}/nodes/${user.node_id}/applications/${type}/${user.user_id}`, {
                         data: {
                             state: "pending"
                         },
@@ -1041,7 +1249,7 @@ mew.load(new MewPlugin("node_manage", {
                 card.querySelectorAll("button")[2].addEventListener("click", () => {
                     let _confirm = confirm(`${json.objects.users[user.user_id].name} 将被移出黑名单，并可以重新加入据点。确定将Ta移出黑名单吗？`);
                     if (!_confirm) return false;
-                    this.fetchdata(`${this.api + user.node_id}/bans/${user.user_id}`, {
+                    this.fetchdata(`${this.api}/nodes/${user.node_id}/bans/${user.user_id}`, {
                         method: "DELETE",
                         onsuccess: "移出黑名单成功！",
                         onfail: "移出黑名单失败！"
@@ -1059,8 +1267,8 @@ mew.load(new MewPlugin("node_manage", {
                 });
             };
             load_member_search(content, node_id, query, type) {
-                query = (query) ? query : [];
-                type = (type) ? type : null;
+                query = query || [];
+                type = type || null;
                 let search = MewTool.dom(this.templates[11]);
                 let input = search.querySelector(".accordion__content").querySelectorAll("input")[0];
                 search.querySelector("button").addEventListener("click", async () => {
@@ -1068,7 +1276,7 @@ mew.load(new MewPlugin("node_manage", {
                     for (let i of query) params.push(i);
                     content.innerHTML = "";
                     this.load_member_search(content, node_id, query);
-                    await this.load_member_card(content, `${this.api + node_id}/members/search?${params.join("&")}`, null, type);
+                    await this.load_member_card(content, `${this.api}/nodes/${node_id}/members/search?${params.join("&")}`, null, type);
                 });
                 content.append(search);
             };
@@ -1081,7 +1289,7 @@ mew.load(new MewPlugin("node_manage", {
             async load_shelf() {
                 let content = this.page.querySelector("#node_library").parentNode.querySelector(".accordion__content");
                 let template_addshelf = MewTool.dom(this.templates[14]);
-                let lib = await this.fetchdata(`${this.api + this.node_basic.id}/libraries`, {
+                let lib = await this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries`, {
                     alert: false,
                     method: "GET"
                 }).catch(err => {
@@ -1100,9 +1308,9 @@ mew.load(new MewPlugin("node_manage", {
                 template_addshelf.querySelector("button").addEventListener("click", () => {
                     let name = template_addshelf.querySelector("input.container__input").value;
                     let data = {
-                        name: (name) ? name : null,
+                        name: name || null,
                     };
-                    this.fetchdata(`${this.api + this.node_basic.id}/libraries`, {
+                    this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries`, {
                         method: "POST",
                         data: data,
                         onsuccess: "创建书架成功！",
@@ -1115,27 +1323,27 @@ mew.load(new MewPlugin("node_manage", {
                 let shelf_entry = MewTool.dom(MewTool.template(template_entry, {
                     id: entry.id,
                     title: entry.name,
-                    desc_text: (entry.description) ? entry.description : entry.name,
-                    desc_image: (entry.icon) ? entry.icon : ""
+                    desc_text: entry.description || entry.name,
+                    desc_image: entry.icon || ""
                 }));
                 shelf_entry.querySelectorAll("button")[0].addEventListener("click", () => {
                     let del_confirm = confirm(`防手滑二次确认：真的要删除词条：${entry.name} 吗？`);
                     if (!del_confirm) return false;
-                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                    this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries/${entry.id}`, {
                         method: "DELETE",
                         onsuccess: "删除词条成功！",
                         onfail: "删除词条失败！",
                     });
                 });
-                shelf_entry.querySelectorAll("button")[1].addEventListener("click", () => {
+                shelf_entry.querySelectorAll("button")[1].addEventListener("click", async () => {
                     let inputs = shelf_entry.querySelectorAll(".container__input");
                     let data = {
-                        name: (inputs[0].value) ? inputs[0].value : null,
-                        description: (inputs[1].value) ? inputs[1].value : null,
-                        icon: (inputs[2].value) ? inputs[2].value : null,
+                        name: inputs[0].value || null,
+                        description: inputs[1].value || null,
+                        icon: await this.img(inputs[2].value) || null,
                         parentId: entry.id,
                     };
-                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                    this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries/${entry.id}`, {
                         data: data
                     });
                 });
@@ -1149,7 +1357,7 @@ mew.load(new MewPlugin("node_manage", {
                 shelf.querySelectorAll("button")[0].addEventListener("click", () => {
                     let del_confirm = confirm(`防手滑二次确认：真的要删除书架：${entry.name} 吗？`);
                     if (!del_confirm) return false;
-                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                    this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries/${entry.id}`, {
                         method: "DELETE",
                         onsuccess: "删除书架成功！",
                         onfail: "删除书架失败！",
@@ -1158,24 +1366,24 @@ mew.load(new MewPlugin("node_manage", {
                 shelf.querySelectorAll("button")[1].addEventListener("click", () => {
                     let inputs = shelf.querySelectorAll(".container__input");
                     let data = {
-                        name: (inputs[0].value) ? inputs[0].value : null,
+                        name: inputs[0].value || null,
                     };
-                    this.fetchdata(`${this.api + this.node_basic.id}/libraries/${entry.id}`, {
+                    this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries/${entry.id}`, {
                         data: data
                     });
                 });
                 let addentry = MewTool.dom(MewTool.template(template_addentry, {
                     parent_id: entry.id
                 }));
-                addentry.querySelector("button").addEventListener("click", () => {
+                addentry.querySelector("button").addEventListener("click", async () => {
                     let inputs = addentry.querySelectorAll(".container__input");
                     let data = {
-                        name: (inputs[0].value) ? inputs[0].value : null,
-                        description: (inputs[1].value) ? inputs[1].value : null,
-                        icon: (inputs[2].value) ? inputs[2].value : null,
+                        name: inputs[0].value || null,
+                        description: inputs[1].value || null,
+                        icon: await this.img(inputs[2].value) || null,
                         parentId: entry.id,
                     }
-                    this.fetchdata(`${this.api + this.node_basic.id}/libraries`, {
+                    this.fetchdata(`${this.api}/nodes/${this.node_basic.id}/libraries`, {
                         method: "POST",
                         data: data,
                         onsuccess: "添加词条成功！",
@@ -1186,20 +1394,20 @@ mew.load(new MewPlugin("node_manage", {
                 return shelf;
             };
         }(await Promise.all([
-            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage.html"),
+            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@7bb2bd0/template/node_manage.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_text_card.html"),
-            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_topic_tab1.html"),
-            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_card.html"),
+            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@7bb2bd0/template/node_manage_topic_tab1.html"),
+            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@7bb2bd0/template/node_manage_topic_tab2_card.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab2_btn.html"),
-            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_topic_tab3.html"),
+            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@7bb2bd0/template/node_manage_topic_tab3.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage_member_normal_card.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage_member_ban_card.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@0f5e462/template/node_manage_req_pending_card.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage_req_approved_card.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@2582b68/template/node_manage_req_rejected_card.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_member_search_card.html"),
-            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/template/node_manage_shelf.html"),
-            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_shelf_entry.html"),
+            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@7bb2bd0/template/node_manage_shelf.html"),
+            MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@7bb2bd0/template/node_manage_shelf_entry.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_shelf_addshelf.html"),
             MewTool.fetchres("https://cdn.jsdelivr.net/gh/yige233/bettermew@c882444/template/node_manage_shelf_addentry.html")
         ]).catch(err => console.log(err)))
@@ -1238,8 +1446,7 @@ mew.load(new MewPlugin("msg_edit", {
                 let message_id = MewTool.getreact(e.currentTarget).children[0].props.id;
                 let message_content = MewTool.getreact(e.currentTarget.children[0]).children[1].props.children.props.children;
                 let topicid = (document.querySelector("[class*='panel_list__']")) ?
-                    document.querySelector("[class*='panel_list__']").querySelector("[class*='sidebar_selected__']").parentNode.getAttribute("data-id") :
-                    (MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId) ? MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId : 0
+                    document.querySelector("[class*='panel_list__']").querySelector("[class*='sidebar_selected__']").parentNode.getAttribute("data-id") : MewTool.getreact(document.querySelector("div[class*='message-container_widget__']")).children[0].props.children.props.topicId || 0
                 if (topicid == 0) return false;
                 MewTool.contextmenu(e, new Map([
                     ["重新发送", async (e) => {
@@ -1273,7 +1480,7 @@ mew.load(new MewPlugin("msg_edit", {
                     Authorization: localStorage.getItem("mew-token").replace(/"/g, ""),
                     "Content-Type": "application/json; charset=utf-8"
                 },
-                method: (method) ? method : "PATCH",
+                method: method || "PATCH",
                 body: (content) ? JSON.stringify({
                     content: content
                 }) : null
@@ -1298,7 +1505,8 @@ mew.load(new MewPlugin("at", {
             for (let i of keyword) {
                 let special = i.match(/[\$|\(|\)|\*|\+|\.|\[|\]|\?|\\|\^|\{|\}|\|]{1}/g);
                 let user = ats["u" + data.author_id];
-                if (special) for (let s of special) i = i.replace(s, "\\" + s);
+                if (special)
+                    for (let s of special) i = i.replace(s, "\\" + s);
                 if (!new RegExp(`@${i}+[,|，|。|？|?|!|：|:|;|：|！|\\s]{1}`).test(msg) && !new RegExp(`@${i}$`).test(msg)) continue;
                 detected = true;
                 if (blocks["u" + data.author_id]) {
@@ -1347,7 +1555,9 @@ mew.load(new MewPlugin("at", {
             if (user.className.indexOf("called") == -1) {
                 user.addEventListener("click", async (e) => {
                     if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
-                    await navigator.clipboard.writeText("@" + e.target.innerText).catch(() => { mew.notice("提示", "可能没有权限写入剪贴板！") });
+                    await navigator.clipboard.writeText("@" + e.target.innerText).catch(() => {
+                        mew.notice("提示", "可能没有权限写入剪贴板！")
+                    });
                     document.querySelectorAll("[class^='message-container_textarea-bar__']")[0].focus();
                 });
                 user.classList.add("called");
@@ -1454,17 +1664,21 @@ mew.load(new MewPlugin("fix_img_menu", {
                             new ClipboardItem({
                                 [blob.type]: blob
                             })
-                        ]).catch(() => { mew.notice("提示", "可能没有权限写入剪贴板！") });
+                        ]).catch(() => {
+                            mew.notice("提示", "可能没有权限写入剪贴板！")
+                        });
                     }],
                     ["复制图片链接", async () => {
                         if (!navigator.clipboard) return mew.notice("提示", "您的浏览器不支持剪贴板API！");
-                        await navigator.clipboard.writeText(url).catch(() => { mew.notice("提示", "可能没有权限写入剪贴板！") });
+                        await navigator.clipboard.writeText(url).catch(() => {
+                            mew.notice("提示", "可能没有权限写入剪贴板！")
+                        });
                     }]
                 ]);
                 mew.isActive(plugin_custom_stamps.id) && options.set("保存为自定义表情", async () => {
                     let [id, hash] = await MewTool.imgurl2id(url);
                     let desc = prompt("添加关于该图片的说明：");
-                    desc = (desc) ? desc : "";
+                    desc = desc || "";
                     let stamps = plugin_custom_stamps.configs.get("stamps").value;
                     stamps.push(`${id}$${hash}$${desc}`);
                     plugin_custom_stamps.configs.set("stamps", stamps);
