@@ -6,7 +6,7 @@
     right: 5%;
     display: flex;
     flex-direction: column;
-    background-color: rgb(70 70 70 / 80%);
+    background-color: rgb(var(--colors-primary) / var(--tw-bg-opacity));
     cursor: pointer;
     border-radius: 20px;
 }

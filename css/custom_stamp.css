@@ -12,7 +12,7 @@
 }
 
 .stamp_card {
-    background-color: rgb(235 235 235 / 15%);
+    background-color: rgb(var(--colors-gray-300) / var(--tw-bg-opacity));
     border-radius: 10px;
 }
 

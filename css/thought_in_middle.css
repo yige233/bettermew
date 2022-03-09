@@ -3,13 +3,6 @@
     left: 25%;
 }
 
-[class^='compact-tabbar_tabbar-root__'],
-[class^='relationships_user-item__'],
-[class^='relationships_header__'] {
-    background-color: rgb(var(--colors-background-regular));
-    width: unset;
-}
-
 [class^='relationships_info__'] {
     max-width: 60% !important;
 }

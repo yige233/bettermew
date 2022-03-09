@@ -1,0 +1,193 @@
+@keyframes appear {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 25%;
+    }
+}
+
+.custompage_root {
+    position: fixed;
+    inset: 0px;
+    z-index: 10;
+}
+
+.blackback {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inset: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    z-index: 10;
+}
+
+.stdpage {
+    width: 50%;
+    left: 25%;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(var(--colors-white-dark-grayest));
+    box-shadow: rgb(0 0 0 / 20%) 0px 8px 10px -5px, rgb(0 0 0 / 14%) 0px 16px 24px 2px, rgb(0 0 0 / 12%) 0px 6px 30px 5px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 90%;
+    flex: 1 0 auto;
+    z-index: 12;
+    position: fixed;
+    top: 0px;
+}
+
+input.switcher {
+    display: none;
+}
+
+input.switcher+label {
+    width: 40px;
+    height: 20px;
+    background-color: #dddddd;
+    border-radius: 20px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+}
+
+input.switcher+label:before,
+input.switcher+label:after {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    content: "";
+}
+
+input.switcher+label:before {
+    right: 0px;
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    transition: background 0.4s;
+}
+
+input.switcher+label:after {
+    width: 20px;
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: margin 0.4s;
+}
+
+input.switcher:checked+label:before {
+    background-color: rgb(114 148 218);
+}
+
+input.switcher:checked+label:after {
+    margin-left: 20px;
+}
+
+input[type="range"] {
+    cursor: pointer;
+}
+
+.mytextarea {
+    background-color: rgb(var(--colors-background-hover));
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
+    border: 2px solid rgb(52, 91, 172);
+    width: 100%;
+    min-height: 100px;
+    white-space: nowrap;
+}
+
+.title {
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
+    margin: 20px auto;
+    font-size: 20px;
+    padding: 0px 7%;
+}
+
+.stdpage ul>li>span {
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
+    margin: 0 20px 0 0;
+}
+
+.stdpage ul>li {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 20px;
+    align-items: center;
+}
+
+.stdpage ul {
+    padding: 20px 0 20px 0;
+    margin: 20px 10% 20px 10%;
+    border: 2px solid rgb(var(--colors-primary));
+    border-radius: 20px;
+}
+
+#icon_setting {
+    cursor: pointer;
+    padding: 10% 10%;
+}
+
+.child_config {
+    padding: 0 0 0 2em;
+}
+
+.myButton {
+    box-shadow: inset 0px 1px 0px 0px #ffffff;
+    background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #9e9c9e;
+    display: inline-block;
+    cursor: pointer;
+    color: #666666;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffffff;
+}
+
+.myButton:hover {
+    background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+    background-color: #e9e9e9;
+}
+
+.myButton:active {
+    position: relative;
+    top: 1px;
+}
+
+#mew_menu {
+    position: fixed;
+    z-index: 9999;
+    width: 200px;
+}
+
+#mew_menu>li {
+    cursor: pointer;
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
+    padding: 5px 10px;
+    background-color: rgb(var(--colors-gray-100-dark-gray));
+    transition: .2s ease;
+}
+
+#mew_menu>li:first-child {
+    border-radius: 10px 10px 0px 0px;
+}
+
+#mew_menu>li:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
+
+#mew_menu>li:hover {
+    background-color: rgb(var(--colors-gray-100));
+}

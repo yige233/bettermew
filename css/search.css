@@ -10,7 +10,7 @@
 }
 
 .form+div {
-    color: rgb(var(--colors-receive-msg));
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -76,8 +76,8 @@
 
 .searchitem,
 .search_input {
-    background-color: rgb(var(--colors-background-receive-msg));
-    color: rgb(var(--colors-receive-msg));
+    background-color: rgb(var(--colors-gray-150-dark-gray));
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
 }
 
 .poster>div:nth-child(2) {
@@ -93,13 +93,13 @@
 
 .sharepage_root>ul>li {
     cursor: pointer;
-    color: rgb(var(--colors-receive-msg));
+    color: rgb(var(--colors-secondary-darkest) / var(--tw-text-opacity));
     border-radius: 5px;
     padding: 5px 10px;
-    background-color: rgb(var(--colors-background-light));
+    background-color: rgb(var(--colors-gray-150-dark-gray));
     transition: .2s ease;
 }
 
 .sharepage_root>ul>li:hover {
-    background-color: rgb(var(--colors-gray-200));
+    background-color: rgb(var(--colors-gray-100));
 }
