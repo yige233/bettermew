@@ -1,152 +1,7 @@
-let frame_version = 0.74;
+let frame_version = 0.75;
 let data = {
     icon_setting: `<svg t="1633357352154" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1249" width="32" height="32"><path d="M919.6 405.6l-57.2-8c-12.7-1.8-23-10.4-28-22.1-11.3-26.7-25.7-51.7-42.9-74.5-7.7-10.2-10-23.5-5.2-35.3l21.7-53.5c6.7-16.4 0.2-35.3-15.2-44.1L669.1 96.6c-15.4-8.9-34.9-5.1-45.8 8.9l-35.4 45.3c-7.9 10.2-20.7 14.9-33.5 13.3-14-1.8-28.3-2.8-42.8-2.8-14.5 0-28.8 1-42.8 2.8-12.8 1.6-25.6-3.1-33.5-13.3l-35.4-45.3c-10.9-14-30.4-17.8-45.8-8.9L230.4 168c-15.4 8.9-21.8 27.7-15.2 44.1l21.7 53.5c4.8 11.9 2.5 25.1-5.2 35.3-17.2 22.8-31.7 47.8-42.9 74.5-5 11.8-15.3 20.4-28 22.1l-57.2 8C86 408 72.9 423 72.9 440.8v142.9c0 17.7 13.1 32.7 30.6 35.2l57.2 8c12.7 1.8 23 10.4 28 22.1 11.3 26.7 25.7 51.7 42.9 74.5 7.7 10.2 10 23.5 5.2 35.3l-21.7 53.5c-6.7 16.4-0.2 35.3 15.2 44.1L354 927.8c15.4 8.9 34.9 5.1 45.8-8.9l35.4-45.3c7.9-10.2 20.7-14.9 33.5-13.3 14 1.8 28.3 2.8 42.8 2.8 14.5 0 28.8-1 42.8-2.8 12.8-1.6 25.6 3.1 33.5 13.3l35.4 45.3c10.9 14 30.4 17.8 45.8 8.9l123.7-71.4c15.4-8.9 21.8-27.7 15.2-44.1l-21.7-53.5c-4.8-11.8-2.5-25.1 5.2-35.3 17.2-22.8 31.7-47.8 42.9-74.5 5-11.8 15.3-20.4 28-22.1l57.2-8c17.6-2.5 30.6-17.5 30.6-35.2V440.8c0.2-17.8-12.9-32.8-30.5-35.2z m-408 245.5c-76.7 0-138.9-62.2-138.9-138.9s62.2-138.9 138.9-138.9 138.9 62.2 138.9 138.9-62.2 138.9-138.9 138.9z" fill="#345bac" p-id="1250"></path></svg>`,
-    css_basic: `
-@keyframes appear{
-    from{
-        left: 100%;
-    }
-    to{
-        left: 25%;
-    }
-}
-.custompage_root {
-    position: fixed;
-    inset: 0px;
-    z-index: 10;
-}
-.blackback {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    inset: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 1;
-    z-index: 10;
-}
-.stdpage {
-    width: 50%;
-    left: 25%;
-    color: rgba(0, 0, 0, 0.87);
-    background-color: rgb(var(--colors-background-regular));
-    box-shadow: rgb(0 0 0 / 20%) 0px 8px 10px -5px, rgb(0 0 0 / 14%) 0px 16px 24px 2px, rgb(0 0 0 / 12%) 0px 6px 30px 5px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    max-width:90%;
-    flex: 1 0 auto;
-    z-index: 12;
-    position: fixed;
-    top: 0px;
-}
-input.switcher {
-    display: none;
-}
-input.switcher+label {
-    width: 40px;
-    height: 20px;
-    background-color: #dddddd;
-    border-radius: 20px;
-    display: block;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-}
-input.switcher+label:before,
-input.switcher+label:after {
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    content: "";
-}
-input.switcher+label:before {
-    right: 0px;
-    background-color: #f1f1f1;
-    border-radius: 20px;
-    transition: background 0.4s;
-}
-input.switcher+label:after {
-    width: 20px;
-    background-color: #fff;
-    border-radius: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: margin 0.4s;
-}
-input.switcher:checked+label:before {
-    background-color: rgb(114 148 218);
-}
-input.switcher:checked+label:after {
-    margin-left: 20px;
-}
-input[type="range"] {
-    cursor: pointer;
-}
-.mytextarea {
-    background-color: rgb(var(--colors-background-hover));
-    color: rgb(var(--colors-msg));
-    border: 2px solid rgb(52, 91, 172);
-    width:100%;
-    min-height:100px;
-    white-space: nowrap;
-}
-.title {
-    color: rgb(var(--colors-msg));
-    margin: 20px auto;
-    font-size: 20px;
-    padding: 0px 7%;
-}
-.stdpage ul>li>span {
-    color: rgb(var(--colors-msg));
-    margin: 0 20px 0 0;
-}
-.stdpage ul>li {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 20px;
-    align-items: center;
-}
-.stdpage ul {
-    padding: 20px 0 20px 0;
-    margin: 20px 10% 20px 10%;
-    border: 2px solid rgb(52, 91, 172);
-    border-radius: 20px;
-}
-#icon_setting {
-    cursor: pointer;
-    padding: 10% 10%;
-}
-.child_config {
-    padding: 0 0 0 2em;
-}
-.myButton {
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
-    background-color:#f9f9f9;
-    border-radius:6px;
-    border:1px solid #9e9c9e;
-    display:inline-block;
-    cursor:pointer;
-    color:#666666;
-    font-family:Arial;
-    font-size:15px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #ffffff;
-}
-.myButton:hover {
-    background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
-    background-color:#e9e9e9;
-}
-.myButton:active {
-    position:relative;
-    top:1px;
-}`
+    css_basic: `https://cdn.jsdelivr.net/gh/yige233/bettermew@c577cfc/css/frame.css`
 };
 let data_mw_events = new Map([
     ["user_update", []],
@@ -263,7 +118,9 @@ class BetterMew {
         this[bm_ws] = new Mew_ws();
         this[bm_plugins] = new Map();
         this[bm_data] = data;
-        MewTool.loadcss(this[bm_data].css_basic);
+        new Promise(async () => {
+            MewTool.loadcss(await MewTool.fetchres(this[bm_data].css_basic));
+        });
         if (localStorage.getItem("bettermew") == null) localStorage.setItem("bettermew", "{}");
         this.load(new MewPlugin("bettermew", {
             hide: true,
@@ -596,29 +453,6 @@ class MewTool {
         return str;
     };
     static contextmenu(e, optionsMap) {
-        !document.querySelector("#css_bettermew_menu") && MewTool.loadcss(`
-        #mew_menu {
-            position:fixed;
-            z-index:9999;
-            width:200px;
-        }
-        #mew_menu>li {
-            cursor: pointer;
-            color: rgb(var(--colors-receive-msg));
-            padding: 5px 10px;
-            background-color: rgb(var(--colors-background-dialog));
-            transition: .2s ease;
-        }
-        #mew_menu>li:first-child {
-            border-radius: 10px 10px 0px 0px;
-        }
-        #mew_menu>li:last-child {
-            border-radius: 0px 0px 10px 10px;
-        }
-        #mew_menu>li:hover {
-            background-color: rgb(var(--colors-gray-200));
-        }
-        `, "css_bettermew_menu");
         document.querySelector("#mew_menu") && document.querySelector("#mew_menu").remove();
         optionsMap = optionsMap || new Map();
         if (!optionsMap.size) return false;
