@@ -2,27 +2,26 @@ import {
     MewTool,
     MewPlugin,
     mew
-} from "./mew.frame.js"; //https://cdn.jsdelivr.net/gh/yige233/bettermew@513bf8c/mew.frame.js
+} from "https://cdn.jsdelivr.net/gh/yige233/bettermew@f3df47b/mew.frame.js";
 let resources = {
     icon_totop: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/totop.svg',
     icon_search: 'https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/search.svg',
     css_topic_list: "https://cdn.jsdelivr.net/gh/yige233/bettermew@e1c937b/css/topic_list.css",
     css_desktop: "https://cdn.jsdelivr.net/gh/yige233/bettermew@ce63961/css/desktop.css",
-    css_thought_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_in_middle.css",
+    css_thought_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@c577cfc/css/thought_in_middle.css",
     css_whisper_in_middle: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/whisper_in_middle.css",
     css_desktop_reverse: "https://cdn.jsdelivr.net/gh/yige233/bettermew@ce63961/css/desktop_reverse.css",
     css_compact_thought_hide_img: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_img.css",
     css_compact_thought_hide_text: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_hide_text.css",
     css_compact_thought_more_node: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/compact_thought_more_node.css",
-    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@a29d7cf/css/search.css",
-    css_darkmode: "https://cdn.jsdelivr.net/gh/yige233/bettermew@47b4c42/css/darkmode.css",
+    css_search: "https://cdn.jsdelivr.net/gh/yige233/bettermew@c577cfc/css/search.css",
     css_text2url: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/text2url.css",
     css_img_size: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/img_size.css",
-    css_thought_widget: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/thought_widget.css",
+    css_thought_widget: "https://cdn.jsdelivr.net/gh/yige233/bettermew@c577cfc/css/thought_widget.css",
     css_only_this_mewer: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/css/only_this_mewer.css",
-    css_custom_stamp: "https://cdn.jsdelivr.net/gh/yige233/bettermew@47b4c42/css/custom_stamp.css",
+    css_custom_stamp: "https://cdn.jsdelivr.net/gh/yige233/bettermew@c577cfc/css/custom_stamp.css",
     icon_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@4cbcef5/icon/node_manage.svg",
-    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@8980c08/css/node_manage.css"
+    css_node_manage: "https://cdn.jsdelivr.net/gh/yige233/bettermew@c577cfc/css/node_manage.css"
 };
 mew.load(new MewPlugin("desktop", {
     short_desc: "桌面布局更改",
@@ -259,7 +258,11 @@ mew.load(new MewPlugin("search", {
                 return card;
             };
             async sharepage(thought_id) {
-                let json = await MewTool.mynodes();
+                let json = await fetch(`https://api.mew.fun/api/v1/users/@me/mynodes`, {
+                    headers: {
+                        Authorization: localStorage.getItem("mew-token").replace(/"/g, "")
+                    }
+                }).then(res => res.json());
                 if (json.message) return mew.noticece("获取您的据点列表失败！", json.message);
                 let page = MewTool.stdpage(`<div class="sharepage_root"><ul></ul></div>`);
                 let ul = page.querySelector(".sharepage_root").querySelector("ul");
@@ -1419,13 +1422,6 @@ mew.load(new MewPlugin("node_manage", {
         this.func_once_result.page_render()
     }
 }));
-mew.load(new MewPlugin("darkmode", {
-    short_desc: "深色模式",
-    long_desc: "mew将根据浏览器偏好，在浏览器选择深色模式时自动切换为深色模式。",
-    func_once: async function () {
-        MewTool.loadcss(await MewTool.fetchres(resources.css_darkmode));
-    },
-}));
 mew.load(new MewPlugin("msg_edit", {
     short_desc: "修改消息",
     long_desc: "右键已在聊天中发送的消息，对其撤回进行修改后再发送。仅可修改二分钟内发出的消息。",
@@ -1558,7 +1554,7 @@ mew.load(new MewPlugin("at", {
                     await navigator.clipboard.writeText("@" + e.target.innerText).catch(() => {
                         mew.notice("提示", "可能没有权限写入剪贴板！")
                     });
-                    document.querySelectorAll("[class^='message-container_textarea-bar__']")[0].focus();
+                    document.querySelectorAll("[class^='text-area-bar_form-root__']")[0].focus();
                 });
                 user.classList.add("called");
             };
@@ -1689,73 +1685,3 @@ mew.load(new MewPlugin("fix_img_menu", {
         }
     }
 }));
-/**
- * 船新的框架！使用 import 导入两个类和一个已经实例化的，叫做mew的BetterMew对象: import { MewTool, MewPlugin, mew } from "./mew.frame.js"
- *
- * MewTool类：提供了一系列静态方法，省时省力
- * mew：用于加载各个插件，同时负责渲染设置页面。
- * MewPlugin类：用于创建Mew插件。
- *
- * mew：是一个已经实例化的Mew对象，用于加载各个插件，同时负责渲染设置页面。
- * mew.load(MewPlugin):传入一个MewPlugin插件对象。
- * mew.notice(title,msg,onclickfunc):创建一个通知，传入标题、消息本体和点击触发的函数。
- * mw.isActive(id):0.71新增，用于判断一个功能是否启用。
- * mew.ws:是一个已实例化的封装过的伪WebSocket，便于直接与消息交互，而无需关心其他。
- * 该连接在无用户登录时会被停止；已连接后断开会自动重连。
- *      mew.ws.token:只读属性。返回用于认证ws连接的token，也就是当前用户的登录cookie。
- *      mew.ws.readyState:和WebSocket的readyState相同。
- *      mew.ws.user:只读属性。返回当前连接到ws的用户信息。
- *      mew.ws.url:和WebSocket的readyState相同，但固定为"wss://gateway.mew.fun/socket.io/?EIO=4&transport=websocket"。
- *      mew.ws.on(event,fn):传入事件id和回调函数，在该事件触发时执行回调函数。向回调函数传入一个data参数。已知的事件列表见下方。
- *      mew.ws.remove(event,fn):传入事件id和回调函数，移除该事件下的该回调函数。
- *      mew.ws.close(reconnect):停止连接，并决定通过reconnect参数决定是否重连。默认重连。
- *      mew.ws.connect():连接到Websocket。
- *
- * mew.ws.on(event,fn)中event的已知值的列表：
- *      message_create, message_delete, user_typing, thought_engagement, thought_update, thought_delete,
- *      thought_create, thought_pin, thought_unpin, node_update, node_member_activity_change, node_member_update,
- *      node_member_ban, node_member_add, node_member_remove, topic_create, topic_update, topic_delete, topic_position,
- *      comment_engagement, comment_create, user_relationship_update, role_update, notification.
- * 各个事件的data的属性各有不同，但始终有一个event_type属性。
- * mew.version:只读属性，返回当前的Bettermew框架的版本（注意不是脚本的版本）
- *
- * MewPlugin.func_once_result:只读属性，存储了func_once的返回值。
- * MewPlugin(id,body):构造时传入插件的id和插件的body部分。
- *      id:字符串,
- *      body:{
- *          short_desc:字符串，该插件的短简介
- *          long_desc:字符串，该插件的长简介
- *          func_once:函数，插件启用时只运行一次的函数，其返回的值会被存储在MewPlugin.func_once_result中，不可使用箭头函数
- *          func_loop:函数，插件启用时dom树每更新一次就执行一次的函数，不可使用箭头函数
- *          *hide:布尔值，插件是否在设置页中可见
- *          *always:布尔值，插件是否始终启用
- *      }
- * MewPlugin.addConf(id,config):为插件添加一个设置项，可以用于存取数据。
- *      id:字符串,
- *      config:{
- *          type:字符串，text|switch|button|number|none，用于控制该设置项在设置页中的渲染类型。
- *          desc:字符串，该设置项的简介。
- *          *short_desc:字符串，当type为button时可用，按钮上的文字优先显示为此值。
- *          default:任意，该设置项的默认值。默认为空字符串，type为switch时默认为false。
- *          get:函数，当type为text时必须。文本框渲染时，其内容为该函数的返回值。
- *          set:函数，传入一个input事件。当type为text时必须。文本框文字发生改变时，该函数的返回值会作为本设置项的值被保存。
- *          max:数字，当type为number时，允许通过滑动条输入的最大值。
- *          click:函数，传入一个click事件。当type为button时必须。点击按钮时执行的函数。
- *      }
- * MewPlugin.configs:Map对象，存储了通过 MewPlugin.addConf() 添加的所有设置。其特殊之处在于重写了set()方法。
- * 可以通过 MewPlugin.configs.get("id") 获取完整的配置项。
- * 可以通过 MewPlugin.configs.get("id").value 获取该项配置的值。
- * 可以直接通过 MewPlugin.configs.set("id",value)修改值并保存，而无需set完整的配置项。value不存在时，将值修改为默认值。
- * 另有superset(id,config)方法，用于修改整个设置项。
- *
- * MewTool下面的静态方法：
- * dom(str):传入一段字符串，返回由该字符串解析而成的dom元素。
- * getreact(el):传入一个dom元素，返回其绑定的react数据。
- * loadcss(css,id):加载css字符串。如果有id则为该段css设置id。
- * getcookie(cname):传入cookie名，获取cookie值。
- * stdpage(el):传入一段字符串，返回一个“标准页面”。可以用返回值.apply()加载该标准页面。传入的字符串会被解析为dom元素。
- * async fetchres(url):从url获取文字信息。
- * template(str, data):传入模板和数据，返回填充好的数据。例子：MewTool.template("你好，{{$name}}", {name:"李华"});//预计返回 "你好，李华"
- * contextmenu(e, optionsMap):用于创建一个右键菜单。传入contextmenu事件e和含有菜单项的Map。该Map的键会被显示于菜单中；值会在菜单项被点击时被执行。传入click事件。
- * async imgurl2id(url):从图片hash值获取id。返回[id,hash]。获取id失败时，id为0。
- */
