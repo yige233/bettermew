@@ -18,3 +18,9 @@
 [class^='comments_modal-out__'] {
     max-width: 40%;
 }
+
+[class^='relationships_header__'],
+[class^='compact-tabbar_tabbar-root__'],
+[class^='relationships_user-item__'] {
+    width: 100%;
+}

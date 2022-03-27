@@ -189,5 +189,5 @@ input[type="range"] {
 }
 
 #mew_menu>li:hover {
-    background-color: rgb(var(--colors-gray-100));
+    background-color: rgb(var(--colors-gray-200));
 }
