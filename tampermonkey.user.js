@@ -10,8 +10,8 @@
 // @match        https://*.mew.fun/sector-explore*
 // @icon         https://mew.fun/favicon.png
 // @supportURL   https://github.com/yige233/bettermew/issues
-// @updateURL    https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.js
-// @downloadURL  https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.js
+// @updateURL    https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.user.js
+// @downloadURL  https://cdn.jsdelivr.net/gh/yige233/bettermew@latest/tampermonkey.user.js
 // @grant        GM.registerMenuCommand
 // @grant        GM.getValue
 // @grant        GM.setValue
